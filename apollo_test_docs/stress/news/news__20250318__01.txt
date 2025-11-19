@@ -1,0 +1,33 @@
+Title: Nvidia Announces Next-Generation AI Chip Architecture
+Date: 2025-03-18
+Category: news
+Source: Wall Street Journal
+
+Nvidia unveiled its next-generation Blackwell Ultra GPU architecture at the company's annual developer conference, promising 4x performance improvement over current chips for AI training workloads. The announcement sent shares up 8% in after-hours trading.
+
+PRODUCT SPECIFICATIONS
+
+The new B300 chip features 208 billion transistors on a dual-die design using TSMC's 3nm process. Memory bandwidth reaches 12TB/s with 192GB of HBM4, enabling training of trillion-parameter models on a single server. Power consumption of 1200W per chip requires advanced liquid cooling solutions.
+
+CUSTOMER COMMITMENTS
+
+CEO Jensen Huang announced $150 billion in customer commitments for B300 delivery through 2026. Major cloud providers including Microsoft, Amazon, and Google have secured significant allocations. Huang noted that demand continues to exceed supply across all product generations.
+
+B300 Technical Specifications:
+-----------------------------------
+Metric          | B300    | H200
+Transistors     | 208B    | 80B
+Memory          | 192GB   | 141GB
+Bandwidth       | 12TB/s  | 4.8TB/s
+FP8 Performance | 20PF    | 4PF
+TDP             | 1200W   | 700W
+-----------------------------------
+
+COMPETITIVE IMPLICATIONS
+
+Analysts noted the performance leap increases Nvidia's lead over AMD and Intel in AI accelerators. Custom chips from hyperscalers remain years behind in performance. The announcement validates continued capital investment in AI infrastructure.
+
+AVAILABILITY
+
+Volume production of B300 begins in Q3 2025, with initial shipments prioritized for cloud providers. Enterprise availability is expected in Q1 2026.
+

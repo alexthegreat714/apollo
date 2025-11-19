@@ -1,0 +1,492 @@
+# Apollo Save-State Snapshot
+# Revision: 001
+# Generated: 2025-11-18
+# Purpose: Complete system state capture for Apollo Financial Assistant
+
+---
+metadata:
+  revision: "001"
+  timestamp: "2025-11-18T22:00:00Z"
+  git_branch: "import/base"
+  status: "Operational"
+
+# =============================================================================
+# 1. FILE STRUCTURE OVERVIEW
+# =============================================================================
+file_structure:
+  root_directory: "c:/Users/blyth/Desktop/Engineering/Apollo"
+
+  top_level_directories:
+    apollo_classifier:
+      description: "Intent classification for financial queries"
+      files:
+        - "__init__.py"
+        - "classifier.py"
+      status: "Active"
+
+    apollo_deepmode:
+      description: "Multi-step financial reasoning orchestration"
+      files:
+        - "__init__.py"
+        - "controller.py"
+        - "investing_mode.py"
+        - "macro_mode.py"
+        - "risk_mode.py"
+      subdirectories:
+        - "templates/"
+      status: "Active"
+
+    apollo_ingest:
+      description: "Document ingestion pipeline for RAG"
+      files:
+        - "__init__.py"
+        - "ingest_any.py"
+        - "pdf_ingest.py"
+        - "csv_ingest.py"
+        - "xlsx_ingest.py"
+        - "text_ingest.py"
+        - "chunker.py"
+        - "embedder.py"
+        - "loader.py"
+        - "rag_writer.py"
+      status: "Active"
+
+    apollo_rag_governance:
+      description: "RAG maintenance proposal engine (NEW)"
+      files:
+        - "init.py"
+        - "proposal_engine.py"
+      status: "Active - Newly Integrated"
+      created: "2025-11-18"
+
+    apollo_schemas:
+      description: "JSON schemas and validators for financial data"
+      files:
+        - "__init__.py"
+        - "schemas.json"
+        - "validators.py"
+      status: "Active"
+
+    apollo_tools:
+      description: "Financial calculation tools"
+      files:
+        - "__init__.py"
+        - "amort.py"
+        - "inflation.py"
+        - "invest.py"
+        - "rebalance.py"
+        - "retirement.py"
+        - "risk.py"
+        - "tax.py"
+        - "util.py"
+      status: "Active"
+
+    apollo_tests:
+      description: "RAG and system test suite"
+      files:
+        - "multi_insert_test.py"
+        - "multi_query_test.py"
+        - "metadata_filter_test.py"
+        - "context_quality_test.py"
+      status: "Active"
+
+    apollo_test_docs:
+      description: "Test document corpus for RAG evaluation"
+      total_files: 100
+      subdirectories:
+        - "education/"
+        - "news/"
+        - "projections/"
+        - "regulations/"
+        - "reports/"
+        - "statements/"
+        - "stress/"
+      stress_test_categories:
+        - "analysis"
+        - "commentary"
+        - "education"
+        - "macro"
+        - "micro"
+        - "news"
+        - "projections"
+        - "regulations"
+        - "reports"
+        - "statements"
+      status: "Populated"
+
+    config:
+      description: "System configuration files"
+      files:
+        - "system_prompt.txt"
+      status: "Active"
+
+    logs:
+      description: "Application and governance logs"
+      files:
+        - "rag_proposals.log"
+      status: "Active"
+
+    models:
+      description: "Model files directory"
+      files: []
+      status: "Empty - Models loaded from Ollama"
+
+    chroma_db:
+      description: "ChromaDB vector database storage"
+      status: "Active"
+
+    rag_data:
+      description: "RAG data storage"
+      subdirectories:
+        - "financial/"
+      status: "Active"
+
+    static:
+      description: "Static web assets"
+      status: "Active"
+
+    templates:
+      description: "Flask HTML templates"
+      status: "Active"
+
+    test_stress_db:
+      description: "Stress test ChromaDB instance"
+      status: "Active"
+
+  core_files:
+    - "app.py"
+    - "config.py"
+    - "rag_routes.py"
+    - "reflection.py"
+    - "runtime_metrics.py"
+    - "autorun_supervisor.py"
+    - "autorun_routes.py"
+    - ".env"
+    - "requirements.txt"
+
+# =============================================================================
+# 2. ACTIVE SUBSYSTEMS
+# =============================================================================
+active_subsystems:
+  apollo_classifier:
+    status: "Operational"
+    description: "Two-stage intent classification"
+    capabilities:
+      - "Local keyword scanning for depth/intent detection"
+      - "Fino model-based JSON classification"
+      - "Financial intent categories: markets, personal_finance, risk, tax, investing, macro"
+
+  apollo_deepmode:
+    status: "Operational"
+    description: "Deep reasoning mode for complex queries"
+    controller_features:
+      - "Template-based prompt construction"
+      - "Multi-step tool invocation"
+      - "RAG context integration"
+      - "RAG proposal generation after analysis"
+    modes:
+      - "investing_mode"
+      - "macro_mode"
+      - "risk_mode"
+
+  apollo_ingest:
+    status: "Operational"
+    description: "Universal document ingestion"
+    supported_formats:
+      - ".pdf"
+      - ".csv"
+      - ".xlsx/.xls"
+      - ".txt"
+      - ".md"
+      - ".json"
+      - ".rst"
+    default_settings:
+      chunk_size: 512
+      chunk_overlap: 50
+      max_file_size_mb: 50
+
+  apollo_schemas:
+    status: "Operational"
+    description: "Financial data validation"
+
+  apollo_tools:
+    status: "Operational"
+    description: "Financial calculation suite"
+    tools:
+      - "risk_score"
+      - "dti_ratio"
+      - "sharpe_ratio"
+      - "capm_return"
+      - "compound_growth"
+      - "real_growth"
+      - "four_percent_rule"
+      - "retirement_horizon"
+      - "federal_tax"
+      - "capital_gains_tax"
+      - "portfolio_rebalance"
+      - "inflation_adjust"
+
+  apollo_rag_governance:
+    status: "Operational - NEW"
+    description: "RAG maintenance proposal engine"
+    integration_status: "Fully integrated with controller.py"
+    log_file: "logs/rag_proposals.log"
+
+  rag_storage:
+    primary_path: "chroma_db/"
+    test_path: "test_stress_db/"
+    collection_name: "apollo_financial"
+    status: "Active"
+
+  models:
+    primary_model: "Fino1-8B.Q6_K"
+    embedding_model: "Fino1-8B.Q6_K"
+    provider: "Ollama"
+    ollama_url: "http://127.0.0.1:11434"
+    status: "Configured"
+
+  config:
+    system_prompt_status: "Active"
+    governance_instruction_prepended: true
+    instruction: "Apollo may suggest RAG maintenance actions but must never perform any RAG changes without explicit user confirmation."
+
+# =============================================================================
+# 3. CURRENT RAG OPERATIONAL STATE
+# =============================================================================
+rag_operational_state:
+  document_corpus:
+    total_documents: 100
+    categories:
+      education: "20+ documents (including new synthetic set)"
+      news: "Present"
+      projections: "Present"
+      regulations: "Present"
+      reports: "Present"
+      statements: "Present"
+      stress_tests: "Full coverage across 10 categories"
+
+  embedding_model:
+    name: "Fino1-8B.Q6_K"
+    source: "Ollama local"
+    status: "Active"
+
+  retrieval_configuration:
+    default_top_k: 5
+    rag_dir: "./chroma_db"
+    collection: "apollo_financial"
+
+  test_results_summary:
+    multi_insert_test:
+      status: "Not yet run with current corpus"
+      expected_metrics:
+        - "Successful ingestion of all document types"
+        - "Chunk count per document"
+        - "Embedding generation time"
+
+    multi_query_test:
+      status: "Not yet run with current corpus"
+      test_queries: 20
+      metrics_evaluated:
+        - "Overall precision"
+        - "High precision count (>=40%)"
+        - "Average distance scores"
+        - "Relevant result ratio"
+      pass_criteria: "Overall precision >= 30%, relevant results >= 70%"
+
+    metadata_filter_test:
+      status: "Not yet run"
+      purpose: "Validate kind-based filtering"
+
+    context_quality_test:
+      status: "Not yet run with current corpus"
+      test_queries: 5
+      metrics_evaluated:
+        - "Coherence score (sentence structure, word variety)"
+        - "Relevance score (pattern matching)"
+        - "Quality rating (GOOD/ACCEPTABLE/NEEDS IMPROVEMENT)"
+      pass_criteria: "60% queries pass quality threshold"
+
+  observed_weaknesses:
+    - "Tests not yet executed on current 100-document corpus"
+    - "Crypto/Bitcoin coverage may be sparse"
+    - "Real-time market data not available"
+    - "Older document staleness not yet evaluated"
+
+  observed_strengths:
+    - "Comprehensive education document set (20 synthetic docs added)"
+    - "Multiple document categories for diverse queries"
+    - "Deduplication logic in context curation"
+    - "Intent-based retrieval tuning"
+
+  health_assessment: "Acceptable - Pending test validation"
+
+# =============================================================================
+# 4. AUTO-RAG & GOVERNANCE CAPABILITIES
+# =============================================================================
+auto_rag_governance:
+  rag_proposal_engine_integrated: true
+  integration_location: "apollo_deepmode/controller.py"
+
+  proposal_generation_mechanism:
+    description: "RAGProposalEngine analyzes retrieval statistics and metadata distribution to generate human-reviewable maintenance proposals"
+    triggers:
+      - "After deep-mode analysis with context"
+      - "When intent is: markets, personal_finance, investing, risk, macro"
+    output: "rag_proposals field in analysis result"
+
+  proposal_types:
+    - action: "identify_high_distance_queries"
+      description: "Flag queries with sparse vector matches"
+    - action: "update_embedding_model"
+      description: "Suggest model upgrade when precision < 35%"
+    - action: "re_chunk"
+      description: "Recommend re-chunking when many queries return zero relevant docs"
+    - action: "re_ingest_file"
+      description: "Re-ingest specific sources with issues"
+    - action: "re_ingest_category"
+      description: "Expand underrepresented categories"
+    - action: "expand_category"
+      description: "Broaden low-frequency category coverage"
+    - action: "flag_stale_documents"
+      description: "Identify outdated documents for refresh"
+
+  thresholds:
+    precision_threshold: 0.4
+    distance_threshold: 0.35
+    category_target: 10
+    stale_document_days: 365
+
+  permissions:
+    apollo_can_modify: false
+    auto_changes_allowed: false
+    requires_confirmation: true
+    user_must_approve: true
+
+  system_prompt_governance:
+    enabled: true
+    instruction: "Apollo may suggest RAG maintenance actions but must never perform any RAG changes without explicit user confirmation."
+    location: "config/system_prompt.txt (line 1)"
+
+  api_exposure:
+    endpoint: "/meta"
+    governance_block:
+      rag_proposals_enabled: true
+      auto_changes_allowed: false
+      requires_confirmation: true
+
+  log_file:
+    path: "logs/rag_proposals.log"
+    exists: true
+    format: "JSONL with timestamp and proposal payload"
+
+# =============================================================================
+# 5. MODEL CAPABILITIES AT THIS STAGE
+# =============================================================================
+model_capabilities:
+  current_capabilities:
+    - "Financial intent classification (6 categories)"
+    - "Depth-aware response generation (fast/normal/deep)"
+    - "RAG-augmented context retrieval"
+    - "Multi-step deep-mode analysis"
+    - "Financial tool invocation (risk, investing, tax, retirement)"
+    - "Context curation with deduplication"
+    - "RAG maintenance proposal generation"
+    - "Trace logging for analysis"
+    - "Reflection and metrics collection"
+    - "Dialogue testing"
+    - "Snapshot/restore for RAG state"
+
+  domain_coverage:
+    strong:
+      - "Compound interest calculations"
+      - "Time value of money"
+      - "Portfolio diversification"
+      - "Asset allocation"
+      - "Financial statements (balance sheet, income, cash flow)"
+      - "Risk metrics (Sharpe, beta)"
+      - "Bond concepts (duration, convexity, yield curves)"
+      - "Tax strategies (tax-loss harvesting, capital gains)"
+      - "Credit and lending criteria"
+      - "Inflation mechanics"
+    moderate:
+      - "Market analysis"
+      - "Macro projections"
+      - "Regulatory information"
+    limited:
+      - "Real-time market data (not available)"
+      - "Cryptocurrency analysis (sparse corpus)"
+      - "Alternative investments"
+      - "International markets"
+
+  reasoning_capabilities:
+    deep_mode: "Multi-step analysis with tool invocation"
+    normal_mode: "Brief answers with context"
+    fast_mode: "Concise 1-2 sentence responses"
+
+  limitations:
+    - "No real-time market data access"
+    - "No live API integrations (Yahoo Finance, etc.)"
+    - "Corpus limited to ingested documents"
+    - "Cannot execute actual financial transactions"
+    - "Cannot make autonomous RAG modifications"
+    - "Dependent on Ollama local model availability"
+
+  interaction_behavior:
+    api_endpoint: "/chat"
+    request_format: "JSON with message/prompt/query field"
+    response_format: "JSON with reasoning, reply, intent, depth"
+    port: 5010
+    host: "0.0.0.0"
+
+# =============================================================================
+# 6. REQUIRED NEXT STEPS / MAINTENANCE TASKS
+# =============================================================================
+next_steps:
+  immediate:
+    - task: "Run ingestion on test documents"
+      command: 'python "apollo_ingest/ingest_any.py" "apollo_test_docs/stress" --recursive'
+      priority: "High"
+
+    - task: "Execute multi_insert_test.py"
+      command: 'python "apollo_tests/multi_insert_test.py"'
+      priority: "High"
+
+    - task: "Execute multi_query_test.py"
+      command: 'python "apollo_tests/multi_query_test.py"'
+      priority: "High"
+
+    - task: "Execute context_quality_test.py"
+      command: 'python "apollo_tests/context_quality_test.py"'
+      priority: "High"
+
+    - task: "Execute metadata_filter_test.py"
+      command: 'python "apollo_tests/metadata_filter_test.py"'
+      priority: "Medium"
+
+  recommended:
+    - task: "Verify Ollama is running with Fino1-8B.Q6_K model"
+      priority: "High"
+
+    - task: "Launch Apollo server"
+      command: 'python app.py'
+      priority: "High"
+
+    - task: "Test /meta endpoint to verify governance configuration"
+      command: 'curl http://localhost:5010/meta'
+      priority: "Medium"
+
+    - task: "Run sample queries through /chat to validate end-to-end"
+      priority: "Medium"
+
+  future_improvements:
+    - "Add real-time market data integration"
+    - "Expand cryptocurrency corpus"
+    - "Implement automated stale document detection"
+    - "Add more domain-specific validators"
+    - "Enhance proposal engine with ML-based recommendations"
+    - "Add international market coverage"
+
+# =============================================================================
+# SAVE STATE COMPLETE
+# =============================================================================
+save_state_complete: true

@@ -1,0 +1,66 @@
+Title: Understanding the Income Statement
+Date: 2025-03-12
+Category: education
+Source: Apollo Synthetic Finance Set
+Priority: 4
+
+An income statement, also called a profit and loss statement, reports a company's financial performance over a specific period. Unlike the balance sheet's snapshot approach, the income statement shows revenues and expenses accumulated during a quarter or year.
+
+The basic structure follows:
+
+Revenue
+- Cost of Goods Sold (COGS)
+= Gross Profit
+- Operating Expenses
+= Operating Income (EBIT)
+- Interest Expense
+= Earnings Before Tax (EBT)
+- Income Tax
+= Net Income
+
+Numerical Example:
+
+ABC Company Income Statement (Annual, in thousands):
+
+Revenue: $2,000
+Cost of Goods Sold: $1,200
+Gross Profit: $800
+
+Operating Expenses:
+- Selling, General & Administrative: $300
+- Depreciation: $100
+Total Operating Expenses: $400
+
+Operating Income (EBIT): $400
+
+Interest Expense: $50
+Earnings Before Tax: $350
+
+Income Tax (25%): $87.5
+Net Income: $262.5
+
+Key profitability ratios:
+
+Gross Profit Margin = Gross Profit / Revenue
+= $800 / $2,000 = 40%
+
+Operating Margin = Operating Income / Revenue
+= $400 / $2,000 = 20%
+
+Net Profit Margin = Net Income / Revenue
+= $262.5 / $2,000 = 13.125%
+
+Earnings Per Share (EPS) = Net Income / Shares Outstanding
+
+If ABC has 100,000 shares outstanding:
+EPS = $262,500 / 100,000 = $2.625
+
+Important considerations when analyzing income statements:
+
+1. Revenue recognition policies affect timing of reported income
+2. Non-recurring items should be separated from core operations
+3. Comparing margins across periods reveals operational trends
+4. Industry benchmarks provide context for margin analysis
+5. EBITDA (adding back depreciation and amortization) approximates cash generation
+
+Income statements connect to balance sheets through retained earnings and to cash flow statements through reconciliation of net income to operating cash flow.

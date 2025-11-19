@@ -1,0 +1,39 @@
+Title: Electric Vehicle Market Structure and Economics
+Date: 2025-03-10
+Category: micro
+Source: Bloomberg NEF
+
+MARKET OVERVIEW
+
+Global EV sales reached 17 million units in 2024 (18% of new vehicle sales) and are projected at 23 million (24% penetration) in 2025. China represents 60% of global sales, Europe 20%, and US 12%. The market is transitioning from early adopters to mass market with implications for pricing and profitability.
+
+COMPETITIVE LANDSCAPE
+
+Tesla maintains global leadership but market share declines as competition intensifies. Chinese manufacturers (BYD, SAIC, Geely) dominate domestically and expand internationally. Legacy automakers face the dual challenge of EV transition while defending ICE profitability. Pure-play EV startups face capital constraints.
+
+EV Market Share by Manufacturer:
+-----------------------------------
+OEM           | Global | China | US
+Tesla         | 18%    | 8%    | 52%
+BYD           | 17%    | 33%   | 0%
+VW Group      | 8%     | 4%    | 3%
+Hyundai/Kia   | 7%     | 1%    | 10%
+GM            | 5%     | 2%    | 9%
+-----------------------------------
+
+BATTERY ECONOMICS
+
+Battery costs declined to $115/kWh pack-level in 2024, approaching the $100/kWh threshold for ICE cost parity without subsidies. LFP chemistry gains share over NMC due to lower cost and improved energy density. Solid-state batteries remain 5+ years from commercial scale.
+
+CHARGING INFRASTRUCTURE
+
+Public charging deployment accelerates with 4 million global ports in 2024. Fast charging networks require significant investment with long payback periods. Home charging remains dominant for daily use. Charging adequacy varies significantly by geography.
+
+PROFITABILITY CHALLENGES
+
+Most EV programs are unprofitable at current scale. Tesla achieves 15% automotive gross margin versus 25%+ for premium ICE. Legacy automakers lose $10-20K per EV. Chinese manufacturers achieve profitability through vertical integration and domestic battery supply.
+
+CRITICAL SUCCESS FACTORS
+
+Winners will demonstrate software differentiation, manufacturing efficiency, charging network access, and supply chain security. Scale economies and learning curves create winner-take-most dynamics in key segments.
+

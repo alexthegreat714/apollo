@@ -1,0 +1,59 @@
+Title: Bond Convexity and Price Behavior
+Date: 2025-03-19
+Category: education
+Source: Apollo Synthetic Finance Set
+Priority: 4
+
+Convexity measures the curvature of the relationship between bond prices and yields, capturing the non-linear price behavior that duration alone cannot explain. Duration provides a linear approximation, while convexity adjusts for the actual curved relationship.
+
+The price change formula incorporating both duration and convexity:
+
+ΔP/P ≈ -Modified Duration × Δy + (1/2) × Convexity × (Δy)²
+
+Convexity formula:
+
+Convexity = [Σ t(t+1) × PV(CFt)] / [Bond Price × (1+y)²]
+
+Numerical Example:
+
+Using the same 3-year bond (5% coupon, 4% YTM, $1,027.82 price):
+
+Convexity calculation:
+Year 1: 1(2) × $48.08 = $96.16
+Year 2: 2(3) × $46.23 = $277.38
+Year 3: 3(4) × $933.51 = $11,202.12
+
+Sum = $11,575.66
+
+Convexity = $11,575.66 / [$1,027.82 × (1.04)²]
+= $11,575.66 / $1,111.94
+= 10.41
+
+For a 2% increase in yields:
+
+Using duration only:
+ΔP/P ≈ -2.75 × 0.02 = -5.50%
+
+Using duration and convexity:
+ΔP/P ≈ -2.75 × 0.02 + (1/2) × 10.41 × (0.02)²
+= -0.055 + 0.5 × 10.41 × 0.0004
+= -0.055 + 0.00208
+= -5.29%
+
+The convexity adjustment reduces the estimated price decline from 5.50% to 5.29%.
+
+Properties of convexity:
+
+1. Always positive for standard bonds (prices curve upward)
+2. Larger for lower coupon bonds
+3. Larger for longer maturity bonds
+4. Larger for lower yield environments
+
+Why convexity matters:
+
+- Duration underestimates price increases when yields fall
+- Duration overestimates price decreases when yields rise
+- Bonds with higher convexity outperform in volatile interest rate environments
+- Investors may pay a premium for convexity
+
+Negative convexity occurs in callable bonds and mortgage-backed securities, where price appreciation is limited due to early redemption or prepayment risk.

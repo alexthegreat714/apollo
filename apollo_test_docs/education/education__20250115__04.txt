@@ -1,0 +1,27 @@
+Title: Understanding Stock Market Indices
+Date: 2025-01-15
+Category: education
+Source: NYSE Investor Education
+
+WHAT IS A MARKET INDEX?
+
+A market index measures the performance of a group of stocks representing a portion of the market. Indices provide benchmarks to gauge investment performance and reflect overall market trends.
+
+MAJOR US INDICES
+
+The Dow Jones Industrial Average tracks 30 large-cap US stocks and is price-weighted. The S&P 500 includes 500 large companies and is market-cap weighted, representing about 80% of US equity market value. The Nasdaq Composite tracks over 3,000 stocks listed on the Nasdaq exchange, heavily weighted toward technology.
+
+MARKET-CAP VS. PRICE-WEIGHTED
+
+Market-cap weighted indices give more influence to larger companies. A $1 trillion company affects the index more than a $100 billion company. Price-weighted indices give more influence to higher-priced stocks regardless of company size.
+
+INTERNATIONAL INDICES
+
+MSCI EAFE tracks developed markets outside North America. The FTSE 100 covers the largest UK companies. The Nikkei 225 represents Japanese large-caps. Emerging market indices track developing economies like China, India, and Brazil.
+
+INDEX INVESTING
+
+Index funds and ETFs allow investors to track an index at low cost, providing broad diversification. This passive approach typically outperforms most actively managed funds over long periods due to lower fees.
+
+Remember that you cannot invest directly in an index - you invest in funds that track the index.
+

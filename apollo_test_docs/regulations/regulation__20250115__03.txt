@@ -1,0 +1,29 @@
+Title: Basel III Endgame - Capital Requirements for Large Banks
+Date: 2025-01-15
+Category: regulation
+Source: Federal Reserve Board
+
+OVERVIEW
+
+The Basel III endgame rules establish new risk-based capital requirements for large bank holding companies with $100 billion or more in total assets. The rules expand the use of standardized approaches for credit risk and operational risk, reducing reliance on internal models.
+
+CREDIT RISK STANDARDIZED APPROACH
+
+The standardized approach for credit risk assigns risk weights based on exposure characteristics. Residential mortgages receive risk weights from 40% to 90% based on loan-to-value ratios. Corporate exposures are risk-weighted at 65% to 150% depending on external ratings where available.
+
+OPERATIONAL RISK
+
+The standardized approach for operational risk replaces internal models with a formulaic calculation based on historical net interest income, fee income, and operating expenses. Banks with higher historical losses face additional capital requirements through an internal loss multiplier.
+
+MARKET RISK
+
+The Fundamental Review of the Trading Book introduces the standardized approach and internal models approach for market risk capital. The standardized approach uses sensitivity-based measures for delta, vega, and curvature risks across prescribed risk factors.
+
+IMPLEMENTATION TIMELINE
+
+The final rules are expected to take effect July 1, 2025, with a three-year transition period ending July 1, 2028. During the transition, firms will report under both current and revised standards, with the binding constraint being the higher of the two.
+
+OUTPUT FLOOR
+
+An output floor ensures that risk-weighted assets calculated under internal models cannot fall below 72.5% of standardized approach calculations, phased in over the transition period.
+

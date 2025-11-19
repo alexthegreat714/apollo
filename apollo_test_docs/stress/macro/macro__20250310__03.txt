@@ -1,0 +1,39 @@
+Title: China Economic Outlook - Structural Headwinds and Policy Response
+Date: 2025-03-10
+Category: macro
+Source: World Bank China Economic Update
+
+GROWTH OUTLOOK
+
+China's GDP growth is projected at 4.5% for 2025 and 4.2% for 2026, below the government's 5% target but representing stabilization after 2024's slowdown. The economy faces structural headwinds from property sector adjustment, demographic aging, and geopolitical tensions that constrain the recovery's magnitude.
+
+PROPERTY SECTOR ADJUSTMENT
+
+Real estate investment declined 10% in 2024 and will contract another 5-8% in 2025 despite policy support. Housing starts are down 60% from peak and unlikely to recover to previous levels. The property sector's contribution to GDP has declined from 29% to under 20%. This adjustment is necessary but creates persistent drag on growth.
+
+Key Economic Indicators:
+-----------------------------------
+Indicator       | 2024   | 2025E  | 2026E
+Real GDP Growth | 4.8%   | 4.5%   | 4.2%
+CPI Inflation   | 0.3%   | 1.2%   | 1.8%
+Retail Sales    | 3.5%   | 5.0%   | 5.5%
+FAI Growth      | 3.2%   | 4.0%   | 4.5%
+Export Growth   | 5.0%   | 3.0%   | 2.0%
+-----------------------------------
+
+CONSUMER RECOVERY
+
+Household consumption is recovering gradually from pandemic restrictions and property wealth effects. Retail sales growth is projected to accelerate to 5% as confidence improves. However, the household savings rate remains elevated at 33% versus pre-pandemic 30%, suggesting ongoing caution.
+
+POLICY RESPONSE
+
+Fiscal stimulus of 3 trillion yuan targets infrastructure, consumer subsidies, and local government debt resolution. Monetary policy remains accommodative with rates at historic lows. Property policies have relaxed purchase restrictions and lowered mortgage rates.
+
+EXTERNAL PRESSURES
+
+Export growth faces headwinds from trade restrictions, particularly in semiconductors and EVs. Manufacturing overcapacity creates trade tensions with developed markets. Nearshoring trends benefit competitors in Southeast Asia, Mexico, and India.
+
+MEDIUM-TERM OUTLOOK
+
+Structural reforms are necessary to sustain growth above 4%. These include SOE reform, services sector opening, social safety net expansion, and innovation promotion. Absent reform acceleration, potential growth will decline toward 3% by 2030.
+

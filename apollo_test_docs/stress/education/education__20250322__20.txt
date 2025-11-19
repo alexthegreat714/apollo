@@ -1,0 +1,59 @@
+Title: Market Capitalization Categories
+Date: 2025-03-22
+Category: education
+Source: Apollo Synthetic Finance Set
+Priority: 4
+
+Market capitalization represents the total market value of a company's outstanding shares, serving as a primary classification metric for stocks. It reflects the market's collective valuation of a company's equity.
+
+Market Cap = Current Share Price × Total Shares Outstanding
+
+Standard market cap categories:
+
+Mega-cap: > $200 billion
+Large-cap: $10 billion - $200 billion
+Mid-cap: $2 billion - $10 billion
+Small-cap: $300 million - $2 billion
+Micro-cap: $50 million - $300 million
+Nano-cap: < $50 million
+
+Numerical Example:
+
+Company XYZ has 500 million shares outstanding, trading at $45 per share.
+
+Market Cap = 500,000,000 × $45 = $22,500,000,000 = $22.5 billion
+
+This classifies XYZ as a large-cap company.
+
+If the share price increases to $60:
+New Market Cap = 500,000,000 × $60 = $30 billion
+
+The company remains large-cap but has grown significantly.
+
+Characteristics by category:
+
+Large-cap:
+- Established companies with stable revenues
+- Lower volatility, lower growth potential
+- Higher liquidity, analyst coverage
+- Often pay dividends
+- Examples: Multinational corporations
+
+Small-cap:
+- Younger companies with growth potential
+- Higher volatility, higher potential returns
+- Lower liquidity, less analyst coverage
+- Rarely pay dividends
+- Greater sensitivity to economic cycles
+
+Market cap weighting in indexes:
+
+Many indexes use market cap weighting, where larger companies have proportionally greater influence.
+
+S&P 500 example weights:
+- $3 trillion company: 6% of index
+- $100 billion company: 0.2% of index
+
+Free-float market cap excludes shares not available for public trading (held by insiders, governments), providing a more accurate measure of investable market value.
+
+Market cap changes daily with stock price movements and when companies issue or repurchase shares.

@@ -1,0 +1,31 @@
+Title: Commercial Real Estate Market Analysis Q1 2025
+Date: 2025-03-05
+Category: report
+Source: CBRE Research
+Period_Start: 2025-01-01
+Period_End: 2025-03-31
+
+MARKET OVERVIEW
+
+Commercial real estate markets showed divergent performance across property types in Q1 2025. Industrial and multifamily sectors maintained positive momentum while office continued to face structural headwinds from hybrid work trends. Total transaction volume reached $85 billion, down 12% from the prior quarter but showing signs of stabilization.
+
+OFFICE SECTOR
+
+National office vacancy rose to 19.8%, the highest level since the early 1990s. Sublease availability remained elevated at 195 million square feet. Asking rents declined 3.2% year-over-year in aggregate, with Class B properties experiencing sharper drops of 6-8%. Flight to quality continued as tenants consolidated into premium buildings.
+
+Office Market Metrics by Class:
+-----------------------------------
+           | Vacancy | YoY Rent
+Class A    | 16.2%   | -1.5%
+Class B    | 22.4%   | -6.8%
+Class C    | 28.1%   | -9.2%
+-----------------------------------
+
+INDUSTRIAL SECTOR
+
+Industrial fundamentals remained healthy despite some cooling from pandemic peaks. Vacancy rose modestly to 5.2% from historic lows of 3.8%. Rent growth decelerated to 8% YoY from 15% in 2024. E-commerce fulfillment and onshoring drove continued absorption, particularly in Sun Belt markets.
+
+CAPITAL MARKETS
+
+Cap rate expansion continued across most property types as borrowing costs remained elevated. Office cap rates widened to 7.5% on average, while industrial compressed to 5.2% reflecting investor preference. Bid-ask spreads narrowed modestly as price discovery improved.
+

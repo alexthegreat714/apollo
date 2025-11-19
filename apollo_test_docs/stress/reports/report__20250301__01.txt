@@ -1,0 +1,33 @@
+Title: Q1 2025 Semiconductor Industry Performance Report
+Date: 2025-03-01
+Category: report
+Source: Goldman Sachs Equity Research
+Period_Start: 2025-01-01
+Period_End: 2025-03-31
+
+EXECUTIVE SUMMARY
+
+The semiconductor industry posted robust growth in Q1 2025, driven by sustained demand for AI accelerators and data center infrastructure. Total industry revenue reached $162 billion, up 18% year-over-year and 4% sequentially. Memory segment showed particular strength with DRAM prices rising 15% quarter-over-quarter.
+
+MARKET SEGMENTATION ANALYSIS
+
+Data center and AI chips accounted for 42% of total revenue, up from 35% in Q1 2024. Automotive semiconductors grew 12% as EV adoption accelerated. Consumer electronics stabilized after two years of inventory correction, with smartphone chip demand returning to pre-pandemic levels.
+
+Revenue by Segment ($ Billions):
+-----------------------------------
+Data Center/AI      | $68.0  | +32%
+Automotive          | $21.5  | +12%
+Consumer Electronics| $35.8  | +8%
+Industrial          | $18.2  | +5%
+Communications      | $18.5  | +14%
+-----------------------------------
+Total               | $162.0 | +18%
+
+SUPPLY CHAIN DYNAMICS
+
+Leading-edge capacity utilization reached 95% at TSMC and Samsung. Mature node capacity remains constrained for automotive and industrial applications. Capital expenditure across the industry totaled $45 billion in Q1, with 60% allocated to advanced nodes (5nm and below).
+
+OUTLOOK
+
+We maintain our positive outlook for H2 2025, projecting full-year industry revenue of $680 billion (+15% YoY). Key risks include geopolitical tensions affecting trade flows and potential overinvestment in AI capacity.
+

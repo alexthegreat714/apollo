@@ -1,0 +1,44 @@
+Title: Portfolio Diversification Principles
+Date: 2025-03-07
+Category: education
+Source: Apollo Synthetic Finance Set
+Priority: 4
+
+Portfolio diversification is a risk management strategy that combines various investments to reduce exposure to any single asset or risk factor. The principle rests on the observation that different assets often perform differently under the same market conditions.
+
+Portfolio variance for two assets is calculated as:
+
+σp² = w₁²σ₁² + w₂²σ₂² + 2w₁w₂σ₁σ₂ρ₁₂
+
+Where:
+- σp² = Portfolio variance
+- w₁, w₂ = Weights of assets 1 and 2
+- σ₁, σ₂ = Standard deviations of assets 1 and 2
+- ρ₁₂ = Correlation coefficient between assets
+
+Numerical Example:
+
+Consider two assets with the following characteristics:
+- Asset A: Weight 60%, Standard deviation 15%
+- Asset B: Weight 40%, Standard deviation 20%
+- Correlation between A and B: 0.3
+
+σp² = (0.60)²(0.15)² + (0.40)²(0.20)² + 2(0.60)(0.40)(0.15)(0.20)(0.3)
+σp² = 0.36(0.0225) + 0.16(0.04) + 2(0.60)(0.40)(0.15)(0.20)(0.3)
+σp² = 0.0081 + 0.0064 + 0.00432
+σp² = 0.01882
+
+σp = √0.01882 = 13.72%
+
+The portfolio standard deviation (13.72%) is lower than either individual asset's standard deviation when measured alone at their weights, demonstrating diversification benefits.
+
+Types of diversification:
+
+1. Asset class diversification: Stocks, bonds, real estate, commodities
+2. Geographic diversification: Domestic and international markets
+3. Sector diversification: Technology, healthcare, financials, etc.
+4. Time diversification: Different maturity dates for bonds
+
+The correlation coefficient is critical. Assets with negative or low positive correlations provide greater diversification benefits. Perfect positive correlation (ρ = 1) eliminates diversification benefits entirely.
+
+Research suggests that approximately 20-30 stocks can eliminate most unsystematic (company-specific) risk, but systematic (market) risk cannot be diversified away.

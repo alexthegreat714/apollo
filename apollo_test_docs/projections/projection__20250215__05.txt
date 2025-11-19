@@ -1,0 +1,33 @@
+Title: Retirement Planning Projections - Long-Term Capital Markets
+Date: 2025-02-15
+Category: projection
+Source: Vanguard Investment Strategy Group
+
+10-YEAR RETURN ASSUMPTIONS
+
+US Equities: 4.5-6.5% annualized
+International Developed Equities: 6.0-8.0% annualized
+Emerging Market Equities: 5.5-7.5% annualized
+US Aggregate Bonds: 4.0-5.0% annualized
+International Bonds (Hedged): 3.5-4.5% annualized
+Cash: 3.0-4.0% annualized
+
+EXPECTED INFLATION
+
+Long-term inflation is projected at 2.0-2.5% annually, consistent with Federal Reserve targets. This implies real return expectations of 2-4% for equities and 1.5-2.5% for bonds over the coming decade.
+
+PORTFOLIO IMPLICATIONS
+
+A traditional 60/40 portfolio is expected to deliver nominal returns of 5.0-6.5% annually over the next decade, below historical averages of 7-8%. Investors should consider extending time horizons or increasing savings rates to meet retirement goals.
+
+RETIREMENT INCOME PLANNING
+
+Safe withdrawal rates are projected at 3.5-4.0% for 30-year retirement periods, down from historical 4% guideline due to lower expected returns. Flexible withdrawal strategies that adjust for market conditions can support higher initial withdrawals.
+
+RISK CONSIDERATIONS
+
+Sequence of returns risk remains a primary concern for retirees. Those within 5 years of retirement should consider reducing equity exposure to minimize impact of potential market downturns on portfolio sustainability.
+
+SOCIAL SECURITY ASSUMPTIONS
+
+Projections assume current benefit levels continue through 2033. After Trust Fund depletion, benefits may be reduced to 77% of scheduled amounts absent legislative action. Conservative planning should incorporate potential benefit reductions.

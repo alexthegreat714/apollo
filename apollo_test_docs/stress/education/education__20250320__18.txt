@@ -1,0 +1,50 @@
+Title: Understanding Yield Curves
+Date: 2025-03-20
+Category: education
+Source: Apollo Synthetic Finance Set
+Priority: 4
+
+A yield curve graphically displays the relationship between interest rates and time to maturity for bonds of similar credit quality. The most commonly referenced yield curve uses U.S. Treasury securities across various maturities.
+
+Yield curve shapes:
+
+Normal (Upward Sloping): Long-term rates exceed short-term rates. This reflects expectations of economic growth and compensation for holding longer-maturity bonds.
+
+Inverted (Downward Sloping): Short-term rates exceed long-term rates. Historically associated with pending recessions as investors expect future rate cuts.
+
+Flat: Similar rates across maturities. Often occurs during transitions between normal and inverted curves.
+
+Humped: Intermediate maturities have highest yields.
+
+Numerical Example:
+
+Current Treasury Yield Curve:
+3-month: 4.50%
+1-year: 4.25%
+2-year: 4.00%
+5-year: 3.75%
+10-year: 3.50%
+30-year: 3.60%
+
+This represents an inverted yield curve, with short-term rates exceeding long-term rates.
+
+Spread calculations:
+
+10-year minus 2-year spread = 3.50% - 4.00% = -0.50% (negative, inverted)
+10-year minus 3-month spread = 3.50% - 4.50% = -1.00% (negative, inverted)
+
+Theories explaining yield curve shapes:
+
+1. Expectations Theory: Long-term rates reflect expected future short-term rates
+2. Liquidity Preference Theory: Investors demand premium for longer maturities
+3. Market Segmentation Theory: Different investors prefer different maturities
+
+Yield curve applications:
+
+- Economic forecasting (inversion predicts recessions)
+- Bond portfolio positioning
+- Derivative pricing
+- Bank profitability assessment (borrow short, lend long)
+- Monetary policy analysis
+
+The yield curve steepens when the spread between long and short rates increases, and flattens when it decreases. Steepening can be "bull" (rates fall, long rates fall less) or "bear" (rates rise, short rates rise more).

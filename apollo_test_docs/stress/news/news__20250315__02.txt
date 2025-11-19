@@ -1,0 +1,32 @@
+Title: Major Banks Report Better Than Expected Q1 Earnings
+Date: 2025-03-15
+Category: news
+Source: Bloomberg
+
+JPMorgan Chase, Bank of America, and Citigroup exceeded analyst estimates in first-quarter earnings releases, buoyed by stronger-than-expected trading revenue and resilient net interest income. The KBW Bank Index rose 3.2% on the results.
+
+JPMORGAN CHASE
+
+JPMorgan reported earnings per share of $4.85 versus estimates of $4.52. Net interest income reached $23.8 billion, down 3% year-over-year but above guidance. Investment banking fees surged 28% on strong debt underwriting and advisory activity. CEO Jamie Dimon cautioned about elevated geopolitical risks.
+
+BANK OF AMERICA
+
+BofA earned $0.92 per share against consensus of $0.85. Net interest income stabilized at $14.2 billion as deposit cost increases moderated. Wealth management revenue grew 12% from strong client asset flows. Credit card charge-offs rose but remained within guidance.
+
+Q1 2025 Bank Earnings Summary:
+-----------------------------------
+Bank      | EPS   | Est   | NII
+JPMorgan  | $4.85 | $4.52 | $23.8B
+BofA      | $0.92 | $0.85 | $14.2B
+Citi      | $1.68 | $1.55 | $13.5B
+Wells     | $1.42 | $1.35 | $11.8B
+-----------------------------------
+
+CREDIT QUALITY
+
+Across the four largest banks, provisions for credit losses increased 8% sequentially to $8.5 billion. Management teams noted normalization in consumer credit rather than systemic deterioration. Commercial real estate reserves remained elevated.
+
+OUTLOOK
+
+Bank executives expressed cautious optimism about 2025, citing potential tailwinds from rate cuts and improving capital markets activity. NII guidance was maintained or slightly raised across the group.
+

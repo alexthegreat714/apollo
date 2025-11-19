@@ -1,0 +1,52 @@
+Title: Brokerage Account Statement - January 2025
+Date: 2025-01-31
+Category: statement
+Source: Fidelity Investments
+
+ACCOUNT OVERVIEW
+
+Account Number: Z82-456789
+Account Type: Individual Brokerage
+Statement Period: January 1-31, 2025
+
+PORTFOLIO VALUE SUMMARY
+
+Beginning Value: $245,680.42
+Net Deposits/Withdrawals: $2,000.00
+Change in Investment Value: $8,456.78
+Ending Value: $256,137.20
+Month-to-Date Return: 3.44%
+Year-to-Date Return: 3.44%
+
+HOLDINGS DETAIL
+
+STOCKS
+Apple Inc (AAPL) - 150 shares @ $185.42 = $27,813.00
+Microsoft Corp (MSFT) - 80 shares @ $415.28 = $33,222.40
+Nvidia Corp (NVDA) - 45 shares @ $682.15 = $30,696.75
+Johnson & Johnson (JNJ) - 100 shares @ $158.90 = $15,890.00
+Total Stocks: $107,622.15
+
+EXCHANGE-TRADED FUNDS
+Vanguard Total Stock ETF (VTI) - 200 shares @ $285.45 = $57,090.00
+iShares Core Bond ETF (AGG) - 300 shares @ $98.25 = $29,475.00
+Vanguard International ETF (VXUS) - 250 shares @ $62.80 = $15,700.00
+Total ETFs: $102,265.00
+
+MUTUAL FUNDS
+Fidelity 500 Index Fund - 125.456 shares @ $182.50 = $22,895.72
+Fidelity Growth Fund - 89.234 shares @ $158.75 = $14,166.40
+Total Mutual Funds: $37,062.12
+
+CASH AND EQUIVALENTS
+Money Market: $9,187.93
+Total Cash: $9,187.93
+
+TOTAL PORTFOLIO VALUE: $256,137.20
+
+ACTIVITY THIS PERIOD
+
+01/15/2025 Deposit                             $2,000.00
+01/16/2025 Buy VTI - 7 shares @ $283.50        -$1,984.50
+01/20/2025 Dividend - AAPL                     $45.00
+01/25/2025 Dividend - JNJ                      $119.00

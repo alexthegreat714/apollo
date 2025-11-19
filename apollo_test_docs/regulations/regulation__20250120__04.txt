@@ -1,0 +1,25 @@
+Title: DOL Fiduciary Rule - Retirement Security Rule Update
+Date: 2025-01-20
+Category: regulation
+Source: Department of Labor Employee Benefits Security Administration
+
+FIDUCIARY DEFINITION
+
+The Retirement Security Rule amends the definition of fiduciary investment advice under ERISA and the Internal Revenue Code. A person renders investment advice if they make a recommendation to a retirement investor for a fee or other compensation, and the recommendation addresses specific investment or management decisions.
+
+COVERED RECOMMENDATIONS
+
+The rule applies to recommendations regarding the purchase, sale, or holding of securities or other investment property, rollovers and transfers from retirement accounts, and selection of investment managers or advisors. One-time recommendations may trigger fiduciary status if other conditions are met.
+
+PTE 2020-02 AMENDMENTS
+
+Prohibited Transaction Exemption 2020-02 is amended to align with the new fiduciary definition. Financial institutions must acknowledge fiduciary status, disclose conflicts of interest and fees, and provide written documentation of the basis for rollover recommendations.
+
+IMPARTIAL CONDUCT STANDARDS
+
+Fiduciaries must comply with impartial conduct standards requiring advice in the retirement investor's best interest, reasonable compensation, and no materially misleading statements. Best interest requires prudent judgment without regard to the financial interests of the fiduciary.
+
+COMPLIANCE REQUIREMENTS
+
+Investment advice fiduciaries must adopt policies to ensure compliance, conduct annual reviews, and maintain records for six years. The rule takes effect September 23, 2025, with PTE 2020-02 amendments applicable one year later.
+

@@ -1,0 +1,38 @@
+Title: Commercial Real Estate Debt Maturity Wall Analysis
+Date: 2025-03-15
+Category: analysis
+Source: PGIM Real Estate Research
+
+MATURITY PROFILE
+
+Approximately $2.2 trillion in commercial real estate debt matures between 2024-2027, creating refinancing challenges as rates remain elevated and property values have declined. Office and retail properties face the most severe stress given fundamental headwinds beyond refinancing.
+
+MATURITY SCHEDULE
+
+The maturity wall peaks in 2025 with $540 billion coming due. Bank loans represent 45% of maturities, followed by CMBS (25%), life companies (15%), and other lenders (15%). Extension options have deferred some 2024 maturities into 2025-2026.
+
+CRE Debt Maturities by Year ($ Billions):
+-----------------------------------
+Year | Total | Bank  | CMBS  | Other
+2024 | $480  | $215  | $120  | $145
+2025 | $540  | $245  | $135  | $160
+2026 | $590  | $265  | $150  | $175
+2027 | $590  | $265  | $150  | $175
+-----------------------------------
+
+REFINANCING GAP ANALYSIS
+
+We estimate a refinancing gap of $180-220 billion through 2026, representing loans that cannot refinance at current LTV ratios and debt yields. Office properties account for 45% of the gap. Solutions include equity infusions, loan modifications, and distressed sales.
+
+PROPERTY TYPE EXPOSURE
+
+Office faces the most severe challenges with 25-40% value declines in many markets. Retail continues to bifurcate between necessity-based (stable) and discretionary (stressed). Multifamily refinancing challenges are primarily rate-driven rather than fundamental.
+
+BANK EXPOSURE
+
+Regional banks with CRE concentrations exceeding 300% of capital face greatest stress. We estimate $65 billion in potential losses across the banking system, manageable at the sector level but material for individual institutions.
+
+IMPLICATIONS
+
+Distressed opportunities emerge as extend-and-pretend strategies exhaust. Debt funds and opportunistic equity target refinancing gaps. Cap rate expansion creates buying opportunities for well-capitalized investors.
+

@@ -1,0 +1,38 @@
+Title: DOL Retirement Security Rule - Implementation Guide
+Date: 2025-03-10
+Category: regulation
+Source: Department of Labor
+
+FIDUCIARY DEFINITION
+
+Under the Retirement Security Rule, a person is a fiduciary if they make investment recommendations to retirement investors for a fee, hold out as providing advice, and address specific securities or investment management decisions. The one-time recommendation exception is eliminated.
+
+COVERED RETIREMENT INVESTORS
+
+The rule covers participants in ERISA plans, IRA owners, and owners of health savings accounts and education savings accounts. Both individual and institutional retirement investors are covered when receiving investment recommendations.
+
+KEY Compliance Requirements:
+-----------------------------------
+Requirement           | Timeline
+Fiduciary Acknowledgment | Sep 23, 2025
+Written Basis for Rollovers | Sep 23, 2025
+PTE 2020-02 Amendments | Sep 23, 2026
+Retrospective Review | Annual
+-----------------------------------
+
+ROLLOVER RECOMMENDATIONS
+
+Fiduciaries must document the specific reasons why a rollover recommendation is in the investor's best interest. Documentation must compare the retirement investor's existing plan against the recommended IRA, including fees, available investments, and services.
+
+PROHIBITED TRANSACTION EXEMPTIONS
+
+PTE 2020-02 is amended to align with the new fiduciary definition. Financial institutions must acknowledge fiduciary status in writing and cannot use exculpatory clauses. Compensation structures must be reasonable relative to services provided.
+
+ENFORCEMENT CONSIDERATIONS
+
+The Department will prioritize enforcement against recommendations with significant conflicts of interest, high-cost products, and complex fee structures. Class action liability increases exposure for widespread compliance failures.
+
+PRACTICAL STEPS
+
+Firms should update compliance policies, train personnel, revise compensation arrangements that create conflicts, and implement documentation systems for rollover recommendations.
+

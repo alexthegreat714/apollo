@@ -1,0 +1,36 @@
+Title: US Consumer Credit Trends Report March 2025
+Date: 2025-03-20
+Category: report
+Source: Equifax Market Insights
+Period_Start: 2024-12-01
+Period_End: 2025-02-28
+
+CREDIT MARKET OVERVIEW
+
+US consumer credit markets showed mixed signals in early 2025. Total household debt reached $17.8 trillion, with mortgage balances stable and non-mortgage debt growing moderately. Credit availability tightened for subprime borrowers while prime segments maintained access.
+
+CREDIT CARD TRENDS
+
+Credit card balances reached $1.15 trillion, a record high. Average utilization rose to 28% from 26% a year ago. Delinquency rates for 90+ days past due increased to 2.8%, the highest since 2012. Younger borrowers showed the steepest deterioration in payment performance.
+
+Credit Card Metrics by Risk Tier:
+-----------------------------------
+Tier      | Balance | 90+ DQ | Util
+Super Prime| $385B  | 0.8%   | 18%
+Prime     | $425B  | 1.9%   | 27%
+Near Prime| $215B  | 4.5%   | 38%
+Subprime  | $125B  | 8.2%   | 52%
+-----------------------------------
+
+AUTO LOAN PERFORMANCE
+
+Auto loan delinquencies stabilized at 2.1% after rising through 2024. Average loan terms extended to 72 months for new vehicles. Negative equity positions increased as vehicle values normalized from pandemic peaks.
+
+MORTGAGE ORIGINATIONS
+
+Purchase originations remained constrained by affordability challenges and limited inventory. Refinance activity stayed subdued with most borrowers holding rates below current market levels. Home equity lending increased 15% as homeowners tapped accumulated equity.
+
+FORWARD OUTLOOK
+
+Consumer balance sheets remain under pressure from elevated debt service costs. We expect continued normalization in delinquencies through 2025, with potential acceleration if unemployment rises. Credit card and auto segments warrant closest monitoring.
+

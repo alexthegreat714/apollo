@@ -1,0 +1,39 @@
+Title: Bond Duration and Convexity Explained
+Date: 2025-03-10
+Category: education
+Source: Bond Market Association Investor Education
+
+WHAT IS DURATION?
+
+Duration measures a bond's price sensitivity to interest rate changes. It represents the weighted average time until cash flows are received. Modified duration estimates the percentage price change for a 1% change in yield. A bond with 5-year duration will decline approximately 5% if rates rise 1%.
+
+TYPES OF DURATION
+
+Macaulay duration measures the weighted average time to receipt of cash flows in years. Modified duration adjusts Macaulay duration for the yield and measures price sensitivity. Effective duration accounts for embedded options like calls and is most appropriate for bonds with uncertain cash flows.
+
+Duration Examples:
+-----------------------------------
+Bond Type       | Maturity | Coupon | Duration
+Zero Coupon     | 10yr     | 0%     | 10.0
+Treasury Note   | 10yr     | 4%     | 8.3
+Corporate Bond  | 10yr     | 6%     | 7.5
+High Yield      | 10yr     | 8%     | 6.8
+Floating Rate   | 5yr      | SOFR+3 | 0.3
+-----------------------------------
+
+FACTORS AFFECTING DURATION
+
+Duration increases with maturity, as cash flows are received later. Duration decreases with coupon rate, as higher coupons accelerate cash flow receipt. Duration decreases with yield, as higher yields discount future cash flows more heavily.
+
+CONVEXITY
+
+Convexity measures the curvature of the price-yield relationship. Duration assumes a linear relationship, but bond prices actually follow a curved path. Positive convexity is beneficial - prices rise more than duration predicts when rates fall and decline less when rates rise.
+
+PORTFOLIO DURATION MANAGEMENT
+
+Portfolio duration is the weighted average of individual bond durations. Managers adjust duration based on interest rate outlook - extending duration when rates are expected to fall and shortening when rates are expected to rise. Bullet, barbell, and ladder strategies create different duration profiles.
+
+APPLICATION
+
+If you expect rates to decline 0.50%, a 7-year duration portfolio should appreciate approximately 3.5% (7 x 0.5%). Convexity adds to this gain because the price-yield curve is convex. Understanding these metrics enables informed decisions about interest rate risk exposure.
+

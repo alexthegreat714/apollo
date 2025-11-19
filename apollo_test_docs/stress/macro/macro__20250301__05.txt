@@ -1,0 +1,38 @@
+Title: Global Trade Flows and Supply Chain Restructuring
+Date: 2025-03-01
+Category: macro
+Source: WTO Trade Statistics Review
+
+TRADE VOLUME OUTLOOK
+
+Global merchandise trade volume is projected to grow 3.3% in 2025, recovering from 0.8% growth in 2024. The recovery reflects improved demand in developed economies and easing supply chain disruptions. Services trade continues outperforming goods as travel normalizes and digital services expand.
+
+SUPPLY CHAIN RESTRUCTURING
+
+Companies are diversifying production away from concentration in any single country. "China plus one" strategies drive investment in Vietnam, India, Indonesia, and Mexico. Nearshoring and friendshoring reshape trade patterns based on geopolitical alignment rather than pure cost optimization.
+
+Trade Flow Changes 2019-2025:
+-----------------------------------
+Flow              | 2019  | 2025E | Change
+China to US       | $450B | $380B | -16%
+Mexico to US      | $360B | $480B | +33%
+Vietnam to US     | $65B  | $130B | +100%
+India to US       | $55B  | $85B  | +55%
+-----------------------------------
+
+REGIONAL TRADE BLOCS
+
+Trade is increasingly organized around regional blocs. USMCA deepens North American integration. EU diversifies from Russian energy and Chinese goods. RCEP facilitates Asian supply chains. These patterns reduce global trade efficiency but increase resilience.
+
+CRITICAL MINERALS
+
+Competition for critical minerals intensifies as clean energy transition accelerates. Lithium, cobalt, rare earths, and copper face supply constraints. Producing countries leverage resources for strategic advantage. Recycling and substitution emerge as solutions.
+
+TRADE RESTRICTIONS
+
+Trade-restrictive measures have tripled since 2019, covering goods worth $2 trillion. Semiconductor export controls, EV tariffs, and critical mineral restrictions create market fragmentation. The WTO dispute settlement mechanism remains paralyzed.
+
+IMPLICATIONS
+
+Global trade growth will moderate from historical rates as fragmentation increases costs. Companies face higher inventory requirements and reduced supply chain efficiency. Inflation benefits from globalization partially reverse.
+

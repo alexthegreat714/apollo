@@ -1,0 +1,39 @@
+Title: Understanding Portfolio Risk Metrics
+Date: 2025-03-15
+Category: education
+Source: CFA Institute Educational Resources
+
+INTRODUCTION TO RISK
+
+Investment risk is the possibility that actual returns will differ from expected returns. While risk is often associated with loss, it also represents uncertainty around outcomes. Different risk metrics capture various aspects of this uncertainty, and understanding them is essential for informed investment decisions.
+
+STANDARD DEVIATION
+
+Standard deviation measures the dispersion of returns around the mean. Higher standard deviation indicates greater volatility. For example, a portfolio with 8% expected return and 15% standard deviation has a 68% probability (one standard deviation) of returning between -7% and +23% in any given year.
+
+Risk Metrics Comparison:
+-----------------------------------
+Metric          | Description           | Use Case
+Std Deviation   | Total volatility      | General risk
+Beta            | Market sensitivity    | Equity risk
+Sharpe Ratio    | Risk-adjusted return  | Performance
+Max Drawdown    | Peak-to-trough loss   | Downside risk
+VaR             | Maximum expected loss | Risk limits
+-----------------------------------
+
+BETA AND SYSTEMATIC RISK
+
+Beta measures an investment's sensitivity to market movements. A beta of 1.2 means the investment tends to move 20% more than the market in either direction. Beta captures systematic risk that cannot be diversified away, while standard deviation includes both systematic and idiosyncratic risk.
+
+SHARPE RATIO
+
+The Sharpe ratio measures excess return per unit of risk: (Portfolio Return - Risk-Free Rate) / Standard Deviation. A higher Sharpe ratio indicates better risk-adjusted performance. A ratio above 1.0 is generally considered good, while above 2.0 is excellent.
+
+DRAWDOWN ANALYSIS
+
+Maximum drawdown measures the largest peak-to-trough decline in portfolio value. This metric captures the real experience of loss that investors endure. A portfolio with low standard deviation can still experience significant drawdowns in severe market conditions.
+
+VALUE AT RISK (VaR)
+
+VaR estimates the maximum expected loss over a time period at a given confidence level. A one-day 95% VaR of $100,000 means there is a 5% chance of losing more than $100,000 in a single day. VaR is useful for risk limits but does not measure tail risk beyond the confidence level.
+

@@ -1,0 +1,70 @@
+Title: Inflation Mechanics and Economic Impact
+Date: 2025-03-28
+Category: education
+Source: Apollo Synthetic Finance Set
+Priority: 4
+
+Inflation is the rate at which the general level of prices for goods and services rises, eroding purchasing power over time. Central banks monitor inflation closely and use monetary policy to maintain price stability.
+
+Inflation rate calculation:
+
+Inflation Rate = [(CPIt - CPIt-1) / CPIt-1] × 100
+
+Where CPI is the Consumer Price Index.
+
+Types of inflation:
+
+Demand-pull: Excessive demand relative to supply
+Cost-push: Rising production costs passed to consumers
+Built-in: Wage-price spiral from inflation expectations
+
+Numerical Example:
+
+CPI values:
+January 2024: 305.2
+January 2025: 314.4
+
+Annual Inflation = [(314.4 - 305.2) / 305.2] × 100
+= [9.2 / 305.2] × 100
+= 3.01%
+
+Real vs. Nominal Returns:
+
+Nominal return: 7%
+Inflation rate: 3%
+
+Real Return ≈ Nominal Return - Inflation Rate
+Real Return ≈ 7% - 3% = 4%
+
+More precise calculation using Fisher equation:
+(1 + Real) = (1 + Nominal) / (1 + Inflation)
+(1 + Real) = 1.07 / 1.03 = 1.0388
+Real Return = 3.88%
+
+Purchasing power erosion:
+
+Present value of $100 in future:
+After 1 year at 3% inflation: $100 / 1.03 = $97.09
+After 5 years at 3% inflation: $100 / (1.03)^5 = $86.26
+After 10 years at 3% inflation: $100 / (1.03)^10 = $74.41
+
+$100 today will only buy $74.41 worth of goods in 10 years at 3% annual inflation.
+
+Inflation-indexed instruments:
+
+Treasury Inflation-Protected Securities (TIPS):
+- Principal adjusts with CPI
+- Coupon rate is fixed, but payment varies with principal
+- Protects against unexpected inflation
+
+Break-even inflation rate:
+= Nominal Treasury Yield - TIPS Yield
+
+If 10-year Treasury yields 4.5% and TIPS yields 2.0%:
+Break-even inflation = 2.5%
+
+This represents the market's inflation expectation over 10 years.
+
+Monetary policy response:
+
+Central banks raise interest rates to combat high inflation by reducing borrowing and spending. Lower rates stimulate economic activity when inflation is below target.

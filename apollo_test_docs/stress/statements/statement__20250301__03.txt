@@ -1,0 +1,34 @@
+Title: Treasury Department Quarterly Refunding Statement
+Date: 2025-03-01
+Category: statement
+Source: US Department of the Treasury
+Period_Start: 2025-04-01
+Period_End: 2025-06-30
+
+BORROWING ESTIMATE
+
+The Treasury estimates borrowing of $560 billion in privately-held net marketable debt for the April-June 2025 quarter, assuming an end-of-June cash balance of $750 billion. This estimate is $45 billion higher than announced in February due to revised fiscal projections.
+
+AUCTION SIZES
+
+Based on projected borrowing needs, Treasury plans to maintain nominal coupon auction sizes at current levels through the quarter. Bill supply will remain elevated to meet short-term financing needs. Treasury continues to monitor structural changes in demand across the maturity spectrum.
+
+Quarterly Auction Schedule ($ Billions):
+-----------------------------------
+Security      | April | May  | June
+2-Year        | $69   | $69  | $69
+3-Year        | $58   | $58  | $58
+5-Year        | $70   | $70  | $70
+7-Year        | $44   | $44  | $44
+10-Year       | $42   | $42  | $42
+30-Year       | $25   | $25  | $25
+-----------------------------------
+
+TIPS ISSUANCE
+
+Treasury will auction $15 billion of 10-year TIPS in April and $8 billion of 5-year TIPS in June. Demand for inflation-protected securities has strengthened as breakeven inflation rates stabilized.
+
+DEBT MANAGEMENT OUTLOOK
+
+Treasury continues to prioritize regular and predictable issuance while maintaining flexibility to respond to changes in financing needs. The average maturity of outstanding marketable debt is projected to remain stable at approximately 6.2 years.
+

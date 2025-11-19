@@ -1,0 +1,1 @@
+Apollo may suggest RAG maintenance actions but must never perform any RAG changes without explicit user confirmation.

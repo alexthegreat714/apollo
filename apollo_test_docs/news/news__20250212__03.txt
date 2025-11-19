@@ -1,0 +1,15 @@
+Title: Tech Giants Lead Market Rally on AI Infrastructure Spending
+Date: 2025-02-12
+Category: news
+Source: Bloomberg
+
+Nvidia, Microsoft, and Amazon drove major indices to new highs as investors bet on continued growth in artificial intelligence infrastructure. The Nasdaq Composite rose 2.3% to close above 18,000 for the first time.
+
+Nvidia shares surged 8% after the company announced $100 billion in data center chip orders for 2025, exceeding analyst expectations. CEO Jensen Huang highlighted enterprise adoption of AI for applications ranging from customer service to drug discovery.
+
+Microsoft reported that Azure cloud revenue grew 29% year-over-year, with AI services contributing six percentage points of growth. The company's Copilot AI assistant now has 1.5 million enterprise subscribers, up from 180,000 a year ago.
+
+Amazon Web Services saw AI workloads drive accelerating growth, with executives calling out demand for training and inference compute from both startups and established enterprises. Capital expenditure guidance of $80 billion for 2025 underscores the scale of AI investment.
+
+Some analysts expressed concern about the concentration of market gains in a handful of large-cap tech stocks. The top seven companies by market capitalization now represent 32% of the S&P 500, the highest concentration since the dot-com era.
+

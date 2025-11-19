@@ -1,0 +1,45 @@
+Title: Monthly Bank Statement - January 2025
+Date: 2025-01-31
+Category: statement
+Source: Pacific Coast Federal Credit Union
+
+ACCOUNT SUMMARY
+
+Account Number: XXXX-4521
+Statement Period: January 1-31, 2025
+Account Type: Premium Checking
+
+Beginning Balance: $12,458.32
+Total Deposits: $8,250.00
+Total Withdrawals: $6,834.17
+Ending Balance: $13,874.15
+
+DEPOSIT DETAIL
+
+01/03/2025 Direct Deposit - Employer Payroll    $4,125.00
+01/17/2025 Direct Deposit - Employer Payroll    $4,125.00
+Total Deposits: $8,250.00
+
+WITHDRAWAL DETAIL
+
+01/05/2025 Online Transfer to Savings           $1,000.00
+01/08/2025 Debit Card - Metro Grocery          $156.42
+01/10/2025 Bill Pay - City Electric            $185.00
+01/12/2025 ATM Withdrawal                      $200.00
+01/15/2025 Debit Card - Shell Gas Station      $58.75
+01/18/2025 Bill Pay - First Mortgage Co        $2,450.00
+01/20/2025 Debit Card - Amazon                 $234.00
+01/22/2025 Online Transfer to Investment       $1,500.00
+01/25/2025 Debit Card - Restaurant             $85.00
+01/28/2025 Bill Pay - State Insurance          $450.00
+01/30/2025 Debit Card - Pharmacy               $45.00
+01/31/2025 Monthly Service Fee                 $0.00
+Subtotal Withdrawals: $6,364.17
+Interest Charged: $0.00
+Total Withdrawals: $6,834.17
+
+INTEREST EARNED
+
+APY: 0.15%
+Interest Paid This Period: $1.85
+Year-to-Date Interest: $1.85

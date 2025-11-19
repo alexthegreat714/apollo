@@ -1,0 +1,52 @@
+Title: Time Value of Money Fundamentals
+Date: 2025-03-03
+Category: education
+Source: Apollo Synthetic Finance Set
+Priority: 4
+
+The time value of money (TVM) is a core financial principle stating that a dollar today is worth more than a dollar in the future. This concept underpins all financial valuation, from bond pricing to capital budgeting decisions.
+
+Two primary calculations derive from TVM:
+
+Present Value (PV): The current worth of a future sum of money.
+PV = FV / (1 + r)^n
+
+Future Value (FV): The value of a current sum at a specified future date.
+FV = PV × (1 + r)^n
+
+Where:
+- r = Discount rate or interest rate per period
+- n = Number of periods
+
+Numerical Example:
+
+You expect to receive $5,000 in 3 years. The appropriate discount rate is 8% annually. What is the present value?
+
+PV = 5,000 / (1 + 0.08)^3
+PV = 5,000 / (1.08)^3
+PV = 5,000 / 1.2597
+PV = $3,969.16
+
+The present value of receiving $5,000 in three years is $3,969.16 today.
+
+Conversely, if you invest $3,969.16 today at 8% annual interest:
+
+FV = 3,969.16 × (1.08)^3
+FV = 3,969.16 × 1.2597
+FV = $5,000
+
+Applications of TVM include:
+
+1. Loan amortization schedules
+2. Bond valuation
+3. Net present value (NPV) analysis
+4. Comparing investment alternatives
+5. Retirement planning calculations
+
+Annuity formulas extend TVM to series of equal payments. The present value of an ordinary annuity is:
+
+PVA = PMT × [(1 - (1 + r)^-n) / r]
+
+Where PMT is the periodic payment amount.
+
+TVM calculations require consistency between the discount rate and time periods. Monthly cash flows require monthly discount rates, calculated as the annual rate divided by 12.

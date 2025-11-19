@@ -1,0 +1,40 @@
+Title: European Growth Outlook - Divergence and Convergence
+Date: 2025-03-05
+Category: macro
+Source: ECB Economic Bulletin
+
+REGIONAL OVERVIEW
+
+Euro area GDP growth is projected at 0.9% for 2025, recovering from near-stagnation in 2024. Growth is highly uneven across member states, with Southern Europe outperforming the core. Germany remains the weakest major economy due to manufacturing structural challenges and energy cost sensitivity.
+
+GROWTH DRIVERS
+
+Private consumption is the primary growth driver as real wages turn positive with declining inflation. Investment is recovering slowly as financing conditions ease, though uncertainty constrains capital spending. Net exports contribute modestly as global trade stabilizes.
+
+Euro Area Growth Projections (% YoY):
+-----------------------------------
+Country      | 2024   | 2025E  | 2026E
+Germany      | -0.1%  | 0.5%   | 1.3%
+France       | 0.9%   | 1.0%   | 1.3%
+Italy        | 0.7%   | 0.8%   | 1.1%
+Spain        | 2.5%   | 2.2%   | 1.8%
+Netherlands  | 0.4%   | 1.2%   | 1.4%
+-----------------------------------
+Euro Area    | 0.8%   | 0.9%   | 1.5%
+
+GERMAN MANUFACTURING
+
+German manufacturing faces structural challenges beyond cyclical weakness. Energy costs remain above pre-crisis levels despite natural gas price normalization. Chinese competition intensifies in automotive and machinery. The business model of export-led growth is challenged.
+
+INFLATION AND POLICY
+
+Inflation is projected to return to 2% target by end-2025, allowing continued ECB rate cuts. Services inflation remains sticky at 3.5-4.0% due to wage agreements. Core inflation converges to headline as base effects fade.
+
+LABOR MARKETS
+
+Unemployment remains at historical lows near 6.4% despite weak growth, reflecting labor hoarding and demographic constraints. Wage growth is moderating from 5% toward 3% as new agreements incorporate lower inflation expectations.
+
+FISCAL CONSIDERATIONS
+
+Fiscal rules enforcement resumes after pandemic suspension, constraining support in high-debt countries. France and Italy face scrutiny for excessive deficits. Germany's debt brake limits countercyclical capacity.
+

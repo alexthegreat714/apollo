@@ -1,0 +1,72 @@
+Title: Credit Scores and Lending Criteria
+Date: 2025-03-26
+Category: education
+Source: Apollo Synthetic Finance Set
+Priority: 4
+
+Credit scores are numerical representations of creditworthiness derived from credit report information. Lenders use these scores to assess the probability of loan repayment and determine interest rates and credit limits.
+
+FICO Score ranges (most widely used):
+
+Exceptional: 800-850
+Very Good: 740-799
+Good: 670-739
+Fair: 580-669
+Poor: 300-579
+
+FICO Score components:
+
+Payment History: 35%
+- On-time payments, delinquencies, collections
+
+Amounts Owed: 30%
+- Credit utilization ratio, total balances
+
+Length of Credit History: 15%
+- Age of oldest account, average account age
+
+Credit Mix: 10%
+- Variety of credit types (cards, loans, mortgage)
+
+New Credit: 10%
+- Recent inquiries, newly opened accounts
+
+Numerical Example:
+
+Credit Utilization Calculation:
+Total credit limits: $20,000
+Total balances: $4,000
+
+Utilization Rate = $4,000 / $20,000 = 20%
+
+A utilization rate below 30% is generally recommended, with below 10% considered optimal.
+
+Impact on interest rates:
+
+Mortgage example for $300,000 loan, 30-year fixed:
+- Credit score 760+: 6.5% APR, monthly payment $1,896
+- Credit score 680: 7.0% APR, monthly payment $1,996
+- Credit score 620: 8.0% APR, monthly payment $2,201
+
+Total interest paid over 30 years:
+- 760+ score: $382,560
+- 680 score: $418,560
+- 620 score: $492,360
+
+The difference between highest and lowest scores: $109,800 in additional interest.
+
+Lending criteria beyond credit score:
+
+1. Debt-to-Income Ratio (DTI)
+   DTI = Monthly Debt Payments / Gross Monthly Income
+   Most lenders require DTI below 43%
+
+2. Loan-to-Value Ratio (LTV)
+   LTV = Loan Amount / Property Value
+   Higher LTV may require mortgage insurance
+
+3. Employment and income verification
+4. Collateral value for secured loans
+5. Down payment or equity contribution
+
+Credit scores update monthly as creditors report to bureaus. Payment history impact diminishes over time, with most negative items falling off after seven years.

@@ -1,0 +1,36 @@
+Title: Banking Sector Credit Quality Review Q1 2025
+Date: 2025-03-15
+Category: report
+Source: Moody's Investors Service
+Period_Start: 2025-01-01
+Period_End: 2025-03-31
+
+SUMMARY ASSESSMENT
+
+US bank credit quality remains stable but with pockets of emerging stress in commercial real estate and credit cards. Capital ratios are strong, providing cushion against potential losses. We maintain a stable outlook on the sector with negative bias for banks with concentrated CRE exposure.
+
+ASSET QUALITY METRICS
+
+Non-performing loans increased to 0.85% of total loans, up from 0.72% a year ago. Charge-offs rose to 0.65% annualized from 0.48%, primarily driven by credit cards and CRE. Early-stage delinquencies (30-89 days) ticked higher, warranting close monitoring.
+
+Asset Quality Trends (% of Loans):
+-----------------------------------
+Metric          | Q1 25  | Q1 24
+NPL Ratio       | 0.85%  | 0.72%
+NCO Rate        | 0.65%  | 0.48%
+30-89 Day DQ    | 1.12%  | 0.95%
+Coverage Ratio  | 165%   | 180%
+-----------------------------------
+
+CAPITAL AND LIQUIDITY
+
+Common equity tier 1 ratios averaged 12.8% for large banks, well above regulatory minimums. Liquidity coverage ratios remained strong at 118% on average. Deposit flows stabilized following 2024 volatility, though mix shift toward higher-cost funding continues.
+
+COMMERCIAL REAL ESTATE EXPOSURE
+
+Office CRE loans represent the primary area of concern. Banks with office exposure exceeding 200% of capital face elevated risk of rating pressure. We estimate $45 billion in office loans will mature in 2025 requiring refinancing at higher rates.
+
+OUTLOOK
+
+Credit normalization will continue through 2025 but systemic stress is unlikely given strong capital positions. Regional banks with concentrated CRE portfolios face the greatest challenges.
+

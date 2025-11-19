@@ -1,0 +1,39 @@
+Title: US Labor Market Rebalancing Assessment
+Date: 2025-03-15
+Category: macro
+Source: Federal Reserve Bank Economic Research
+
+LABOR MARKET CONDITIONS
+
+The US labor market continues rebalancing from pandemic extremes through gradual cooling rather than sharp contraction. Job openings have declined from 12 million to 8.5 million while unemployment has risen only modestly from 3.4% to 4.1%. This "immaculate rebalancing" is the best-case scenario for the soft landing.
+
+SUPPLY AND DEMAND DYNAMICS
+
+Labor supply has expanded through higher participation, particularly among prime-age women and older workers. Immigration has added approximately 1 million workers annually above pre-pandemic trends. Demand has moderated as hiring rates declined to pre-pandemic levels.
+
+Labor Market Dashboard:
+-----------------------------------
+Indicator        | Peak   | Current | Pre-COVID
+Unemployment     | 3.4%   | 4.1%    | 3.5%
+Job Openings     | 12.0M  | 8.5M    | 7.0M
+Quits Rate       | 3.0%   | 2.1%    | 2.3%
+Wage Growth YoY  | 5.9%   | 4.2%    | 3.0%
+Prime Part Rate  | 83.5%  | 83.5%   | 83.1%
+-----------------------------------
+
+WAGE GROWTH MODERATION
+
+Average hourly earnings growth has decelerated from 5.9% peak to 4.2%, trending toward levels consistent with 2% inflation. The Employment Cost Index shows similar moderation. Unit labor costs are rising 1.5% annually as productivity gains offset wage growth.
+
+SECTORAL DYNAMICS
+
+Healthcare and government continue strong hiring, adding 50-60K jobs monthly each. Manufacturing employment is declining as factory output contracts. Professional services and leisure/hospitality have normalized to trend growth.
+
+FORWARD INDICATORS
+
+Leading indicators suggest continued gradual cooling. Temporary help employment has declined for 22 consecutive months. Job postings on Indeed are down 15% from peak. Small business hiring plans have moderated.
+
+OUTLOOK
+
+We expect unemployment to rise to 4.3-4.5% by year-end 2025, consistent with soft landing. Risks are tilted toward faster cooling if corporate profit margins compress and productivity growth disappoints.
+

@@ -1,0 +1,39 @@
+Title: Semiconductor Industry Competitive Dynamics Analysis
+Date: 2025-03-18
+Category: micro
+Source: McKinsey Semiconductor Practice
+
+INDUSTRY STRUCTURE
+
+The semiconductor industry is characterized by high concentration in leading-edge logic (TSMC 90% share), memory (Samsung/SK Hynix/Micron oligopoly), and design tools (Synopsys/Cadence duopoly). This concentration reflects massive capital requirements and cumulative learning advantages that create durable competitive moats.
+
+COMPETITIVE POSITIONING
+
+TSMC maintains technology leadership with 3nm production and 2nm development. Samsung is investing $300 billion through 2030 to close the gap. Intel foundry services faces execution challenges but benefits from US government support. Chinese foundries are constrained to mature nodes by export restrictions.
+
+Foundry Market Share and Margins:
+-----------------------------------
+Company     | Share | GM%   | Capex
+TSMC        | 61%   | 55%   | $32B
+Samsung     | 12%   | 35%   | $28B
+GlobalFoundries| 6% | 28%   | $3B
+SMIC        | 5%    | 22%   | $8B
+UMC         | 6%    | 38%   | $3B
+-----------------------------------
+
+AI CHIP COMPETITION
+
+Nvidia dominates AI training with 80%+ market share. AMD is gaining share with competitive MI300 products. Intel faces technology gap but has AI software advantage. Custom chips from hyperscalers (Google TPU, Amazon Trainium) are viable for inference but trail Nvidia for training.
+
+MEMORY DYNAMICS
+
+HBM (High Bandwidth Memory) demand from AI drives supercycle for SK Hynix and Samsung. DRAM pricing has recovered with HBM premiums of 3-4x commodity DRAM. NAND remains oversupplied with producers cutting capacity.
+
+GEOGRAPHIC RESHORING
+
+CHIPS Act subsidies of $52 billion drive US fab investment. Intel, TSMC, and Samsung are building Arizona facilities. European Chips Act supports $47 billion in incentives. Japan invests in RAPIDUS for leading-edge logic. This geographic diversification increases costs but reduces concentration risk.
+
+INVESTMENT IMPLICATIONS
+
+Favor TSMC for growth and margins, equipment makers (ASML, Applied, LAM) for picks-and-shovels exposure, and HBM producers for AI demand. Avoid commodity NAND and China-exposed suppliers.
+

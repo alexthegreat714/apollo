@@ -1,0 +1,66 @@
+Title: Reading and Analyzing a Balance Sheet
+Date: 2025-03-11
+Category: education
+Source: Apollo Synthetic Finance Set
+Priority: 4
+
+A balance sheet presents a company's financial position at a specific point in time, displaying assets, liabilities, and shareholders' equity. The fundamental accounting equation that governs all balance sheets is:
+
+Assets = Liabilities + Shareholders' Equity
+
+This equation must always balance, hence the name "balance sheet."
+
+Components breakdown:
+
+Assets (what the company owns):
+- Current assets: Cash, accounts receivable, inventory (convertible to cash within one year)
+- Non-current assets: Property, plant, equipment, intangible assets
+
+Liabilities (what the company owes):
+- Current liabilities: Accounts payable, short-term debt (due within one year)
+- Long-term liabilities: Bonds payable, long-term loans
+
+Shareholders' Equity (net worth):
+- Common stock, retained earnings, additional paid-in capital
+
+Numerical Example:
+
+XYZ Corporation Balance Sheet (in thousands):
+
+Current Assets: $500
+- Cash: $100
+- Accounts Receivable: $200
+- Inventory: $200
+
+Non-Current Assets: $800
+- Property & Equipment: $700
+- Intangibles: $100
+
+Total Assets: $1,300
+
+Current Liabilities: $300
+- Accounts Payable: $150
+- Short-term Debt: $150
+
+Long-term Liabilities: $400
+Total Liabilities: $700
+
+Shareholders' Equity: $600
+- Common Stock: $200
+- Retained Earnings: $400
+
+Total Liabilities + Equity: $1,300
+
+Key ratios derived from balance sheets:
+
+Current Ratio = Current Assets / Current Liabilities
+= $500 / $300 = 1.67
+
+This indicates the company has $1.67 in current assets for every $1 of current liabilities.
+
+Debt-to-Equity Ratio = Total Liabilities / Shareholders' Equity
+= $700 / $600 = 1.17
+
+This shows the company uses $1.17 of debt for every $1 of equity financing.
+
+Balance sheets enable assessment of liquidity, solvency, and capital structure.

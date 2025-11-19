@@ -1,0 +1,36 @@
+Title: Nvidia Valuation Analysis - Bull and Bear Cases
+Date: 2025-03-18
+Category: analysis
+Source: Bernstein Equity Research
+
+VALUATION FRAMEWORK
+
+We analyze Nvidia's valuation through three scenarios to capture the range of outcomes from AI infrastructure investment. At current prices of $920, the stock trades at 35x forward P/E and 28x EV/Sales on 2025 estimates. Historical average multiples provide limited guidance given the unprecedented demand environment.
+
+BULL CASE - $1,400 TARGET (+52%)
+
+The bull case assumes AI infrastructure spending accelerates beyond current forecasts as enterprise adoption broadens. Revenue reaches $150 billion in FY2026 (+45% YoY) with data center growing 55%. Gross margins expand to 78% from operating leverage. Multiple of 40x forward P/E on premium growth.
+
+Scenario Analysis:
+-----------------------------------
+Metric      | Bear   | Base   | Bull
+FY26 Revenue| $95B   | $125B  | $150B
+Gross Margin| 68%    | 75%    | 78%
+EPS         | $28    | $38    | $46
+Target P/E  | 22x    | 32x    | 40x
+Price Target| $600   | $1,200 | $1,400
+Upside      | -35%   | +30%   | +52%
+-----------------------------------
+
+BASE CASE - $1,200 TARGET (+30%)
+
+Base case assumes AI demand remains strong but normalizes from peak growth rates. Revenue of $125 billion (+25% YoY) with data center maintaining 80%+ share. Competition from AMD and custom chips pressures margins modestly. Multiple compresses to 32x as growth decelerates.
+
+BEAR CASE - $600 TARGET (-35%)
+
+Bear case models AI spending disappointment as enterprises struggle to monetize investments. Revenue of $95 billion (+5% YoY) as hyperscaler orders slow. Gross margins compress to 68% from competitive pressure and inventory buildup. Multiple de-rates to 22x reflecting normalized growth.
+
+RECOMMENDATION
+
+We rate Nvidia Outperform with a $1,200 target reflecting the base case. The bull case has meaningful probability given early stages of AI adoption, while bear case risks appear contained by current order backlog.
+

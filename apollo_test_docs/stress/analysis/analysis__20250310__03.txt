@@ -1,0 +1,38 @@
+Title: Fed Rate Cut Timing Scenario Analysis
+Date: 2025-03-10
+Category: analysis
+Source: UBS Macro Strategy
+
+BASELINE SCENARIO - JUNE START
+
+Our baseline anticipates the Fed beginning rate cuts in June 2025, with three 25bp reductions bringing the fed funds rate to 4.00-4.25% by year-end. This scenario assumes inflation continues moderating toward 2.5% by mid-year and labor market cooling proceeds gradually.
+
+EARLY CUT SCENARIO - MARCH START
+
+A March cut becomes possible if financial conditions tighten significantly or inflation undershoots. This would require Core PCE falling to 2.3% and unemployment rising above 4.3%. Market probability currently 10%. This scenario implies 125bp of cuts in 2025.
+
+Rate Cut Scenario Analysis:
+-----------------------------------
+Scenario    | First Cut | 2025 Total | End Rate
+Early       | March     | 125bp      | 3.50%
+Baseline    | June      | 75bp       | 4.00%
+Delayed     | September | 50bp       | 4.25%
+No Cut      | N/A       | 0bp        | 4.75%
+-----------------------------------
+
+DELAYED SCENARIO - SEPTEMBER START
+
+If inflation proves sticky above 2.5% through Q2, the Fed delays cuts to September. This scenario assumes shelter inflation moderates slower than expected or services inflation reaccelerates. Market probability 30%. Only two cuts occur in 2025.
+
+NO CUT SCENARIO
+
+A scenario of no cuts in 2025 requires inflation reaccelerating toward 3% or financial conditions easing excessively. This would likely occur from supply shocks (energy, food) or excessive fiscal stimulus. Market probability 15%.
+
+MARKET IMPLICATIONS
+
+The rate path drives asset class performance divergence. Early cuts favor duration and growth stocks. Delayed cuts benefit value and financials. No cuts create risk-off environment with outperformance from quality and low volatility.
+
+POSITIONING RECOMMENDATIONS
+
+Position for baseline with optionality around early scenario. Overweight duration versus consensus, barbell with both early-cycle (rate sensitive) and late-cycle (quality) equity exposures.
+

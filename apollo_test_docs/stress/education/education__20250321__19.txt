@@ -1,0 +1,52 @@
+Title: Tax-Loss Harvesting Strategies
+Date: 2025-03-21
+Category: education
+Source: Apollo Synthetic Finance Set
+Priority: 4
+
+Tax-loss harvesting is a strategy that realizes investment losses to offset capital gains, thereby reducing tax liability. The practice involves selling securities at a loss and reinvesting proceeds in similar (but not substantially identical) securities to maintain market exposure.
+
+The core tax benefit calculation:
+
+Tax Savings = Capital Loss × Marginal Tax Rate
+
+Capital gains tax rates (for long-term gains held over one year) are typically lower than ordinary income rates. Short-term gains are taxed as ordinary income.
+
+Numerical Example:
+
+Portfolio situation:
+- Stock A: Purchased at $10,000, current value $7,000 (unrealized loss: $3,000)
+- Stock B: Purchased at $5,000, current value $8,000 (unrealized gain: $3,000)
+- Marginal tax rate: 24% (ordinary), 15% (long-term capital gains)
+
+Strategy: Sell Stock A to realize the $3,000 loss.
+
+If Stock B is sold (long-term gain):
+Tax on gain without harvesting: $3,000 × 15% = $450
+Tax on gain with harvesting: ($3,000 - $3,000) × 15% = $0
+Tax savings: $450
+
+If no gains to offset, losses can:
+1. Offset up to $3,000 of ordinary income annually
+2. Carry forward indefinitely to future years
+
+Ordinary income offset value: $3,000 × 24% = $720
+
+Wash Sale Rule:
+
+The IRS disallows the loss if substantially identical securities are purchased within 30 days before or after the sale. This creates a 61-day window (30 days before, sale day, 30 days after).
+
+Compliant alternatives:
+- Different company in same sector
+- ETF instead of individual stock
+- Similar but not identical index fund
+
+Considerations:
+
+1. Transaction costs may reduce benefits
+2. Future tax rates affect value of deferred gains
+3. State taxes may add additional savings
+4. Carryforward losses reduce future flexibility
+5. Resets cost basis, affecting future gains
+
+Tax-loss harvesting is most valuable in taxable accounts. Retirement accounts are tax-deferred, making the strategy inapplicable.

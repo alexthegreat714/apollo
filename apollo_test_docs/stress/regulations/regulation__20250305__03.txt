@@ -1,0 +1,39 @@
+Title: SEC Private Fund Adviser Rule Summary
+Date: 2025-03-05
+Category: regulation
+Source: Securities and Exchange Commission
+
+QUARTERLY STATEMENTS
+
+Private fund advisers must provide quarterly statements to investors including detailed performance information, fee and expense disclosure, and portfolio investment compensation. Statements must distinguish between fund-level and investment-level fees.
+
+MANDATORY AUDITS
+
+Private funds must obtain annual audits from independent public accountants registered with the PCAOB. Audit reports must be distributed to investors within 120 days of fiscal year end (180 days for fund of funds).
+
+Compliance Timeline:
+-----------------------------------
+Requirement           | Large | Small
+Quarterly Statements  | Mar 25| Sep 25
+Annual Audit          | Mar 25| Sep 25
+Adviser-Led Secondaries| Mar 25| Sep 25
+Preferential Treatment| Sep 25| Mar 26
+-----------------------------------
+Large = >$1.5B AUM; Small = <$1.5B AUM
+
+ADVISER-LED SECONDARIES
+
+For adviser-led secondary transactions, advisers must obtain a fairness opinion or valuation opinion from an independent opinion provider. Material business relationships with the adviser must be disclosed.
+
+PREFERENTIAL TREATMENT
+
+Side letter terms cannot provide preferential redemption rights if they would have a material negative effect on other investors. Certain preferential terms must be disclosed to all current and prospective investors.
+
+PROHIBITED ACTIVITIES
+
+The rule prohibits charging fees for unperformed services, borrowing from the fund without investor consent, and reducing clawbacks through taxes. Certain prohibitions are subject to disclosure-based exceptions.
+
+GRANDFATHERING
+
+Existing contractual arrangements are grandfathered for certain provisions including preferential treatment restrictions. However, quarterly statement and audit requirements apply to all funds regardless of formation date.
+

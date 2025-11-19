@@ -1,0 +1,30 @@
+Title: Introduction to Bond Investing
+Date: 2025-01-10
+Category: education
+Source: Securities Industry and Financial Markets Association
+
+WHAT IS A BOND?
+
+A bond is a debt security where you lend money to an issuer (government or corporation) in exchange for regular interest payments and return of principal at maturity. Bonds are generally less volatile than stocks and provide regular income.
+
+KEY BOND TERMS
+
+Par Value: The face value of the bond, typically $1,000, returned at maturity.
+Coupon Rate: The annual interest rate paid on the bond's par value.
+Maturity: The date when the principal is repaid.
+Yield: The return you receive from a bond, considering price and coupon payments.
+
+TYPES OF BONDS
+
+Treasury bonds are issued by the US government and considered the safest. Municipal bonds are issued by states and localities, often with tax-exempt interest. Corporate bonds are issued by companies and offer higher yields with more credit risk.
+
+INTEREST RATE RISK
+
+Bond prices move inversely to interest rates. When rates rise, existing bond prices fall because new bonds offer higher yields. Longer-maturity bonds are more sensitive to rate changes than shorter-term bonds.
+
+CREDIT RISK
+
+The risk that the issuer cannot make interest or principal payments. Credit rating agencies (Moody's, S&P, Fitch) rate bonds from AAA (highest quality) to C/D (default). Investment grade bonds are rated BBB-/Baa3 or higher.
+
+Bond funds provide diversification across many bonds but lack the guaranteed return of principal that individual bonds offer at maturity.
+

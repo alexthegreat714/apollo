@@ -1,0 +1,36 @@
+Title: US Housing Market Projections 2025-2026
+Date: 2025-03-05
+Category: projection
+Source: Zillow Economic Research
+
+PRICE FORECAST
+
+We project national home prices to appreciate 3.5% in 2025 and 4.0% in 2026, moderating from the 5.2% gain in 2024. Affordability constraints limit upside while tight inventory provides a floor. Regional divergence continues with Sun Belt markets underperforming coastal areas.
+
+HOME SALES OUTLOOK
+
+Existing home sales are forecast at 4.3 million units in 2025, up 5% from 2024 but still 25% below 2019 levels. Lower mortgage rates unlock some "rate-locked" inventory but sellers remain reluctant to give up sub-4% mortgages. New home sales benefit from builder incentives and available inventory.
+
+Housing Market Projections:
+-----------------------------------
+Metric            | 2024   | 2025E  | 2026E
+Median Price      | $405K  | $419K  | $436K
+Price Change      | +5.2%  | +3.5%  | +4.0%
+Existing Sales    | 4.1M   | 4.3M   | 4.6M
+New Home Sales    | 670K   | 720K   | 760K
+Mortgage Rate     | 6.8%   | 6.0%   | 5.5%
+-----------------------------------
+
+AFFORDABILITY ANALYSIS
+
+The median household needs to spend 42% of income on mortgage payments for a median-priced home, well above the historical 30% threshold. Affordability improves as rates decline but remains strained until prices moderate or incomes catch up.
+
+INVENTORY DYNAMICS
+
+Active listings are projected to increase 10% in 2025 as life events force some sales despite rate lock-in. Months of supply should rise from 3.2 to 3.8 months, still below the balanced market level of 5-6 months.
+
+REGIONAL VARIATIONS
+
+Strongest markets: Northeast metros with limited supply and strong employment (Boston, NYC)
+Weakest markets: Sun Belt markets with excess pandemic migration and new construction (Austin, Phoenix)
+

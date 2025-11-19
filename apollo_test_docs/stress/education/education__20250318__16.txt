@@ -1,0 +1,53 @@
+Title: Bond Duration and Interest Rate Sensitivity
+Date: 2025-03-18
+Category: education
+Source: Apollo Synthetic Finance Set
+Priority: 4
+
+Duration measures a bond's sensitivity to interest rate changes, expressed in years. It represents the weighted average time until a bondholder receives the bond's cash flows, with weights proportional to present values.
+
+Macaulay Duration formula:
+
+D = Σ[t × PV(CFt)] / Bond Price
+
+Where t is the time period and PV(CFt) is the present value of the cash flow at time t.
+
+Modified Duration converts Macaulay Duration into a direct measure of price sensitivity:
+
+Modified Duration = Macaulay Duration / (1 + y/n)
+
+Where y is yield to maturity and n is compounding frequency per year.
+
+Price change approximation:
+
+ΔP/P ≈ -Modified Duration × Δy
+
+Numerical Example:
+
+Consider a 3-year bond with 5% annual coupon, $1,000 face value, and 4% yield to maturity:
+
+Year 1 cash flow: $50, PV = $50/1.04 = $48.08
+Year 2 cash flow: $50, PV = $50/1.04² = $46.23
+Year 3 cash flow: $1,050, PV = $1,050/1.04³ = $933.51
+
+Bond Price = $48.08 + $46.23 + $933.51 = $1,027.82
+
+Macaulay Duration = [(1 × $48.08) + (2 × $46.23) + (3 × $933.51)] / $1,027.82
+= [$48.08 + $92.46 + $2,800.53] / $1,027.82
+= $2,941.07 / $1,027.82
+= 2.86 years
+
+Modified Duration = 2.86 / 1.04 = 2.75
+
+If interest rates increase by 1% (100 basis points):
+ΔP/P ≈ -2.75 × 0.01 = -2.75%
+
+The bond price would decrease approximately 2.75%.
+
+Factors affecting duration:
+
+1. Maturity: Longer maturity increases duration
+2. Coupon rate: Higher coupons decrease duration
+3. Yield: Higher yields decrease duration
+
+Zero-coupon bonds have duration equal to maturity. Duration is essential for immunization strategies and managing interest rate risk in fixed income portfolios.

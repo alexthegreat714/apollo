@@ -1,0 +1,43 @@
+Title: Behavioral Finance and Investment Decision Making
+Date: 2025-02-25
+Category: education
+Source: CFA Institute Behavioral Finance Module
+
+INTRODUCTION
+
+Behavioral finance studies how psychological factors affect investment decisions. Traditional finance assumes rational, utility-maximizing investors, but actual behavior often deviates from this ideal. Understanding biases helps investors recognize and counteract suboptimal decision patterns.
+
+COGNITIVE BIASES
+
+Overconfidence: Believing your forecasts and abilities exceed actual skill level, leading to excessive trading and under-diversification.
+Anchoring: Relying too heavily on initial information (like purchase price) when making decisions about current value.
+Confirmation bias: Seeking information that confirms existing beliefs while ignoring contradictory evidence.
+
+Common Investment Biases:
+-----------------------------------
+Bias          | Effect             | Countermeasure
+Overconfidence| Excessive trading  | Decision journal
+Loss Aversion | Hold losers too long| Systematic rules
+Herding       | Buy high, sell low | Contrarian analysis
+Recency       | Extrapolate recent | Long-term data
+Mental Account| Suboptimal alloc   | Total portfolio view
+-----------------------------------
+
+EMOTIONAL BIASES
+
+Loss Aversion: Losses feel roughly twice as painful as equivalent gains feel good, causing investors to hold losing positions hoping to recover.
+Regret Aversion: Fear of making mistakes leads to inaction or following the crowd rather than independent analysis.
+Status Quo Bias: Preference for current holdings over objectively better alternatives due to inertia.
+
+HERD BEHAVIOR
+
+Investors tend to follow what others are doing, creating momentum and bubbles. Social proof leads to buying after prices have risen and selling after they have fallen. This behavior is exacerbated by media coverage and peer discussions.
+
+FRAMING EFFECTS
+
+How information is presented affects decisions. A treatment with 90% survival rate sounds better than 10% mortality rate, though they are identical. Investment products are often framed to emphasize positive attributes while downplaying risks.
+
+DEBIASING TECHNIQUES
+
+Use systematic investment processes to reduce emotional influence. Maintain decision journals to track reasoning and outcomes. Seek disconfirming information actively. Consider pre-commitment devices like automatic rebalancing. Work with advisors who can provide objective perspective.
+

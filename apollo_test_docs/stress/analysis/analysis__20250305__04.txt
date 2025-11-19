@@ -1,0 +1,38 @@
+Title: Consumer Credit Deterioration Risk Assessment
+Date: 2025-03-05
+Category: analysis
+Source: Fitch Ratings
+
+CREDIT QUALITY OVERVIEW
+
+US consumer credit quality continues normalizing from exceptional pandemic-era strength. Delinquency rates across credit cards, auto loans, and personal loans have risen but remain below pre-pandemic levels for prime borrowers. Subprime segments show more pronounced deterioration.
+
+CREDIT CARD ANALYSIS
+
+Credit card delinquencies (90+ days) reached 2.8% in Q4 2024, up from 2.0% a year ago but below the 3.2% pre-pandemic average. Charge-off rates are 4.8%, trending toward the historical average of 5.5%. Younger borrowers and those with lower incomes show steepest increases.
+
+Consumer Credit Metrics Comparison:
+-----------------------------------
+Metric          | Current | Pre-Covid | GFC Peak
+Card 90+ DQ     | 2.8%    | 3.2%      | 6.8%
+Card Chargeoff  | 4.8%    | 5.5%      | 10.5%
+Auto 60+ DQ     | 2.1%    | 2.3%      | 3.9%
+Personal Loan DQ| 3.5%    | 4.2%      | 7.1%
+-----------------------------------
+
+AUTO LOAN ASSESSMENT
+
+Auto loan delinquencies have stabilized at 2.1% after rising through 2024. Subprime auto shows greater stress at 8.5% delinquency. Extended loan terms and negative equity positions create elevated loss severities when defaults occur.
+
+RISK FACTORS
+
+Key risks include labor market deterioration that increases unemployment above 4.5%, student loan payment resumption straining household budgets, and credit availability tightening that reduces refinancing options for stressed borrowers.
+
+OUTLOOK
+
+We maintain a stable outlook on consumer ABS and bank credit card portfolios. Normalization continues through 2025 but systemic stress is unlikely given strong labor market fundamentals. Subprime-focused lenders face the greatest pressure.
+
+INVESTMENT IMPLICATIONS
+
+Favor senior tranches of prime credit card ABS. Avoid subprime auto and personal loan exposures. Bank credit card portfolios warrant close monitoring but current reserve levels appear adequate.
+

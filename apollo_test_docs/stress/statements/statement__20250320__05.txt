@@ -1,0 +1,33 @@
+Title: SEC Chair Statement on Crypto Asset Regulation
+Date: 2025-03-20
+Category: statement
+Source: Securities and Exchange Commission
+
+Today the Securities and Exchange Commission announces updated guidance on the regulatory framework for crypto assets. This statement clarifies the application of existing securities laws to digital assets and outlines the Commission's enforcement priorities.
+
+REGULATORY FRAMEWORK
+
+The Commission reaffirms that many crypto assets meet the definition of securities under the Howey test. Issuers and intermediaries must comply with registration requirements, disclosure obligations, and investor protection rules. The classification depends on the facts and circumstances of each asset.
+
+TOKEN CLASSIFICATIONS
+
+We provide clarity on three categories of tokens: (1) securities tokens subject to full SEC regulation, (2) utility tokens that may qualify for exemptions if used solely for network functionality, and (3) stablecoins backed by reserves that may be regulated as money market funds or securities.
+
+Enforcement Focus Areas:
+-----------------------------------
+Priority | Description
+1        | Unregistered token offerings
+2        | Fraudulent trading platforms
+3        | Market manipulation
+4        | Inadequate custody practices
+5        | Misleading marketing claims
+-----------------------------------
+
+SAFE HARBOR PROPOSALS
+
+The Commission is considering safe harbor provisions for tokens that transition from securities to non-securities status as networks become sufficiently decentralized. Comments on the proposed framework are due within 90 days.
+
+INDUSTRY ENGAGEMENT
+
+We encourage market participants to engage with Commission staff through the Strategic Hub for Innovation and Financial Technology. The Commission seeks to foster innovation while protecting investors and maintaining fair, orderly, and efficient markets.
+

@@ -1,0 +1,36 @@
+Title: Global Currency Forecast H2 2025
+Date: 2025-03-10
+Category: projection
+Source: Citi FX Strategy
+
+US DOLLAR OUTLOOK
+
+We project modest dollar weakness in H2 2025 as the Fed cuts rates while other major central banks pause or cut more slowly. The DXY index is expected to decline from 104 to 98 by year-end, a 6% depreciation.
+
+G10 CURRENCY FORECASTS
+
+EUR/USD should strengthen as the rate differential narrows and eurozone growth stabilizes. USD/JPY is projected lower as BOJ normalization continues. Commodity currencies benefit from China stimulus and stable commodity prices.
+
+G10 Currency Projections:
+-----------------------------------
+Pair    | Current | Q3 25  | Q4 25
+EUR/USD | 1.08    | 1.12   | 1.15
+USD/JPY | 148     | 140    | 135
+GBP/USD | 1.27    | 1.30   | 1.32
+USD/CHF | 0.88    | 0.85   | 0.83
+AUD/USD | 0.65    | 0.68   | 0.70
+USD/CAD | 1.35    | 1.32   | 1.30
+-----------------------------------
+
+EMERGING MARKET CURRENCIES
+
+EM FX offers selective opportunities with attractive carry and improving fundamentals. We favor MXN (nearshoring flows), BRL (high real rates), and INR (growth momentum). Caution on CNY given structural headwinds and CNH (China stimulus uncertain).
+
+RATE DIFFERENTIAL ANALYSIS
+
+Two-year rate differentials have been the primary driver of dollar strength. As the Fed cuts while ECB pauses, the US-EU differential narrows from 175bp to 100bp, removing a key dollar support.
+
+POSITIONING RECOMMENDATIONS
+
+Long EUR/USD with target 1.15, stop 1.05. Short USD/JPY targeting 135 by year-end. Overweight EM FX basket (MXN, BRL, INR) against low-yielders (CHF, TWD).
+

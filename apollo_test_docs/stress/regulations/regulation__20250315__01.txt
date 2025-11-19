@@ -1,0 +1,37 @@
+Title: Basel III Endgame Final Rule - Executive Summary
+Date: 2025-03-15
+Category: regulation
+Source: Federal Reserve Board
+
+SCOPE AND APPLICABILITY
+
+The Basel III endgame final rule applies to banking organizations with $100 billion or more in total assets. Affected institutions include large bank holding companies, savings and loan holding companies, and US intermediate holding companies of foreign banking organizations.
+
+KEY PROVISIONS
+
+The rule revises capital requirements through expanded standardized approaches for credit risk, market risk, and operational risk. Internal models are retained for market risk but with enhanced constraints. The standardized approach replaces advanced approaches for credit risk.
+
+Capital Requirement Changes:
+-----------------------------------
+Category        | Current | New Rule
+Credit Risk RWA | AMA     | SA
+Op Risk RWA     | AMA     | SA
+Market Risk     | IMA     | IMA+SA
+Output Floor    | N/A     | 72.5%
+-----------------------------------
+SA = Standardized Approach
+AMA = Advanced Measurement Approach
+IMA = Internal Models Approach
+
+CREDIT RISK STANDARDIZED APPROACH
+
+Risk weights for residential mortgages range from 40% to 90% based on loan-to-value ratios. Corporate exposures receive risk weights from 65% (investment grade) to 150% (defaulted). Retail exposures are risk-weighted at 75% with special treatment for small business.
+
+OPERATIONAL RISK
+
+The standardized approach for operational risk uses the Business Indicator Component (BIC) calculated from financial statement data. Banks with higher historical losses face an Internal Loss Multiplier that increases required capital.
+
+IMPLEMENTATION
+
+The rule becomes effective July 1, 2025, with a three-year phase-in through July 1, 2028. Banks must report under both current and new standards during the transition.
+

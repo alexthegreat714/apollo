@@ -1,0 +1,39 @@
+Title: Understanding Financial Statements
+Date: 2025-03-01
+Category: education
+Source: Financial Accounting Standards Board
+
+THREE CORE STATEMENTS
+
+Financial statements provide a standardized view of company performance and position. The income statement shows profitability over a period. The balance sheet shows assets, liabilities, and equity at a point in time. The cash flow statement reconciles earnings to actual cash generation.
+
+INCOME STATEMENT
+
+The income statement flows from revenue through expenses to net income. Key margins include gross margin (revenue minus cost of goods sold), operating margin (including operating expenses), and net margin (after interest and taxes). Earnings per share divides net income by shares outstanding.
+
+Key Financial Ratios:
+-----------------------------------
+Ratio           | Formula                 | Meaning
+Gross Margin    | Gross Profit/Revenue    | Pricing power
+Operating Margin| Operating Inc/Revenue   | Core efficiency
+ROE             | Net Income/Equity       | Return to owners
+Current Ratio   | Current Assets/Liab     | Liquidity
+Debt/EBITDA     | Total Debt/EBITDA       | Leverage
+-----------------------------------
+
+BALANCE SHEET
+
+The balance sheet equation is Assets = Liabilities + Shareholders' Equity. Assets include cash, receivables, inventory, and property. Liabilities include payables, debt, and deferred revenue. Equity represents residual owner value including retained earnings.
+
+CASH FLOW STATEMENT
+
+Cash flow statement has three sections: operating (cash from core business), investing (capital expenditures, acquisitions), and financing (debt and equity issuance, dividends). Free cash flow = operating cash flow minus capital expenditures.
+
+CONNECTING THE STATEMENTS
+
+Net income from the income statement increases retained earnings on the balance sheet. Depreciation is a non-cash expense that reduces net income but is added back to cash flow. Working capital changes (receivables, inventory, payables) affect cash flow but not income.
+
+QUALITY OF EARNINGS
+
+Analyze whether earnings are supported by cash flow. Warning signs include receivables growing faster than revenue, declining cash conversion, and unusual accruals. Management can manage earnings through estimates, but cash flow is harder to manipulate.
+

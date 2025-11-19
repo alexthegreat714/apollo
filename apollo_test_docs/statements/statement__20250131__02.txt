@@ -1,0 +1,47 @@
+Title: Credit Card Statement - January 2025
+Date: 2025-01-31
+Category: statement
+Source: Universal Rewards Visa
+
+ACCOUNT INFORMATION
+
+Account Number: XXXX-XXXX-XXXX-7823
+Credit Limit: $15,000.00
+Available Credit: $11,234.56
+Statement Closing Date: January 31, 2025
+Payment Due Date: February 25, 2025
+
+ACCOUNT SUMMARY
+
+Previous Balance: $2,845.00
+Payments Received: -$2,845.00
+New Purchases: $3,765.44
+Cash Advances: $0.00
+Fees Charged: $0.00
+Interest Charged: $0.00
+New Balance: $3,765.44
+Minimum Payment Due: $75.00
+
+TRANSACTION DETAIL
+
+01/02/2025 Payment Received - Thank You        -$2,845.00
+01/05/2025 Delta Airlines                      $485.00
+01/08/2025 Marriott Hotels                     $342.50
+01/10/2025 Uber Technologies                   $28.45
+01/12/2025 Whole Foods Market                  $186.32
+01/15/2025 Netflix                             $22.99
+01/18/2025 Target Stores                       $234.67
+01/20/2025 Costco Wholesale                    $412.85
+01/22/2025 Spotify Premium                     $10.99
+01/25/2025 Shell Oil                           $62.45
+01/28/2025 Home Depot                          $1,456.22
+01/30/2025 Starbucks                           $23.00
+New Purchases Total: $3,765.44
+
+REWARDS SUMMARY
+
+Points Earned This Period: 3,765
+Bonus Points: 970
+Total Points This Period: 4,735
+Total Available Points: 48,250
+Points Value: $482.50

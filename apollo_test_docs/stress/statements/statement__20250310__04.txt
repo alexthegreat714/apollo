@@ -1,0 +1,30 @@
+Title: Bank of Japan Policy Board Statement
+Date: 2025-03-10
+Category: statement
+Source: Bank of Japan
+
+At the Monetary Policy Meeting held today, the Policy Board of the Bank of Japan decided to raise the uncollateralized overnight call rate by 25 basis points to 0.75 percent. This decision reflects the improved outlook for achieving the price stability target on a sustainable basis.
+
+ECONOMIC ASSESSMENT
+
+Japan's economy has recovered moderately, although some weakness has been seen in part. Exports and industrial production have been more or less flat. On the other hand, corporate profits have improved and business fixed investment has been on an increasing trend. Private consumption has increased moderately due to the effects of price developments.
+
+PRICE OUTLOOK
+
+The year-on-year rate of change in the consumer price index for all items less fresh food has been in the range of 2.5-3.0 percent recently. Underlying CPI inflation is expected to increase gradually, as the output gap improves and medium-to-long-term inflation expectations rise.
+
+Economic Projections (% Change YoY):
+-----------------------------------
+           | FY2024 | FY2025 | FY2026
+Real GDP   | 0.8    | 1.2    | 1.0
+Core CPI   | 2.8    | 2.4    | 2.0
+-----------------------------------
+
+YIELD CURVE CONTROL
+
+The Bank will continue to purchase Japanese government bonds with the objective of keeping 10-year JGB yields around 1.0 percent. The Bank will respond nimbly to rapid rises in interest rates by increasing purchases.
+
+FORWARD GUIDANCE
+
+The Bank will continue to conduct monetary policy as appropriate with a view to achieving the price stability target in a sustainable and stable manner.
+

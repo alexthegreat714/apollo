@@ -1,0 +1,24 @@
+Title: Municipal Bond Market Analysis - January 2025
+Date: 2025-02-02
+Category: report
+Source: Capital Markets Research Group
+
+MARKET OVERVIEW
+
+The municipal bond market experienced increased volatility in January 2025 as investors reassessed interest rate expectations. The Bloomberg Municipal Bond Index returned -0.8% for the month after a strong finish to 2024.
+
+SUPPLY AND DEMAND DYNAMICS
+
+New issuance totaled $28 billion in January, down 15% from the prior year period. Refunding volume declined sharply as higher rates made refinancing uneconomical for most issuers. Mutual fund flows turned negative with $2.1 billion in outflows during the month.
+
+CREDIT DEVELOPMENTS
+
+State and local government finances remain healthy overall. Tax revenue growth moderated to 3% year-over-year from 5% in mid-2024. Pension funding levels improved slightly, with the average funded ratio reaching 78% from 75% a year ago.
+
+YIELD CURVE ANALYSIS
+
+The AAA municipal yield curve flattened during the month. The 10-year AAA yield rose 18 basis points to 3.42% while the 30-year increased only 8 basis points to 4.15%. The ratio of municipal to Treasury yields fell to 82% from 85%, indicating relative value concerns.
+
+SECTOR OUTLOOK
+
+Healthcare revenue bonds face ongoing pressure from reimbursement uncertainty. Transportation credits benefit from strong traffic volumes. Higher education bonds show mixed performance depending on enrollment trends and endowment returns.

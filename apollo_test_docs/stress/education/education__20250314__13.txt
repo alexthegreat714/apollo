@@ -1,0 +1,61 @@
+Title: Cash Flow Statement Analysis
+Date: 2025-03-14
+Category: education
+Source: Apollo Synthetic Finance Set
+Priority: 4
+
+The cash flow statement tracks actual cash movements into and out of a business during a specific period. Unlike the income statement, which uses accrual accounting, the cash flow statement reveals the company's liquidity and cash-generating ability.
+
+Three sections comprise the cash flow statement:
+
+1. Operating Activities: Cash from core business operations
+2. Investing Activities: Cash from asset purchases/sales
+3. Financing Activities: Cash from debt and equity transactions
+
+Net Change in Cash = Operating CF + Investing CF + Financing CF
+
+The indirect method (most common) starts with net income and adjusts for non-cash items:
+
+Numerical Example:
+
+DEF Corporation Cash Flow Statement (in thousands):
+
+Operating Activities:
+Net Income: $150
+Add: Depreciation: $50
+Add: Decrease in Accounts Receivable: $20
+Less: Increase in Inventory: ($30)
+Less: Decrease in Accounts Payable: ($10)
+Net Cash from Operating: $180
+
+Investing Activities:
+Purchase of Equipment: ($200)
+Sale of Investments: $50
+Net Cash from Investing: ($150)
+
+Financing Activities:
+Proceeds from Long-term Debt: $100
+Dividends Paid: ($40)
+Net Cash from Financing: $60
+
+Net Change in Cash: $180 + ($150) + $60 = $90
+
+Beginning Cash: $50
+Ending Cash: $140
+
+Key analysis metrics:
+
+Free Cash Flow (FCF) = Operating Cash Flow - Capital Expenditures
+= $180 - $200 = ($20)
+
+Negative free cash flow indicates the company is investing heavily, which may be positive for growth but requires external funding.
+
+Operating Cash Flow Ratio = Operating CF / Current Liabilities
+
+This measures ability to cover short-term obligations with cash generated from operations.
+
+Cash flow analysis reveals:
+- Quality of earnings (high net income but low operating cash flow is a warning sign)
+- Capital investment patterns
+- Financing strategy and dividend sustainability
+- Liquidity trends over time

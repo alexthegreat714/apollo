@@ -1,0 +1,60 @@
+Title: Options Basics - Calls and Puts
+Date: 2025-03-25
+Category: education
+Source: Apollo Synthetic Finance Set
+Priority: 4
+
+Options are derivative contracts giving the holder the right, but not the obligation, to buy or sell an underlying asset at a specified price before a certain date. The two fundamental types are calls and puts.
+
+Call Option: Right to buy at the strike price
+Put Option: Right to sell at the strike price
+
+Key terminology:
+
+- Strike Price (K): Price at which option can be exercised
+- Premium: Price paid for the option contract
+- Expiration Date: Last day option can be exercised
+- Underlying: Asset the option is based on
+- In-the-money (ITM): Option has intrinsic value
+- Out-of-the-money (OTM): Option has no intrinsic value
+- At-the-money (ATM): Strike equals current price
+
+Intrinsic Value:
+Call = Max(0, Stock Price - Strike Price)
+Put = Max(0, Strike Price - Stock Price)
+
+Numerical Example:
+
+Stock XYZ trades at $50.
+
+Call option with $45 strike, premium $7:
+Intrinsic value = $50 - $45 = $5 (ITM)
+Time value = $7 - $5 = $2
+Breakeven = $45 + $7 = $52
+
+Put option with $55 strike, premium $8:
+Intrinsic value = $55 - $50 = $5 (ITM)
+Time value = $8 - $5 = $3
+Breakeven = $55 - $8 = $47
+
+Payoff at expiration for call buyer:
+Profit = Max(0, ST - K) - Premium
+
+If XYZ expires at $60:
+Call profit = Max(0, $60 - $45) - $7 = $15 - $7 = $8
+
+If XYZ expires at $40:
+Call profit = Max(0, $40 - $45) - $7 = $0 - $7 = -$7 (loss limited to premium)
+
+Four basic positions:
+
+1. Long call: Bullish, limited loss, unlimited gain
+2. Short call: Bearish/neutral, unlimited loss, limited gain
+3. Long put: Bearish, limited loss, substantial gain potential
+4. Short put: Bullish/neutral, substantial loss potential, limited gain
+
+Options pricing factors (Greeks):
+- Delta: Sensitivity to underlying price
+- Theta: Time decay
+- Vega: Sensitivity to volatility
+- Gamma: Rate of delta change

@@ -1,0 +1,57 @@
+Title: Price-to-Earnings Ratio Analysis
+Date: 2025-03-23
+Category: education
+Source: Apollo Synthetic Finance Set
+Priority: 4
+
+The price-to-earnings (P/E) ratio is a widely used valuation metric that compares a company's stock price to its earnings per share. It indicates how much investors are willing to pay for each dollar of earnings.
+
+P/E Ratio = Market Price per Share / Earnings per Share (EPS)
+
+Alternative calculation:
+P/E Ratio = Market Capitalization / Net Income
+
+Types of P/E ratios:
+
+Trailing P/E: Uses earnings from the past 12 months (historical, actual)
+Forward P/E: Uses projected earnings for the next 12 months (estimated)
+
+Numerical Example:
+
+Company ABC:
+- Current stock price: $75
+- Trailing 12-month EPS: $5.00
+- Analyst estimated next-year EPS: $6.00
+
+Trailing P/E = $75 / $5.00 = 15x
+Forward P/E = $75 / $6.00 = 12.5x
+
+The trailing P/E indicates investors pay $15 for each $1 of current earnings. The lower forward P/E suggests expected earnings growth.
+
+Interpreting P/E ratios:
+
+High P/E (>25):
+- Investors expect high future growth
+- Stock may be overvalued
+- Common in technology and growth sectors
+
+Low P/E (<10):
+- Lower growth expectations
+- Stock may be undervalued or facing challenges
+- Common in mature or cyclical industries
+
+PEG Ratio = P/E / Annual EPS Growth Rate
+
+This adjusts P/E for growth expectations:
+If P/E = 20 and growth = 20%: PEG = 1.0 (fairly valued)
+If P/E = 20 and growth = 10%: PEG = 2.0 (potentially overvalued)
+
+Limitations:
+
+1. Negative earnings produce meaningless P/E
+2. Accounting differences affect EPS comparability
+3. Cyclical companies may have misleading P/E at cycle peaks/troughs
+4. One-time items distort earnings
+5. Different industries have different typical P/E ranges
+
+P/E should be compared to industry peers, historical company averages, and market-wide P/E levels for meaningful analysis.

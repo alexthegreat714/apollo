@@ -1,0 +1,47 @@
+Title: Asset Allocation Theory and Implementation
+Date: 2025-03-09
+Category: education
+Source: Apollo Synthetic Finance Set
+Priority: 4
+
+Asset allocation is the process of dividing an investment portfolio among different asset categories such as stocks, bonds, and cash equivalents. This strategic decision is widely considered the primary determinant of portfolio returns over time.
+
+The core principle derives from Modern Portfolio Theory (MPT), which seeks to maximize expected return for a given level of risk. The efficient frontier represents portfolios offering the highest expected return for each level of standard deviation.
+
+Expected portfolio return is calculated as:
+
+E(Rp) = Σ(wi × E(Ri))
+
+Where:
+- E(Rp) = Expected portfolio return
+- wi = Weight of asset i
+- E(Ri) = Expected return of asset i
+
+Numerical Example:
+
+A portfolio contains three asset classes:
+- Stocks: 60% allocation, 10% expected return
+- Bonds: 30% allocation, 4% expected return
+- Cash: 10% allocation, 2% expected return
+
+E(Rp) = (0.60 × 0.10) + (0.30 × 0.04) + (0.10 × 0.02)
+E(Rp) = 0.060 + 0.012 + 0.002
+E(Rp) = 0.074 or 7.4%
+
+The expected portfolio return is 7.4%.
+
+Strategic vs. Tactical Allocation:
+
+Strategic allocation establishes long-term target percentages based on investment objectives and risk tolerance. These targets are maintained through periodic rebalancing.
+
+Tactical allocation involves short-term deviations from strategic targets to capitalize on perceived market opportunities. This approach requires market timing skill.
+
+Common allocation models include:
+
+1. Age-based: Stock percentage equals 100 minus age
+2. Risk-based: Questionnaires determine risk tolerance
+3. Goal-based: Allocations match specific financial objectives
+
+Rebalancing returns the portfolio to target allocations when market movements cause drift. This can be done on a calendar basis (quarterly, annually) or when allocations exceed predetermined thresholds (typically 5% deviation).
+
+Asset allocation should reflect investment time horizon, risk capacity, and liquidity needs.

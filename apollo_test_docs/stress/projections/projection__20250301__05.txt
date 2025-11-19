@@ -1,0 +1,34 @@
+Title: Private Equity Performance Projections 2025-2027
+Date: 2025-03-01
+Category: projection
+Source: Cambridge Associates
+
+RETURN EXPECTATIONS
+
+We project private equity net returns of 12-14% annually for 2025-2027 vintage funds, below the 17% realized for 2010-2019 vintages. Higher entry multiples, elevated financing costs, and competitive markets compress returns. Dispersion between top and bottom quartile managers increases.
+
+EXIT ENVIRONMENT
+
+Exit activity should recover from 2024 lows as the IPO market reopens and strategic M&A accelerates. Sponsor-to-sponsor sales remain challenged by valuation gaps. Hold periods continue extending, averaging 6.5 years versus 4.5 years a decade ago.
+
+PE Return Projections by Vintage:
+-----------------------------------
+Vintage  | Net IRR | TVPI   | DPI
+2025     | 12-14%  | 1.6x   | 0.8x
+2026     | 13-15%  | 1.7x   | 0.9x
+2027     | 14-16%  | 1.8x   | 1.0x
+-----------------------------------
+Historical (2010-19): 17% IRR, 1.9x TVPI
+
+VALUE CREATION LEVERS
+
+Operational improvement becomes the primary value creation lever as financial engineering contributes less with higher rates. Buy-and-build strategies remain attractive but integration risk increases. Technology enablement drives margin expansion across portfolio companies.
+
+FUNDRAISING OUTLOOK
+
+LP commitments normalize from peak 2021-2022 levels but remain healthy. LPs concentrate allocations with proven managers, disadvantaging emerging funds. Continuation funds provide liquidity solutions for extended holds.
+
+SECTOR PREFERENCES
+
+Healthcare services and technology remain favored sectors with strong growth and multiple expansion potential. Industrials benefit from reshoring tailwinds. Consumer faces headwinds from discretionary spending pressure.
+

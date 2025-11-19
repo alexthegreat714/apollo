@@ -1,0 +1,63 @@
+Title: 401(k) Retirement Account Statement - Q4 2024
+Date: 2025-02-28
+Category: statement
+Source: Vanguard Retirement Services
+
+PARTICIPANT INFORMATION
+
+Plan Name: Acme Corporation 401(k) Plan
+Participant ID: 7845123
+Statement Period: October 1 - December 31, 2024
+
+ACCOUNT BALANCE SUMMARY
+
+Beginning Balance: $185,420.00
+Employee Contributions: $5,850.00
+Employer Match: $2,925.00
+Investment Gains: $12,805.00
+Ending Balance: $207,000.00
+
+CONTRIBUTION DETAIL
+
+Employee Pre-Tax Contributions: $5,850.00
+Employee Roth Contributions: $0.00
+Employer Matching Contributions: $2,925.00
+Total Contributions: $8,775.00
+
+Contribution Rate: 10% of eligible compensation
+Employer Match: 50% up to 6% of compensation
+Annual Limit Status: $23,000 maximum ($19,500 contributed YTD)
+
+INVESTMENT ALLOCATION
+
+Vanguard Target Retirement 2045 Fund
+Units: 1,245.678
+Unit Value: $45.82
+Market Value: $57,100.00
+Allocation: 27.6%
+
+Vanguard 500 Index Fund Admiral
+Units: 198.456
+Unit Value: $485.20
+Market Value: $96,300.00
+Allocation: 46.5%
+
+Vanguard Total Bond Market Index
+Units: 425.890
+Unit Value: $10.25
+Market Value: $4,365.38
+Market Value: $43,650.00
+Allocation: 21.1%
+
+Vanguard Money Market Fund
+Units: 9,950.00
+Unit Value: $1.00
+Market Value: $9,950.00
+Allocation: 4.8%
+
+TOTAL ACCOUNT VALUE: $207,000.00
+
+VESTING STATUS
+
+Employee Contributions: 100% Vested
+Employer Contributions: 100% Vested (5+ years of service)

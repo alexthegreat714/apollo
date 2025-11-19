@@ -1,0 +1,39 @@
+Title: Energy Transition Investment Opportunity Analysis
+Date: 2025-03-01
+Category: analysis
+Source: Lazard Asset Management
+
+MARKET OPPORTUNITY
+
+Global investment in clean energy reached $1.8 trillion in 2024 and is projected to grow to $4 trillion annually by 2030 to meet Paris Agreement commitments. The investment opportunity spans renewable generation, grid infrastructure, storage, electric vehicles, and energy efficiency.
+
+SECTOR ANALYSIS
+
+Solar and wind generation offer attractive returns as costs continue declining. Battery storage economics improve with scale and technology advancement. Grid modernization requires massive investment to accommodate distributed generation. EV adoption creates demand across the value chain.
+
+Energy Transition Investment Needs ($ Trillions):
+-----------------------------------
+Sector          | 2025-30 | Annual
+Renewable Gen   | $8.5T   | $1.4T
+Grid/Storage    | $4.2T   | $0.7T
+EVs/Transport   | $6.0T   | $1.0T
+Efficiency      | $3.6T   | $0.6T
+-----------------------------------
+Total           | $22.3T  | $3.7T
+
+RETURN PROFILES
+
+Utility-scale solar and wind offer mid-single-digit contracted returns with low volatility. Energy storage provides higher returns (8-12%) with technology and merchant price risk. EV infrastructure investments offer venture-style returns with execution risk.
+
+REGIONAL OPPORTUNITIES
+
+US benefits from IRA subsidies driving onshoring of manufacturing and deployment. Europe accelerates to reduce Russian energy dependence. Emerging markets offer growth with higher project risk.
+
+RISK FACTORS
+
+Policy uncertainty from potential subsidy changes. Supply chain constraints for critical minerals. Technology disruption from next-generation solutions. Interest rate sensitivity for capital-intensive projects.
+
+PORTFOLIO CONSTRUCTION
+
+Diversify across technologies, geographies, and risk profiles. Blend contracted assets for stability with merchant exposure for upside. Consider both public equities and private infrastructure allocations.
+

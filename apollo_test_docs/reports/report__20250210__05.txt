@@ -1,0 +1,24 @@
+Title: Quarterly Economic Impact Report - Technology Sector
+Date: 2025-02-10
+Category: report
+Source: National Economic Research Institute
+
+EMPLOYMENT TRENDS
+
+The technology sector added 45,000 jobs in Q4 2024, bringing total employment to 6.2 million. Software development roles accounted for 60% of new positions, followed by data science at 20% and cybersecurity at 15%. Unemployment in tech remained low at 2.1%.
+
+WAGE GROWTH
+
+Average technology sector wages increased 4.8% year-over-year to $125,000 annually. This outpaced overall private sector wage growth of 3.9%. Entry-level positions saw the largest gains at 6.2%, reflecting competition for talent.
+
+CAPITAL INVESTMENT
+
+Technology companies invested $185 billion in capital expenditures during the quarter, up 22% from the prior year. Data center construction represented 45% of spending, followed by semiconductor manufacturing at 30% and research facilities at 15%.
+
+REGIONAL DISTRIBUTION
+
+California remained the largest technology employment center with 1.8 million workers, followed by Texas at 680,000 and New York at 520,000. Emerging hubs in Austin, Denver, and Raleigh showed growth rates exceeding 8% annually.
+
+ECONOMIC MULTIPLIER
+
+Each technology sector job supports an estimated 4.3 additional jobs in the broader economy through direct, indirect, and induced effects. The sector contributed an estimated $2.1 trillion to GDP in 2024, representing 7.8% of total economic output.

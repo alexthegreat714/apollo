@@ -1,0 +1,39 @@
+Title: FinCEN Anti-Money Laundering Requirements for Investment Advisers
+Date: 2025-02-20
+Category: regulation
+Source: Financial Crimes Enforcement Network
+
+PROPOSED RULE OVERVIEW
+
+FinCEN proposes to include certain investment advisers in the definition of "financial institution" under the Bank Secrecy Act. Covered advisers would be subject to AML program requirements, SAR filing obligations, and certain recordkeeping requirements.
+
+COVERED INVESTMENT ADVISERS
+
+The rule covers SEC-registered investment advisers and exempt reporting advisers. State-registered advisers without SEC reporting obligations are not covered in the initial rule. FinCEN may expand coverage in subsequent rulemaking.
+
+AML Program Components:
+-----------------------------------
+Element           | Description
+Policies/Procedures| Risk-based written AML program
+Compliance Officer | Designated qualified individual
+Training          | Ongoing employee education
+Independent Testing| Periodic program assessment
+CDD/CIP          | Customer identification & verification
+-----------------------------------
+
+SUSPICIOUS ACTIVITY REPORTING
+
+Advisers must file SARs for transactions of $5,000 or more involving suspected illegal activity, structuring to avoid reporting, or lacking lawful purpose. Reports are due within 30 calendar days of detection. Continuing activity requires follow-up SARs.
+
+CUSTOMER DUE DILIGENCE
+
+Advisers must implement risk-based customer due diligence including verifying identity, understanding the nature of client relationships, and conducting ongoing monitoring. Enhanced due diligence applies to high-risk clients including PEPs and high-risk jurisdictions.
+
+BENEFICIAL OWNERSHIP
+
+For legal entity clients, advisers must identify and verify beneficial owners holding 25% or more equity and individuals with significant control. Beneficial ownership information must be updated when changes are detected.
+
+IMPLEMENTATION PERIOD
+
+FinCEN proposes a 12-month compliance period from the effective date. Advisers should begin risk assessments, technology evaluations, and policy development in anticipation of final rule publication.
+

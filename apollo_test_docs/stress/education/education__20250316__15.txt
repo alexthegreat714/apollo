@@ -1,0 +1,53 @@
+Title: Risk-Adjusted Returns and Performance Measurement
+Date: 2025-03-16
+Category: education
+Source: Apollo Synthetic Finance Set
+Priority: 4
+
+Risk-adjusted returns evaluate investment performance relative to the risk taken, providing more meaningful comparisons than raw returns alone. Several metrics exist beyond the Sharpe ratio to capture different aspects of risk-adjusted performance.
+
+Treynor Ratio:
+
+Treynor Ratio = (Rp - Rf) / βp
+
+Where βp is portfolio beta (systematic risk). Unlike the Sharpe ratio, the Treynor ratio only considers systematic risk, assuming unsystematic risk is diversified away.
+
+Jensen's Alpha:
+
+α = Rp - [Rf + βp(Rm - Rf)]
+
+Alpha measures excess return above what the Capital Asset Pricing Model (CAPM) predicts. Positive alpha indicates outperformance.
+
+Sortino Ratio:
+
+Sortino Ratio = (Rp - Rf) / σd
+
+Where σd is downside deviation, measuring only negative volatility. This addresses the Sharpe ratio's limitation of penalizing upside volatility.
+
+Numerical Example:
+
+Fund performance data:
+- Fund return (Rp): 14%
+- Risk-free rate (Rf): 3%
+- Market return (Rm): 10%
+- Fund beta (βp): 1.2
+- Fund standard deviation: 16%
+- Downside deviation: 11%
+
+Treynor Ratio = (0.14 - 0.03) / 1.2 = 0.0917 or 9.17%
+
+Expected return per CAPM = 0.03 + 1.2(0.10 - 0.03) = 0.114 or 11.4%
+Jensen's Alpha = 0.14 - 0.114 = 0.026 or 2.6%
+
+Sortino Ratio = (0.14 - 0.03) / 0.11 = 1.0
+
+The fund generated 2.6% alpha above its expected risk-adjusted return, with a Sortino ratio of 1.0.
+
+Information Ratio = (Rp - Rb) / Tracking Error
+
+This measures active return relative to benchmark per unit of active risk. A higher information ratio indicates consistent outperformance.
+
+Selecting the appropriate metric depends on:
+- Whether the portfolio is diversified (Treynor) or concentrated (Sharpe)
+- Concern about downside risk specifically (Sortino)
+- Active management evaluation (Alpha, Information Ratio)

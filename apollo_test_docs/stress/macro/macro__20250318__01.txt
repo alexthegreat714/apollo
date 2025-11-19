@@ -1,0 +1,35 @@
+Title: Global Inflation Convergence Analysis
+Date: 2025-03-18
+Category: macro
+Source: IMF World Economic Outlook
+
+GLOBAL INFLATION TRENDS
+
+Global headline inflation declined from a peak of 8.7% in 2022 to 4.2% in 2024 and is projected to reach 3.5% by end-2025. Developed economies are approaching 2% targets while emerging markets face greater persistence. The disinflation has been achieved without significant output losses, a historically favorable outcome.
+
+REGIONAL DIVERGENCE
+
+The United States shows the most progress with Core PCE at 2.6% and declining. The euro area lags with services inflation sticky at 3.8% despite headline at 2.2%. Japan has achieved sustainable inflation above 2% after decades of deflation. Emerging markets face pass-through from currency weakness and commodity prices.
+
+Global Inflation Comparison (% YoY):
+-----------------------------------
+Region         | 2024   | 2025E  | 2026E
+United States  | 2.9%   | 2.4%   | 2.0%
+Euro Area      | 2.4%   | 2.3%   | 2.0%
+Japan          | 2.8%   | 2.4%   | 2.0%
+China          | 0.3%   | 1.2%   | 1.8%
+EM ex-China    | 6.8%   | 5.5%   | 4.5%
+-----------------------------------
+
+STICKY COMPONENTS
+
+Services inflation remains elevated due to labor-intensive production and lagged response to wage growth. Shelter inflation is declining as new rent contracts flow through CPIs with 12-18 month lags. Goods prices have normalized and are now deflationary in many categories.
+
+POLICY IMPLICATIONS
+
+Central banks will begin easing cycles as inflation approaches target. The Fed is projected to cut 75bp in 2025, the ECB 100bp, and the BOE 75bp. The BOJ continues normalization with rates reaching 1% by year-end. Coordination risk is low as cycles are aligned.
+
+RISKS TO OUTLOOK
+
+Upside risks include geopolitical commodity shocks, labor market tightening from demographics, and excessive fiscal stimulus. Downside risks include demand weakness from China and overshooting by central banks maintaining restriction too long.
+

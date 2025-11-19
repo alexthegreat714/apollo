@@ -1,0 +1,34 @@
+Title: February Jobs Report Shows Labor Market Cooling
+Date: 2025-03-08
+Category: news
+Source: CNBC
+
+The US economy added 145,000 jobs in February, below expectations of 175,000, while the unemployment rate ticked up to 4.1%. The report provides further evidence of gradual labor market rebalancing that could support Fed rate cuts later this year.
+
+EMPLOYMENT DETAILS
+
+Healthcare led job gains with 58,000 new positions, followed by government at 35,000. Leisure and hospitality added 25,000 jobs as travel demand remained strong. Manufacturing lost 12,000 positions amid ongoing factory sector contraction. Temporary help services declined for the 22nd consecutive month.
+
+February Employment Summary:
+-----------------------------------
+Sector           | Jobs   | YoY Avg
+Healthcare       | +58K   | +52K
+Government       | +35K   | +40K
+Leisure/Hosp     | +25K   | +28K
+Professional Svc | +18K   | +25K
+Manufacturing    | -12K   | -8K
+-----------------------------------
+Total Nonfarm    | +145K  | +182K
+
+WAGE GROWTH
+
+Average hourly earnings rose 0.2% month-over-month and 4.2% year-over-year, the slowest annual pace since early 2024. Wage growth continues to moderate toward levels consistent with the Fed's 2% inflation target.
+
+LABOR FORCE TRENDS
+
+The labor force participation rate held steady at 62.5%. Prime-age participation remains near multi-decade highs at 83.5%. The employment-to-population ratio dipped slightly to 60.1%.
+
+MARKET REACTION
+
+Treasury yields fell and stocks rallied on the data, with the S&P 500 gaining 0.8%. Markets now price 75 basis points of Fed rate cuts for 2025, up from 50 basis points before the report. The next FOMC meeting is March 18-19.
+

@@ -1,0 +1,40 @@
+Title: Dollar-Cost Averaging Strategy Explained
+Date: 2025-03-05
+Category: education
+Source: Apollo Synthetic Finance Set
+Priority: 4
+
+Dollar-cost averaging (DCA) is an investment strategy where a fixed dollar amount is invested at regular intervals, regardless of asset price. This systematic approach reduces the impact of volatility by purchasing more shares when prices are low and fewer shares when prices are high.
+
+The average cost per share in DCA is calculated as:
+
+Average Cost = Total Amount Invested / Total Shares Acquired
+
+Numerical Example:
+
+An investor commits $500 monthly to purchase shares of a mutual fund over four months:
+
+Month 1: $500 at $50/share = 10 shares
+Month 2: $500 at $40/share = 12.5 shares
+Month 3: $500 at $45/share = 11.11 shares
+Month 4: $500 at $55/share = 9.09 shares
+
+Total invested: $2,000
+Total shares: 42.70 shares
+Average cost per share: $2,000 / 42.70 = $46.84
+
+The arithmetic average price was ($50 + $40 + $45 + $55) / 4 = $47.50
+
+The investor's average cost ($46.84) is lower than the arithmetic average price ($47.50) because more shares were purchased when prices were lower.
+
+Key characteristics of DCA:
+
+1. Reduces timing risk by spreading purchases over time
+2. Automates investment decisions, reducing emotional bias
+3. Works best with volatile assets over extended periods
+4. Does not guarantee profits or protect against losses
+5. Opportunity cost exists if markets trend upward consistently
+
+DCA differs from lump-sum investing, where the entire amount is invested immediately. Historical analysis shows lump-sum investing outperforms DCA approximately two-thirds of the time in rising markets, but DCA provides psychological benefits and reduces regret from poor timing.
+
+The strategy is commonly implemented through automatic payroll deductions into retirement accounts or scheduled transfers to brokerage accounts.

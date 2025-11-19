@@ -1,0 +1,29 @@
+Title: Anti-Money Laundering Requirements for Investment Advisers
+Date: 2025-01-25
+Category: regulation
+Source: Financial Crimes Enforcement Network
+
+PROPOSED RULE OVERVIEW
+
+FinCEN has proposed to add certain investment advisers to the definition of "financial institution" under the Bank Secrecy Act. Covered investment advisers would be subject to comprehensive AML/CFT program requirements and suspicious activity reporting obligations.
+
+COVERED ADVISERS
+
+The rule would apply to SEC-registered investment advisers and advisers that report to the SEC as exempt reporting advisers. State-registered advisers without SEC registration would not be covered in the initial phase.
+
+AML PROGRAM REQUIREMENTS
+
+Covered advisers must implement risk-based AML programs including: written policies and procedures, designation of a compliance officer, ongoing employee training, and independent testing. Programs must be tailored to the adviser's business model and client types.
+
+CUSTOMER IDENTIFICATION PROGRAM
+
+Advisers must implement Customer Identification Programs (CIP) requiring collection and verification of client identity information. For legal entity clients, this includes identifying beneficial owners with 25% or greater ownership and individuals with control of the entity.
+
+SUSPICIOUS ACTIVITY REPORTING
+
+Advisers must file Suspicious Activity Reports for transactions of $5,000 or more that the adviser knows or suspects involve funds from illegal activity, are designed to evade reporting requirements, or lack a lawful purpose. Reports must be filed within 30 calendar days of detection.
+
+IMPLEMENTATION PERIOD
+
+The final rule is expected to provide a 12-month compliance period from the effective date. Advisers should begin assessing their risk profiles, client bases, and technology needs in anticipation of the requirements.
+

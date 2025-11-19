@@ -1,0 +1,25 @@
+Title: FINRA Rule 4210 - Margin Requirements Update
+Date: 2025-01-10
+Category: regulation
+Source: Financial Industry Regulatory Authority
+
+COVERED AGENCY TRANSACTIONS
+
+FINRA Rule 4210 margin requirements for Covered Agency Transactions apply to TBA transactions, specified pool transactions, and transactions in CMOs, issued in conformity with a program of an agency or government-sponsored enterprise.
+
+MARGIN CALCULATION
+
+For Covered Agency Transactions with a counterparty that is not excepted, members must collect maintenance margin equal to the amount by which the contract value of the transaction exceeds the market value. The two-percent maintenance margin requirement applies to specified pool transactions and CMO transactions.
+
+RISK LIMIT DETERMINATION
+
+Members must establish risk limits for each counterparty and document the basis for these limits. Risk limits must be reviewed and updated at least annually and more frequently if warranted by market conditions or changes in counterparty creditworthiness.
+
+MARK-TO-MARKET
+
+Members must mark Covered Agency Transactions to market daily and collect any required margin by the close of business on the next business day (T+1). Failure to collect required margin results in a capital charge unless a written agreement provides for collection within the specified timeframe.
+
+RECORDKEEPING REQUIREMENTS
+
+Members must maintain records of margin calculations, risk limit determinations, and counterparty information for at least six years. These records must be readily accessible for examination by FINRA staff.
+

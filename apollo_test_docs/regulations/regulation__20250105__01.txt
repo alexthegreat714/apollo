@@ -1,0 +1,25 @@
+Title: SEC Regulation Best Interest (Reg BI) - 2025 Examination Priorities
+Date: 2025-01-05
+Category: regulation
+Source: Securities and Exchange Commission
+
+COMPLIANCE FOCUS AREAS
+
+The SEC Division of Examinations has identified broker-dealer compliance with Regulation Best Interest as a 2025 examination priority. Examiners will focus on the Care Obligation, including whether firms have established policies and procedures to understand the potential risks, rewards, and costs of recommendations.
+
+DISCLOSURE REQUIREMENTS
+
+Form CRS delivery requirements continue to be a compliance focus. Firms must deliver the relationship summary before or at the time of the recommendation of an account type, securities transaction, or investment strategy. Electronic delivery must comply with SEC guidance on access equals delivery.
+
+CONFLICT OF INTEREST MITIGATION
+
+Firms must identify and at minimum disclose material conflicts of interest associated with recommendations. The SEC has indicated that disclosure alone may be insufficient for certain conflicts; firms must mitigate or eliminate conflicts that create incentives for personnel to place their interests ahead of customer interests.
+
+ACCOUNT RECOMMENDATIONS
+
+Examination staff will review whether recommendations to open specific account types (brokerage vs. advisory) are in the customer's best interest. This includes analysis of anticipated trading frequency, use of recommendations, and comparative costs.
+
+ENFORCEMENT TRENDS
+
+Recent enforcement actions have focused on undisclosed revenue sharing arrangements, failures to disclose mutual fund share class differences, and inadequate documentation of best interest determinations. Firms should ensure compliance systems capture the basis for recommendations.
+

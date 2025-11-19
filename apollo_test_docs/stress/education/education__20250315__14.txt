@@ -1,0 +1,54 @@
+Title: The Sharpe Ratio Explained
+Date: 2025-03-15
+Category: education
+Source: Apollo Synthetic Finance Set
+Priority: 4
+
+The Sharpe ratio measures risk-adjusted return by calculating excess return per unit of volatility. Developed by William Sharpe in 1966, it remains one of the most widely used performance metrics in portfolio management.
+
+The formula is:
+
+Sharpe Ratio = (Rp - Rf) / σp
+
+Where:
+- Rp = Portfolio return
+- Rf = Risk-free rate
+- σp = Standard deviation of portfolio returns
+
+The numerator (Rp - Rf) represents the excess return above what could be earned risk-free. The denominator measures the volatility required to achieve that excess return.
+
+Numerical Example:
+
+Two portfolios are being compared over the past year:
+
+Portfolio A:
+- Return: 12%
+- Standard deviation: 18%
+
+Portfolio B:
+- Return: 10%
+- Standard deviation: 10%
+
+Risk-free rate: 3%
+
+Sharpe Ratio A = (0.12 - 0.03) / 0.18 = 0.09 / 0.18 = 0.50
+Sharpe Ratio B = (0.10 - 0.03) / 0.10 = 0.07 / 0.10 = 0.70
+
+Despite Portfolio A having higher absolute returns, Portfolio B has a superior Sharpe ratio, indicating better risk-adjusted performance. Portfolio B generated more return per unit of risk taken.
+
+Interpretation guidelines:
+
+- Sharpe < 1.0: Subpar risk-adjusted returns
+- Sharpe 1.0 - 2.0: Good risk-adjusted returns
+- Sharpe 2.0 - 3.0: Very good risk-adjusted returns
+- Sharpe > 3.0: Excellent (and rare) risk-adjusted returns
+
+Limitations of the Sharpe ratio:
+
+1. Assumes returns are normally distributed
+2. Uses standard deviation, which penalizes upside volatility equally
+3. Sensitive to the time period selected
+4. May not capture tail risks adequately
+5. Risk-free rate selection affects comparisons
+
+The Sharpe ratio is most useful for comparing similar investments or tracking a single portfolio's performance over time. It should be used alongside other metrics for comprehensive analysis.

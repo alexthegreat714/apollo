@@ -1,0 +1,38 @@
+Title: Global Asset Allocation Report - March 2025
+Date: 2025-03-10
+Category: report
+Source: BlackRock Investment Institute
+
+STRATEGIC POSITIONING
+
+Our tactical asset allocation reflects a constructive view on risk assets with selective positioning across regions and sectors. We maintain overweight equities with preference for quality and AI beneficiaries. Fixed income allocation favors duration as rate cuts approach, with selective exposure to credit.
+
+EQUITY ALLOCATION
+
+Regional equity preferences reflect relative growth dynamics and valuation considerations. US remains overweight despite elevated valuations given earnings momentum. Japan offers structural tailwinds from corporate governance reforms. Europe is neutral on mixed economic signals.
+
+Regional Equity Positioning:
+-----------------------------------
+Region           | Weight | Change
+US               | +2     | --
+Europe           | 0      | --
+Japan            | +1     | ↑
+Emerging Markets | +1     | --
+-----------------------------------
+
+FIXED INCOME VIEWS
+
+Duration: Modestly long given our expectation for Fed rate cuts beginning in mid-2025
+Credit: Overweight investment grade for carry, underweight high yield on tight spreads
+Government Bonds: Neutral US Treasuries, overweight European sovereigns
+
+ALTERNATIVE INVESTMENTS
+
+Real assets face headwinds from higher rates but offer inflation protection. Infrastructure benefits from energy transition and AI data center buildout. Private credit offers attractive risk-adjusted returns as traditional lenders retreat.
+
+RISK SCENARIOS
+
+Base case (60% probability): Soft landing with moderate growth and gradual disinflation
+Bull case (25%): Productivity surge from AI accelerates growth without reigniting inflation
+Bear case (15%): Inflation reaccelerates forcing extended restrictive policy, recession follows
+

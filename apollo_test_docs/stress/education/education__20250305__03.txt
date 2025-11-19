@@ -1,0 +1,47 @@
+Title: Introduction to Options Strategies
+Date: 2025-03-05
+Category: education
+Source: Options Industry Council
+
+OPTIONS FUNDAMENTALS
+
+An option is a contract giving the buyer the right, but not obligation, to buy (call) or sell (put) an asset at a specified price (strike) by a certain date (expiration). Options provide leverage, hedging capability, and income generation but require understanding of multiple risk factors.
+
+BASIC STRATEGIES
+
+Long Call: Bullish bet with limited loss (premium paid) and unlimited upside
+Long Put: Bearish bet with limited loss (premium paid) and substantial downside protection
+Covered Call: Own stock and sell call to generate income, capping upside
+Protective Put: Own stock and buy put for downside protection (insurance)
+
+Options Strategy Profiles:
+-----------------------------------
+Strategy       | Max Profit | Max Loss | Break Even
+Long Call      | Unlimited  | Premium  | Strike + Premium
+Long Put       | Strike-Prem| Premium  | Strike - Premium
+Covered Call   | Strike+Prem| Stock-Prem| Stock - Premium
+Protective Put | Unlimited  | Stock-Str+Prem | Stock + Premium
+-----------------------------------
+
+OPTION PRICING
+
+Option prices reflect intrinsic value (in-the-money amount) and time value (premium above intrinsic). Time value decays as expiration approaches (theta). Prices increase with volatility (vega) and time to expiration. Interest rates and dividends also affect prices but are usually secondary factors.
+
+THE GREEKS
+
+Delta measures price sensitivity to the underlying asset
+Gamma measures how delta changes as the underlying moves
+Theta measures time decay per day
+Vega measures sensitivity to implied volatility changes
+
+SPREAD STRATEGIES
+
+Spreads involve buying and selling options simultaneously to reduce cost and limit risk.
+Bull Call Spread: Buy lower strike call, sell higher strike call (bullish, limited risk)
+Bear Put Spread: Buy higher strike put, sell lower strike put (bearish, limited risk)
+Iron Condor: Sell put spread and call spread for income in range-bound markets
+
+RISK CONSIDERATIONS
+
+Options can expire worthless, resulting in 100% loss of premium. Selling options creates unlimited risk without proper hedging. Leverage magnifies both gains and losses. Liquidity varies significantly across strikes and expirations.
+

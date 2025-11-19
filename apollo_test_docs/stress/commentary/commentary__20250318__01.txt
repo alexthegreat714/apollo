@@ -1,0 +1,23 @@
+Title: The AI Infrastructure Supercycle - Implications for Investors
+Date: 2025-03-18
+Category: commentary
+Source: Bridgewater Associates Daily Observations
+
+We are in the early stages of an AI infrastructure supercycle comparable to the buildout of railroads, electricity, and the internet. Capital investment in AI compute capacity reached $200 billion in 2024 and will exceed $500 billion annually by 2027. This creates both enormous opportunities and potential excesses.
+
+INVESTMENT MAGNITUDE
+
+Current AI infrastructure spending dwarfs previous technology cycles in absolute terms and is growing faster. Hyperscalers alone will invest $300 billion in 2025, up from $180 billion in 2024. This excludes enterprise spending, sovereign investments, and startup funding. The revenue to justify this investment must materialize or corrections will follow.
+
+SUPPLY CHAIN BOTTLENECKS
+
+Critical bottlenecks exist throughout the AI supply chain. Advanced semiconductor capacity is sold out through 2026. High-bandwidth memory faces structural shortages. Data center power availability constrains new builds. Transformer capacity is booked 2+ years out. These bottlenecks create pricing power for incumbents and barriers for new entrants.
+
+HISTORICAL PARALLELS
+
+Previous infrastructure buildouts created tremendous wealth but also spectacular failures. Railroad booms of the 1840s and 1870s ended in bankruptcies. Telecom bubble of 1999-2000 destroyed $3 trillion in value. The internet ultimately transformed the economy but on a longer timeline than investors anticipated.
+
+INVESTMENT IMPLICATIONS
+
+Position for the infrastructure buildout phase while remaining disciplined on valuation. Favor picks-and-shovels plays with pricing power over speculative application bets. Maintain optionality for a scenario where monetization disappoints. The winners of this cycle may not be obvious today, but the losers will be those who overpay for uncertain futures.
+

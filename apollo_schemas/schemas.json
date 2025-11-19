@@ -1,0 +1,452 @@
+{
+  "report": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Financial Report",
+    "type": "object",
+    "required": ["id", "kind", "timestamp", "source", "summary", "full_text"],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the document"
+      },
+      "kind": {
+        "type": "string",
+        "const": "report",
+        "description": "Document type"
+      },
+      "timestamp": {
+        "type": "string",
+        "format": "date-time",
+        "description": "Document creation/publication timestamp"
+      },
+      "period_start": {
+        "type": "string",
+        "format": "date",
+        "description": "Start of reporting period"
+      },
+      "period_end": {
+        "type": "string",
+        "format": "date",
+        "description": "End of reporting period"
+      },
+      "priority": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 10,
+        "default": 5,
+        "description": "Document priority (1=highest, 10=lowest)"
+      },
+      "source": {
+        "type": "string",
+        "description": "Source organization or publication"
+      },
+      "summary": {
+        "type": "string",
+        "maxLength": 500,
+        "description": "Brief summary of the report"
+      },
+      "full_text": {
+        "type": "string",
+        "description": "Full text content of the report"
+      },
+      "metadata": {
+        "type": "object",
+        "properties": {
+          "author": {"type": "string"},
+          "category": {"type": "string"},
+          "tags": {"type": "array", "items": {"type": "string"}},
+          "file_path": {"type": "string"},
+          "file_type": {"type": "string"}
+        }
+      }
+    },
+    "normalization": {
+      "timestamp": "ISO8601",
+      "text_encoding": "UTF-8",
+      "whitespace": "collapse"
+    },
+    "validation": {
+      "summary_max_words": 100,
+      "full_text_min_chars": 50
+    }
+  },
+  "statement": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Financial Statement",
+    "type": "object",
+    "required": ["id", "kind", "timestamp", "period_start", "period_end", "source", "summary", "full_text"],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the document"
+      },
+      "kind": {
+        "type": "string",
+        "const": "statement",
+        "description": "Document type"
+      },
+      "timestamp": {
+        "type": "string",
+        "format": "date-time",
+        "description": "Document creation timestamp"
+      },
+      "period_start": {
+        "type": "string",
+        "format": "date",
+        "description": "Statement period start"
+      },
+      "period_end": {
+        "type": "string",
+        "format": "date",
+        "description": "Statement period end"
+      },
+      "priority": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 10,
+        "default": 3,
+        "description": "Document priority"
+      },
+      "source": {
+        "type": "string",
+        "description": "Company or entity name"
+      },
+      "summary": {
+        "type": "string",
+        "maxLength": 500,
+        "description": "Brief summary of key metrics"
+      },
+      "full_text": {
+        "type": "string",
+        "description": "Full statement content"
+      },
+      "metadata": {
+        "type": "object",
+        "properties": {
+          "statement_type": {
+            "type": "string",
+            "enum": ["income", "balance_sheet", "cash_flow", "equity"]
+          },
+          "currency": {"type": "string"},
+          "fiscal_year": {"type": "integer"},
+          "quarter": {"type": "integer", "minimum": 1, "maximum": 4},
+          "audited": {"type": "boolean"},
+          "tags": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "normalization": {
+      "timestamp": "ISO8601",
+      "currency": "USD_default",
+      "numbers": "standardize_decimals"
+    },
+    "validation": {
+      "period_required": true,
+      "valid_statement_types": ["income", "balance_sheet", "cash_flow", "equity"]
+    }
+  },
+  "projection": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Financial Projection",
+    "type": "object",
+    "required": ["id", "kind", "timestamp", "period_start", "period_end", "source", "summary", "full_text"],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier"
+      },
+      "kind": {
+        "type": "string",
+        "const": "projection",
+        "description": "Document type"
+      },
+      "timestamp": {
+        "type": "string",
+        "format": "date-time",
+        "description": "Projection creation date"
+      },
+      "period_start": {
+        "type": "string",
+        "format": "date",
+        "description": "Projection period start"
+      },
+      "period_end": {
+        "type": "string",
+        "format": "date",
+        "description": "Projection period end"
+      },
+      "priority": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 10,
+        "default": 4,
+        "description": "Document priority"
+      },
+      "source": {
+        "type": "string",
+        "description": "Analyst or institution"
+      },
+      "summary": {
+        "type": "string",
+        "maxLength": 500,
+        "description": "Key projections summary"
+      },
+      "full_text": {
+        "type": "string",
+        "description": "Full projection analysis"
+      },
+      "metadata": {
+        "type": "object",
+        "properties": {
+          "projection_type": {
+            "type": "string",
+            "enum": ["earnings", "revenue", "gdp", "inflation", "interest_rate", "custom"]
+          },
+          "confidence_level": {
+            "type": "string",
+            "enum": ["high", "medium", "low"]
+          },
+          "scenario": {
+            "type": "string",
+            "enum": ["base", "bull", "bear"]
+          },
+          "tags": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "normalization": {
+      "timestamp": "ISO8601",
+      "percentages": "decimal_format"
+    },
+    "validation": {
+      "future_period_required": true,
+      "confidence_required": false
+    }
+  },
+  "regulation": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Financial Regulation",
+    "type": "object",
+    "required": ["id", "kind", "timestamp", "source", "summary", "full_text"],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier"
+      },
+      "kind": {
+        "type": "string",
+        "const": "regulation",
+        "description": "Document type"
+      },
+      "timestamp": {
+        "type": "string",
+        "format": "date-time",
+        "description": "Publication or effective date"
+      },
+      "period_start": {
+        "type": "string",
+        "format": "date",
+        "description": "Effective start date"
+      },
+      "period_end": {
+        "type": "string",
+        "format": "date",
+        "description": "Expiration date (if applicable)"
+      },
+      "priority": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 10,
+        "default": 2,
+        "description": "Document priority"
+      },
+      "source": {
+        "type": "string",
+        "description": "Regulatory body (SEC, IRS, Fed, etc.)"
+      },
+      "summary": {
+        "type": "string",
+        "maxLength": 500,
+        "description": "Key regulatory points"
+      },
+      "full_text": {
+        "type": "string",
+        "description": "Full regulation text"
+      },
+      "metadata": {
+        "type": "object",
+        "properties": {
+          "regulation_type": {
+            "type": "string",
+            "enum": ["tax", "securities", "banking", "insurance", "other"]
+          },
+          "jurisdiction": {"type": "string"},
+          "citation": {"type": "string"},
+          "status": {
+            "type": "string",
+            "enum": ["proposed", "final", "amended", "repealed"]
+          },
+          "tags": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "normalization": {
+      "timestamp": "ISO8601",
+      "citations": "standard_format"
+    },
+    "validation": {
+      "source_required": true,
+      "valid_regulatory_bodies": ["SEC", "IRS", "Fed", "CFTC", "FINRA", "OCC", "FDIC"]
+    }
+  },
+  "news": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Financial News",
+    "type": "object",
+    "required": ["id", "kind", "timestamp", "source", "summary", "full_text"],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier"
+      },
+      "kind": {
+        "type": "string",
+        "const": "news",
+        "description": "Document type"
+      },
+      "timestamp": {
+        "type": "string",
+        "format": "date-time",
+        "description": "Publication timestamp"
+      },
+      "period_start": {
+        "type": "string",
+        "format": "date",
+        "description": "Event date (if applicable)"
+      },
+      "period_end": {
+        "type": "string",
+        "format": "date",
+        "description": "Event end date (if applicable)"
+      },
+      "priority": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 10,
+        "default": 5,
+        "description": "Document priority"
+      },
+      "source": {
+        "type": "string",
+        "description": "News outlet or wire service"
+      },
+      "summary": {
+        "type": "string",
+        "maxLength": 500,
+        "description": "Headline or brief summary"
+      },
+      "full_text": {
+        "type": "string",
+        "description": "Full article text"
+      },
+      "metadata": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": ["markets", "economy", "corporate", "policy", "crypto", "commodities"]
+          },
+          "sentiment": {
+            "type": "string",
+            "enum": ["positive", "negative", "neutral"]
+          },
+          "tickers": {"type": "array", "items": {"type": "string"}},
+          "author": {"type": "string"},
+          "url": {"type": "string", "format": "uri"},
+          "tags": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "normalization": {
+      "timestamp": "ISO8601",
+      "tickers": "uppercase"
+    },
+    "validation": {
+      "recent_news_priority": true,
+      "max_age_days": 30
+    }
+  },
+  "education": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Financial Education",
+    "type": "object",
+    "required": ["id", "kind", "timestamp", "source", "summary", "full_text"],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier"
+      },
+      "kind": {
+        "type": "string",
+        "const": "education",
+        "description": "Document type"
+      },
+      "timestamp": {
+        "type": "string",
+        "format": "date-time",
+        "description": "Creation or last update timestamp"
+      },
+      "period_start": {
+        "type": "string",
+        "format": "date",
+        "description": "Not typically applicable"
+      },
+      "period_end": {
+        "type": "string",
+        "format": "date",
+        "description": "Not typically applicable"
+      },
+      "priority": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 10,
+        "default": 6,
+        "description": "Document priority"
+      },
+      "source": {
+        "type": "string",
+        "description": "Educational institution or author"
+      },
+      "summary": {
+        "type": "string",
+        "maxLength": 500,
+        "description": "Topic summary"
+      },
+      "full_text": {
+        "type": "string",
+        "description": "Full educational content"
+      },
+      "metadata": {
+        "type": "object",
+        "properties": {
+          "topic": {"type": "string"},
+          "difficulty": {
+            "type": "string",
+            "enum": ["beginner", "intermediate", "advanced"]
+          },
+          "concepts": {"type": "array", "items": {"type": "string"}},
+          "prerequisites": {"type": "array", "items": {"type": "string"}},
+          "tags": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "normalization": {
+      "timestamp": "ISO8601",
+      "concepts": "lowercase"
+    },
+    "validation": {
+      "evergreen_content": true,
+      "min_content_length": 200
+    }
+  }
+}

@@ -1,0 +1,39 @@
+Title: FINRA Regulation Best Interest Examination Priorities
+Date: 2025-03-01
+Category: regulation
+Source: Financial Industry Regulatory Authority
+
+EXAMINATION FOCUS AREAS
+
+FINRA's 2025 examination program prioritizes Regulation Best Interest compliance with emphasis on the Care Obligation, conflict identification and mitigation, and documentation of recommendation bases. Firms should prepare for in-depth reviews of policies, procedures, and transaction samples.
+
+CARE OBLIGATION
+
+Examiners will evaluate whether firms have reasonable processes to understand products before recommending them. This includes analysis of costs, risks, rewards, and reasonable alternatives. Complex products and proprietary offerings receive heightened scrutiny.
+
+Reg BI Examination Topics:
+-----------------------------------
+Priority | Focus Area
+1        | Care Obligation processes
+2        | Conflict mitigation effectiveness
+3        | Account type recommendations
+4        | Compensation structure analysis
+5        | Form CRS delivery compliance
+-----------------------------------
+
+CONFLICT OF INTEREST
+
+Firms must identify all material conflicts and determine appropriate mitigation. Disclosure alone is insufficient for conflicts that create incentives to place firm interests ahead of customers. Compensation structures that incentivize higher-cost products require elimination or robust mitigation.
+
+ACCOUNT TYPE RECOMMENDATIONS
+
+Recommendations to open brokerage versus advisory accounts must be in the customer's best interest considering the customer's investment profile, anticipated services, and total cost. Firms should document the basis for account type recommendations.
+
+DOCUMENTATION REQUIREMENTS
+
+While Reg BI does not mandate specific documentation, examiners expect firms to demonstrate compliance through contemporaneous records. Firms should retain records of product due diligence, conflict analysis, and recommendation rationale.
+
+ENHANCED ENFORCEMENT
+
+FINRA has increased enforcement resources dedicated to Reg BI violations. Recent cases have focused on undisclosed conflicts, inadequate product due diligence, and failures to consider costs in recommendations.
+

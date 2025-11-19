@@ -1,0 +1,24 @@
+Title: Annual Credit Risk Assessment Report 2024
+Date: 2025-01-20
+Category: report
+Source: First National Bank Risk Management Division
+
+OVERVIEW
+
+This report summarizes the credit risk profile of First National Bank's loan portfolio as of December 31, 2024. Total loan exposure stands at $42.8 billion across commercial, residential, and consumer segments.
+
+PORTFOLIO COMPOSITION
+
+Commercial real estate loans represent 35% of the portfolio at $15.0 billion, followed by residential mortgages at 28% ($12.0 billion), commercial and industrial loans at 22% ($9.4 billion), and consumer loans at 15% ($6.4 billion).
+
+CREDIT QUALITY METRICS
+
+Non-performing loans decreased to 1.2% of total loans from 1.5% in the prior year. The allowance for credit losses stands at $520 million, representing 1.22% of total loans. Net charge-offs for the year totaled $185 million, down from $210 million in 2023.
+
+CONCENTRATION RISK
+
+Geographic concentration remains within policy limits, with no single state exceeding 18% of the portfolio. Industry concentration in commercial loans shows elevated exposure to healthcare at 14% and technology at 12%, both within approved thresholds.
+
+RECOMMENDATIONS
+
+Management recommends maintaining current reserve levels given economic uncertainty. Enhanced monitoring is advised for commercial real estate office properties in metropolitan markets where vacancy rates exceed 15%.

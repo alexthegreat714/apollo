@@ -1,0 +1,71 @@
+Title: Beta and Systematic Risk
+Date: 2025-03-24
+Category: education
+Source: Apollo Synthetic Finance Set
+Priority: 4
+
+Beta measures a security's sensitivity to market movements, quantifying systematic risk that cannot be eliminated through diversification. It is a key component in the Capital Asset Pricing Model (CAPM) for estimating required returns.
+
+Beta formula:
+
+β = Covariance(Ri, Rm) / Variance(Rm)
+
+Or equivalently:
+β = ρ(i,m) × (σi / σm)
+
+Where:
+- Ri = Return of the security
+- Rm = Return of the market
+- ρ = Correlation between security and market
+- σ = Standard deviation
+
+Numerical Example:
+
+Stock XYZ historical analysis:
+- Standard deviation of XYZ: 30%
+- Standard deviation of market: 18%
+- Correlation between XYZ and market: 0.72
+
+β = 0.72 × (0.30 / 0.18)
+β = 0.72 × 1.667
+β = 1.20
+
+Interpreting beta values:
+
+β = 1.0: Security moves with the market
+β > 1.0: Security is more volatile than market (aggressive)
+β < 1.0: Security is less volatile than market (defensive)
+β = 0: No correlation with market
+β < 0: Inverse correlation (rare)
+
+For XYZ with β = 1.20:
+If market rises 10%, XYZ expected to rise 12%
+If market falls 10%, XYZ expected to fall 12%
+
+CAPM application:
+
+Required Return = Rf + β(Rm - Rf)
+
+Where (Rm - Rf) is the market risk premium.
+
+If Rf = 3%, expected market return = 9%:
+Required Return = 3% + 1.20(9% - 3%)
+= 3% + 7.2%
+= 10.2%
+
+Portfolio beta:
+
+βp = Σ(wi × βi)
+
+A portfolio with 50% in Stock A (β=1.5) and 50% in Stock B (β=0.8):
+βp = 0.50(1.5) + 0.50(0.8) = 1.15
+
+Limitations:
+
+1. Beta is backward-looking and may not predict future behavior
+2. Assumes linear relationship with market
+3. Market proxy selection affects calculation
+4. Beta changes over time
+5. Does not capture unsystematic risk
+
+High-beta stocks are typically cyclical companies, while low-beta stocks include utilities and consumer staples.

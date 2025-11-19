@@ -1,0 +1,50 @@
+Title: Mortgage Loan Statement - February 2025
+Date: 2025-02-28
+Category: statement
+Source: National Home Lending Corporation
+
+LOAN INFORMATION
+
+Loan Number: 456789123
+Property Address: 1234 Oak Street, Springfield, IL 62701
+Original Loan Amount: $320,000.00
+Current Interest Rate: 6.25% Fixed
+Loan Term: 30 years
+Origination Date: March 15, 2022
+
+PAYMENT INFORMATION
+
+Monthly Payment Due: $1,970.45
+Principal: $456.82
+Interest: $1,388.63
+Escrow: $125.00
+Payment Due Date: March 1, 2025
+
+ACCOUNT BALANCES
+
+Current Principal Balance: $306,458.92
+Original Principal Balance: $320,000.00
+Principal Paid to Date: $13,541.08
+Interest Paid Year-to-Date: $2,777.26
+Interest Paid Life of Loan: $48,245.67
+
+ESCROW ACCOUNT
+
+Current Escrow Balance: $1,850.00
+Property Taxes (Annual): $4,200.00
+Homeowners Insurance (Annual): $1,800.00
+Next Tax Payment Due: April 2025
+Next Insurance Payment Due: March 2025
+
+PAYMENT HISTORY (LAST 3 MONTHS)
+
+December 2024: $1,970.45 - Paid 12/01/2024
+January 2025: $1,970.45 - Paid 01/02/2025
+February 2025: $1,970.45 - Paid 02/01/2025
+
+AMORTIZATION SUMMARY
+
+Payments Made: 35 of 360
+Remaining Payments: 325
+Estimated Payoff Date: February 2052
+Total Interest Over Life of Loan: $389,562.00
