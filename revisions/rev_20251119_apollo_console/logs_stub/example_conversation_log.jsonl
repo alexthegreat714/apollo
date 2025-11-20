@@ -1,0 +1,2 @@
+{"conversation_id":"conv_20251119_093000_abcd1234","timestamp_utc":"2025-11-19T09:30:00Z","role":"user","message":"Explain diversification for a 60/40 portfolio.","retrieved_kinds":["education","investing"],"retrieved_ids":["doc_education_01","doc_projection_09"]}
+{"conversation_id":"conv_20251119_093000_abcd1234","timestamp_utc":"2025-11-19T09:30:02Z","role":"assistant","message":"Diversification spreads risk across assets so no single position sinks the whole portfolio.","notes":"RAG-augmented","metadata":{"model":"Fino1-8B_Q6_K","latency_ms":820,"context_count":3}}

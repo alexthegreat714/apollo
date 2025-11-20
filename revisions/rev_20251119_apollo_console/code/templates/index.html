@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{{ agent }} — Interface</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="bar">
+    <div class="title">{{ agent }}</div>
+    <div id="status" class="status badge">checking…</div>
+    <div id="model" class="badge dim">model: ?</div>
+  </header>
+
+  <main class="grid">
+    <section class="panel">
+      <h2>Chat</h2>
+      <div id="chatWindow" class="scroll"></div>
+    </section>
+    <section class="panel">
+      <h2>Reasoning</h2>
+      <div id="reasoningWindow" class="scroll">(none)</div>
+    </section>
+  </main>
+
+  <hr>
+  <h3>Agent Dialogue</h3>
+  <button onclick="runDialogue()">Start Aegis–Sky Exchange</button>
+  <pre id="dialogueLog" style="max-height:300px;overflow:auto;background:#111;color:#eee;padding:10px;"></pre>
+
+  <footer class="bar">
+    <textarea id="userInput" placeholder="Message…" rows="2"></textarea>
+    <button id="sendBtn">Send</button>
+  </footer>
+
+  <script>
+    const chatEl = document.getElementById("chatWindow");
+    const reasEl = document.getElementById("reasoningWindow");
+    const inputEl = document.getElementById("userInput");
+    const sendBtn = document.getElementById("sendBtn");
+    const statusEl = document.getElementById("status");
+    const modelEl  = document.getElementById("model");
+
+    async function ping() {
+      try {
+        const h = await fetch("/health");
+        const m = await fetch("/meta");
+        if (h.ok) {
+          statusEl.textContent = "online";
+          statusEl.classList.remove("bad");
+          statusEl.classList.add("good");
+        } else {
+          statusEl.textContent = "error";
+          statusEl.classList.add("bad");
+        }
+        if (m.ok) {
+          const meta = await m.json();
+          const prov = meta.provider || "auto";
+          let model = meta.ollama?.model || meta.owui?.model || "?";
+          if (meta.ollama?.up && meta.ollama?.version) {
+            modelEl.textContent = `${prov} · ${model} · ollama ${meta.ollama.version}`;
+          } else {
+            modelEl.textContent = `${prov} · ${model}`;
+          }
+        }
+      } catch {
+        statusEl.textContent = "offline";
+        statusEl.classList.add("bad");
+      }
+    }
+
+    async function sendMessage() {
+      const msg = (inputEl.value || "").trim();
+      if (!msg) return;
+      appendChat("You", msg);
+      inputEl.value = "";
+      sendBtn.disabled = true;
+
+      try {
+        const resp = await fetch("/chat", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({message: msg})
+        });
+        const data = await resp.json();
+        appendChat("Aegis", data.reply || "(no reply)");
+        reasEl.textContent = (data.reasoning || "(none)");
+      } catch (e) {
+        appendChat("Aegis", `(error: ${e})`);
+      } finally {
+        sendBtn.disabled = false;
+        chatEl.scrollTop = chatEl.scrollHeight;
+      }
+    }
+
+    function appendChat(who, text) {
+      const p = document.createElement("p");
+      p.innerHTML = `<b>${who}:</b> ${escapeHtml(text)}`;
+      chatEl.appendChild(p);
+    }
+
+    function escapeHtml(s) {
+      return s.replace(/[&<>]/g, (c)=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+    }
+
+    async function runDialogue() {
+      const logEl = document.getElementById("dialogueLog");
+      if (!logEl) return;
+      logEl.textContent = "Running inter-agent dialogue...";
+      try {
+        const startResp = await fetch("/dialogue/start", {method: "POST"});
+        if (!startResp.ok) throw new Error(`start failed: ${startResp.status}`);
+        const logResp = await fetch("/dialogue/log");
+        if (!logResp.ok) throw new Error(`log failed: ${logResp.status}`);
+        const data = await logResp.json();
+        logEl.textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        logEl.textContent = `Error: ${err}`;
+      }
+    }
+
+    sendBtn.addEventListener("click", sendMessage);
+    inputEl.addEventListener("keydown", (e)=>{ if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage(); }});
+
+    ping();
+    setInterval(ping, 10000);
+  </script>
+</body>
+</html>
