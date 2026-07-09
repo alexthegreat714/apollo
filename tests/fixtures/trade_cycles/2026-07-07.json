@@ -1,0 +1,11 @@
+{
+  "date": "2026-07-07",
+  "run_id": "trade_cycle_20260707_040001",
+  "completed": true,
+  "trade_ready": false,
+  "top_ticker": "MS",
+  "standard_candidate_count": 0,
+  "aggressive_probe_candidate_count": 3,
+  "simulation_status": "stopped_out",
+  "news_source_quality": "c_tier_only_yahoo_rss"
+}

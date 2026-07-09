@@ -1,0 +1,11 @@
+{
+  "date": "2026-07-09",
+  "run_id": "trade_cycle_20260709_040003",
+  "completed": true,
+  "trade_ready": true,
+  "top_ticker": "TSM",
+  "standard_candidate_count": 1,
+  "aggressive_probe_candidate_count": 1,
+  "simulation_status": "stopped_out",
+  "news_source_quality": "c_tier_only_yahoo_rss"
+}

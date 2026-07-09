@@ -29,6 +29,27 @@ from common.agent_ports import resolve_runtime_port
 from common.gpu_probe import verify_gpu_backed_target
 from common.system_pressure import evaluate_memory_pressure
 
+try:
+    from .news_evidence import (
+        DOMAIN_DENYLIST,
+        DOMAIN_TIER_A,
+        DOMAIN_TIER_B,
+        DOMAIN_TIER_C,
+        domain_tier as shared_domain_tier,
+        normalize_domain as shared_normalize_domain,
+        source_evidence_lane as shared_source_evidence_lane,
+    )
+except ImportError:
+    from news_evidence import (
+        DOMAIN_DENYLIST,
+        DOMAIN_TIER_A,
+        DOMAIN_TIER_B,
+        DOMAIN_TIER_C,
+        domain_tier as shared_domain_tier,
+        normalize_domain as shared_normalize_domain,
+        source_evidence_lane as shared_source_evidence_lane,
+    )
+
 
 _APOLLO_ROOT = Path(__file__).resolve().parent
 _ENGINEERING_ROOT = _APOLLO_ROOT.parent
@@ -149,70 +170,17 @@ DEFAULT_FOCUS_UNIVERSE_DECISION_MIN_VOLUME = int(os.getenv("APOLLO_FOCUS_UNIVERS
 STRICT_STAGE_SCORE_MIN = int(os.getenv("APOLLO_PIPELINE_STAGE_MIN_SCORE", "70"))
 _BACKGROUND_RUNS: Dict[str, Dict[str, Any]] = {}
 
-_GATHER_DOMAIN_TIER_A = (
-    "sec.gov",
-    "finra.org",
-    "cftc.gov",
-    "federalreserve.gov",
-    "treasury.gov",
-    "federalregister.gov",
-    "investor.gov",
-    "irs.gov",
-    "nyse.com",
-    "nasdaq.com",
-    ".gov",
-    ".edu",
-)
-
-_GATHER_DOMAIN_TIER_B = (
-    "nber.org",
-    "ssrn.com",
-    "arxiv.org",
-    "researchgate.net",
-    "sciencedirect.com",
-    "springer.com",
-    "wiley.com",
-    "jstor.org",
-)
-
-_GATHER_DOMAIN_TIER_C = (
-    "nyse.com",
-    "nasdaq.com",
-    "reuters.com",
-    "bloomberg.com",
-    "wsj.com",
-    "ft.com",
-    "cnbc.com",
-    "marketwatch.com",
-    "yahoo.com",
-    "google.com",
-    "cnn.com",
-    "investopedia.com",
-)
-
-_GATHER_DOMAIN_DENYLIST = (
-    "merriam-webster.com",
-    "dictionary.cambridge.org",
-    "oxfordlearnersdictionaries.com",
-    "collinsdictionary.com",
-    "wikipedia.org",
-    "freepik.com",
-    "forum.intraday.my",
-    "quora.com",
-    "reddit.com/r/",
-)
+_GATHER_DOMAIN_TIER_A = DOMAIN_TIER_A
+_GATHER_DOMAIN_TIER_B = DOMAIN_TIER_B
+_GATHER_DOMAIN_TIER_C = DOMAIN_TIER_C
+_GATHER_DOMAIN_DENYLIST = DOMAIN_DENYLIST
 
 _WEEKLY_REVIEW_DOMAIN_POLICY_PATH = _APOLLO_ROOT / "logs" / "weekly_rag_graph_review" / "domain_policy.json"
 DEFAULT_GATHER_QUARANTINE_SCORE_PENALTY = float(os.getenv("APOLLO_GATHER_QUARANTINE_SCORE_PENALTY", "12"))
 
 
 def _normalized_domain_token(raw: Any) -> str:
-    token = str(raw or "").strip().lower()
-    token = token.replace("https://", "").replace("http://", "").strip()
-    token = token.split("/", 1)[0].strip()
-    if token.startswith("www."):
-        token = token[4:]
-    return token
+    return shared_normalize_domain(raw)
 
 
 def _load_weekly_review_domain_policy() -> Dict[str, Any]:
@@ -913,15 +881,7 @@ def _domain_matches(domain: str, patterns: tuple[str, ...]) -> bool:
 
 
 def _gather_domain_tier(domain: str) -> str:
-    if _domain_matches(domain, _GATHER_DOMAIN_DENYLIST):
-        return "D"
-    if _domain_matches(domain, _GATHER_DOMAIN_TIER_A):
-        return "A"
-    if _domain_matches(domain, _GATHER_DOMAIN_TIER_B):
-        return "B"
-    if _domain_matches(domain, _GATHER_DOMAIN_TIER_C):
-        return "C"
-    return "D"
+    return shared_domain_tier(domain)
 
 
 def _domain_trust_component(tier: str) -> float:
@@ -929,29 +889,7 @@ def _domain_trust_component(tier: str) -> float:
 
 
 def _source_evidence_lane(row: Dict[str, Any]) -> str:
-    tier = str(row.get("tier") or "").upper()
-    domain = str(row.get("domain") or _domain(str(row.get("url") or ""))).lower()
-    url = str(row.get("url") or "").lower()
-    title = str(row.get("title") or "").lower()
-    text = f"{url} {title}"
-    if tier in {"A", "B"} and (
-        "sec.gov" in domain
-        or "investor" in domain
-        or "ir." in domain
-        or "earnings" in text
-        or "press-release" in text
-        or "8-k" in text
-        or "10-q" in text
-        or "10-k" in text
-    ):
-        return "primary_evidence"
-    if tier in {"A", "B"}:
-        return "trusted_market_news"
-    if "feeds.finance.yahoo.com" in domain or "finance.yahoo.com" in domain or "news.google.com" in domain:
-        return "market_news_evidence"
-    if tier == "C":
-        return "market_news_evidence"
-    return "other"
+    return shared_source_evidence_lane({**row, "source_tier": row.get("tier")})
 
 
 def _ticker_mentions_for_source(row: Dict[str, Any], tickers: List[str]) -> List[str]:
@@ -1023,6 +961,7 @@ def _annotate_gather_quality_evidence(
                     "best_source_score": 0.0,
                     "source_confidence": "none",
                     "trade_confidence_cap": "blocked",
+                    "sources": [],
                 },
             )
             tier = str(row.get("tier") or "D").upper()
@@ -1033,6 +972,11 @@ def _annotate_gather_quality_evidence(
             lanes = dict(pack.get("evidence_lanes") or {})
             lanes[lane] = int(lanes.get(lane) or 0) + 1
             pack["evidence_lanes"] = lanes
+            pack["sources"].append({
+                key: row.get(key)
+                for key in ("url", "title", "snippet", "why", "domain", "tier", "score", "evidence_lane")
+                if row.get(key) not in (None, "")
+            })
             score = float(row.get("score") or 0.0)
             tier_rank = {"A": 4, "B": 3, "C": 2, "D": 1}
             current_tier = str(pack.get("best_source_tier") or "D").upper()

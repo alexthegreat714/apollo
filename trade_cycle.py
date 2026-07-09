@@ -29,10 +29,12 @@ from typing import Any, Dict, List, Optional
 try:
     from .config import DEFAULT_WATCHLIST, get_high_risk_review_tickers, get_watchlist
     from .model_policy import assert_model_storage_allowed, resolve_model_policy
+    from .news_evidence import aggregate_news_evidence, freshness_weight, normalize_domain
     from . import stress_mode
 except ImportError:
     from config import DEFAULT_WATCHLIST, get_high_risk_review_tickers, get_watchlist
     from model_policy import assert_model_storage_allowed, resolve_model_policy
+    from news_evidence import aggregate_news_evidence, freshness_weight, normalize_domain
     import stress_mode
 
 _APOLLO_ROOT = Path(__file__).resolve().parent
@@ -251,8 +253,8 @@ def _sentiment_standard_allowed(ticker_news: Dict[str, Any]) -> Dict[str, Any]:
     confidence = _safe_float(ticker_news.get("sentiment_confidence"), default=1.0 if not backend else 0.0)
     standard_eligible = bool(ticker_news.get("standard_sentiment_eligible"))
     cap = ""
-    if backend == "keyword_fallback" and not standard_eligible:
-        cap = "sentiment_keyword_fallback_caps_standard"
+    if not standard_eligible:
+        cap = str(ticker_news.get("standard_cap_reason") or "news_provenance_caps_standard")
     elif label in {"mixed", "neutral"} and confidence < 0.65:
         cap = "sentiment_low_confidence_caps_standard"
     return {
@@ -263,6 +265,9 @@ def _sentiment_standard_allowed(ticker_news: Dict[str, Any]) -> Dict[str, Any]:
         "standard_sentiment_eligible": standard_eligible,
         "sentiment_consensus_ratio": _safe_float(ticker_news.get("sentiment_consensus_ratio")),
         "directional_headline_count": int(ticker_news.get("directional_headline_count") or 0),
+        "independent_domain_count": int(ticker_news.get("independent_domain_count") or 0),
+        "unique_story_count": int(ticker_news.get("unique_story_count") or 0),
+        "eligibility_path": str(ticker_news.get("eligibility_path") or "none"),
         "cap_reason": cap,
     }
 
@@ -493,10 +498,17 @@ def _fetch_ticker_news(ticker: str, max_items: int = 10) -> List[Dict[str, Any]]
             pub = entry.get("published", "")
             text = entry.get("title", "") + " " + entry.get("summary", "")
             sentiment = _model_headline_sentiment(text)
+            source = entry.get("source") or {}
+            source_href = source.get("href", "") if isinstance(source, dict) else ""
             items.append({
                 "title": entry.get("title", ""),
+                "url": entry.get("link", ""),
                 "link": entry.get("link", ""),
                 "published": pub,
+                "publisher": source.get("title", "") if isinstance(source, dict) else str(source or ""),
+                "origin_domain": normalize_domain(source_href),
+                "source_tier": "C",
+                "evidence_lane": "market_news_evidence",
                 "sentiment": sentiment["signed_score"],
                 "sentiment_label": sentiment.get("label"),
                 "sentiment_confidence": sentiment.get("confidence"),
@@ -509,105 +521,62 @@ def _fetch_ticker_news(ticker: str, max_items: int = 10) -> List[Dict[str, Any]]
 
 
 def _news_freshness_weight(published_str: str) -> float:
-    """Returns 1.0 for today, decays to 0.3 at MAX_CATALYST_AGE_DAYS."""
-    try:
-        from email.utils import parsedate_to_datetime
-        pub = parsedate_to_datetime(published_str)
-        age = (datetime.now(timezone.utc) - pub).days
-        if age <= 1:
-            return 1.0
-        if age >= MAX_CATALYST_AGE_DAYS:
-            return 0.3
-        return round(1.0 - (age / MAX_CATALYST_AGE_DAYS) * 0.7, 3)
-    except Exception:
-        return 0.7
+    return freshness_weight(published_str)
 
 
 def _aggregate_ticker_news_sentiment(items: List[Dict[str, Any]]) -> Dict[str, Any]:
-    if not items:
-        return {
-            "raw_sentiment": 0.0,
-            "weighted_sentiment": 0.0,
-            "sentiment_backend": "unknown",
-            "sentiment_label": "neutral",
-            "sentiment_confidence": 0.0,
-            "headline_count": 0,
-            "directional_headline_count": 0,
-            "sentiment_consensus_ratio": 0.0,
-            "standard_sentiment_eligible": False,
-            "items": [],
-        }
-
-    raw_scores = [_safe_float(item.get("sentiment")) for item in items]
-    weighted_scores = [
-        _safe_float(item.get("sentiment")) * _news_freshness_weight(item.get("published"))
-        for item in items
-    ]
-    raw_sentiment = round(sum(raw_scores) / len(raw_scores), 3)
-    weighted_sentiment = round(sum(weighted_scores) / len(weighted_scores), 3)
-    model_items = [item for item in items if item.get("sentiment_backend") == "local_model"]
-
-    positive_count = sum(1 for score in raw_scores if score > 0.05)
-    negative_count = sum(1 for score in raw_scores if score < -0.05)
-    directional_count = positive_count + negative_count
-    dominant_count = max(positive_count, negative_count)
-    consensus_ratio = round((dominant_count / directional_count), 3) if directional_count else 0.0
-
-    if model_items:
-        top_sentiment = model_items[0]
-        label = str(top_sentiment.get("sentiment_label") or "neutral")
-        confidence = _safe_float(top_sentiment.get("sentiment_confidence"), default=0.0)
-        backend = "local_model"
-        standard_eligible = label.lower() not in {"mixed", "neutral"} and confidence >= 0.65
-    else:
-        if weighted_sentiment > 0.08:
-            label = "positive"
-        elif weighted_sentiment < -0.08:
-            label = "negative"
-        else:
-            label = "neutral"
-        confidence = round(
-            min(
-                0.95,
-                0.35
-                + min(abs(weighted_sentiment), 1.0) * 0.45
-                + min(dominant_count / len(items), 1.0) * 0.15
-                + consensus_ratio * 0.15,
-            ),
-            3,
-        )
-        backend = "keyword_fallback"
-        standard_eligible = (
-            len(items) >= KEYWORD_STANDARD_MIN_HEADLINES
-            and directional_count >= KEYWORD_STANDARD_MIN_DIRECTIONAL_HEADLINES
-            and abs(weighted_sentiment) >= KEYWORD_STANDARD_MIN_ABS_WEIGHTED_SENTIMENT
-            and consensus_ratio >= KEYWORD_STANDARD_MIN_CONSENSUS_RATIO
-            and confidence >= KEYWORD_STANDARD_MIN_CONFIDENCE
-            and label in {"positive", "negative"}
-        )
-
-    return {
-        "raw_sentiment": raw_sentiment,
-        "weighted_sentiment": weighted_sentiment,
-        "sentiment_backend": backend,
-        "sentiment_label": label,
-        "sentiment_confidence": confidence,
-        "headline_count": len(items),
-        "directional_headline_count": directional_count,
-        "sentiment_consensus_ratio": consensus_ratio,
-        "standard_sentiment_eligible": standard_eligible,
-        "items": items[:5],
-    }
+    ticker = str(items[0].get("ticker") or "") if items else ""
+    return aggregate_news_evidence(items, ticker=ticker)
 
 
-def _stage_news_analysis(run_dir: Path, market_result: Dict) -> Dict[str, Any]:
+def _news_items_from_evidence_pack(ticker: str, pack: Dict[str, Any]) -> List[Dict[str, Any]]:
+    items: List[Dict[str, Any]] = []
+    for source in list(pack.get("sources") or []):
+        if not isinstance(source, dict):
+            continue
+        title = str(source.get("title") or source.get("why") or "").strip()
+        if not title:
+            continue
+        text = f"{title} {source.get('snippet') or ''}"
+        sentiment = _model_headline_sentiment(text)
+        items.append({
+            "ticker": ticker,
+            "title": title,
+            "url": source.get("url") or "",
+            "published": source.get("published") or source.get("published_at") or _utc_now(),
+            "origin_domain": source.get("domain") or "",
+            "source_tier": source.get("tier") or pack.get("best_source_tier") or "D",
+            "evidence_lane": source.get("evidence_lane") or "",
+            "sentiment": sentiment["signed_score"],
+            "sentiment_label": sentiment.get("label"),
+            "sentiment_confidence": sentiment.get("confidence"),
+            "sentiment_backend": sentiment.get("backend"),
+            "sentiment_detail": sentiment,
+        })
+    return items
+
+
+def _stage_news_analysis(
+    run_dir: Path,
+    market_result: Dict,
+    hipporag_result: Optional[Dict[str, Any]] = None,
+    *,
+    news_fetcher: Optional[Any] = None,
+) -> Dict[str, Any]:
     _log("Stage 3: News Analysis — sampling headlines, weighted sentiment")
     proposals = list(market_result.get("proposals") or [])
     tickers = [p.get("ticker") for p in proposals if p.get("ticker")] or WATCHLIST
 
+    packs = {
+        str(pack.get("ticker") or "").upper(): pack
+        for pack in list((hipporag_result or {}).get("candidate_evidence_packs") or [])
+        if isinstance(pack, dict) and pack.get("ticker")
+    }
+    fetcher = news_fetcher or _fetch_ticker_news
     news_by_ticker: Dict[str, Any] = {}
     for ticker in tickers:
-        items = _fetch_ticker_news(ticker, max_items=8)
+        items = _news_items_from_evidence_pack(ticker, packs.get(str(ticker).upper(), {}))
+        items.extend(fetcher(ticker, max_items=8))
         if not items:
             news_by_ticker[ticker] = _aggregate_ticker_news_sentiment([])
             continue
@@ -643,8 +612,22 @@ def _stage_news_analysis(run_dir: Path, market_result: Dict) -> Dict[str, Any]:
     if tickers_with_news == 0:
         _log("  WARNING: 0 tickers returned headlines — sentiment blend has no evidence")
     news_evidence = "good" if tickers_with_news >= 3 else ("partial" if tickers_with_news > 0 else "none")
-    source_quality = "c_tier_only_yahoo_rss" if tickers_with_news > 0 else "none"
-    evidence_confidence = "low" if source_quality == "c_tier_only_yahoo_rss" else "none"
+    eligibility_paths = [str(row.get("eligibility_path") or "none") for row in news_by_ticker.values()]
+    independent_domains = max((int(row.get("independent_domain_count") or 0) for row in news_by_ticker.values()), default=0)
+    unique_stories = max((int(row.get("unique_story_count") or 0) for row in news_by_ticker.values()), default=0)
+    deduplicated_count = sum(int(row.get("deduplicated_count") or 0) for row in news_by_ticker.values())
+    if "trusted_ab" in eligibility_paths:
+        source_quality = "trusted_diverse"
+        evidence_confidence = "high"
+    elif "diverse_c" in eligibility_paths:
+        source_quality = "diverse_c"
+        evidence_confidence = "medium"
+    elif tickers_with_news > 0:
+        source_quality = "c_tier_only_yahoo_rss" if independent_domains == 0 else "insufficiently_diverse"
+        evidence_confidence = "low"
+    else:
+        source_quality = "none"
+        evidence_confidence = "none"
 
     stage_result = {
         "stage": "news_analysis",
@@ -652,6 +635,10 @@ def _stage_news_analysis(run_dir: Path, market_result: Dict) -> Dict[str, Any]:
         "news_evidence": news_evidence,
         "source_quality": source_quality,
         "evidence_confidence": evidence_confidence,
+        "independent_domain_count": independent_domains,
+        "unique_story_count": unique_stories,
+        "deduplicated_count": deduplicated_count,
+        "eligibility_paths": eligibility_paths,
         "tickers_with_news": tickers_with_news,
         "tickers_empty": len(tickers) - tickers_with_news,
         "news_by_ticker": news_by_ticker,
@@ -1401,12 +1388,95 @@ def _apply_adjudication_to_risk(risk_result: Dict[str, Any], adjudication: Dict[
     return updated
 
 
+class DeepAdjudicationAdapter:
+    """Production I/O boundary for model readiness, inference, and Sky queueing."""
+
+    def direct(
+        self,
+        *,
+        base_url: str,
+        model: str,
+        prompt: str,
+        system_prompt: str,
+        timeout_sec: int,
+    ) -> Dict[str, Any]:
+        from common.gb10_gate import wait_for_gb10_ready
+        from common.query_client import query_model_with_meta
+
+        gate = wait_for_gb10_ready(
+            base_url=base_url,
+            target_model=model,
+            max_wait_sec=int(os.getenv("APOLLO_GB10_GATE_MAX_WAIT_SEC", "300")),
+        )
+        if not gate.get("ready"):
+            return {"meta": None, "gate": gate}
+        meta = query_model_with_meta(
+            prompt,
+            system_prompt=system_prompt,
+            model=model,
+            provider="ollama",
+            task_type="finance_deep_trade_adjudication",
+            timeout_sec=timeout_sec,
+            retries=2,
+            force_ui_chat=False,
+            base_url=base_url,
+        )
+        return {"meta": meta, "gate": gate}
+
+    def sky_queue(
+        self,
+        *,
+        sky_url: str,
+        base_url: str,
+        model: str,
+        prompt: str,
+        system_prompt: str,
+        timeout_sec: int,
+    ) -> Optional[Dict[str, Any]]:
+        import requests as request_client
+
+        response = request_client.post(
+            f"{sky_url}/gb10/enqueue",
+            json={
+                "prompt": prompt,
+                "system_prompt": system_prompt,
+                "model": model,
+                "base_url": base_url,
+                "task_type": "finance_deep_trade_adjudication",
+                "timeout_sec": timeout_sec,
+            },
+            timeout=10,
+        )
+        response.raise_for_status()
+        job_id = response.json().get("job_id")
+        if not job_id:
+            return None
+        deadline = time.time() + timeout_sec + 360
+        while time.time() < deadline:
+            time.sleep(10)
+            poll_data = request_client.get(f"{sky_url}/gb10/job/{job_id}", timeout=5).json()
+            if poll_data.get("status") == "done":
+                result = poll_data.get("result") or {}
+                return {
+                    "text": result.get("text", ""),
+                    "response": result.get("text", ""),
+                    "fallback_reason_code": result.get("fallback_reason_code", ""),
+                    "_via_sky_queue": True,
+                    "_job_id": job_id,
+                }
+            if poll_data.get("status") == "error":
+                return None
+        return None
+
+
 def _stage_deep_trade_adjudication(
     run_dir: Path,
     risk_result: Dict[str, Any],
     news_result: Dict[str, Any],
     market_result: Dict[str, Any],
     hipporag_result: Dict[str, Any],
+    *,
+    adapter: Optional[DeepAdjudicationAdapter] = None,
 ) -> Dict[str, Any]:
     _log("Stage 4b: Deep Trade Adjudication - GB10 final reasoning gate")
     model_policy = resolve_model_policy(probe=True)
@@ -1489,6 +1559,16 @@ def _stage_deep_trade_adjudication(
 
         def _direct_attempt() -> Optional[Dict[str, Any]]:
             """Layer 1+2: readiness gate then direct GB10 call."""
+            if adapter is not None:
+                result = adapter.direct(
+                    base_url=gb10_url,
+                    model=gb10_model,
+                    prompt=prompt_str,
+                    system_prompt=system_str,
+                    timeout_sec=timeout_sec,
+                )
+                adjudication["gb10_gate"] = result.get("gate") or {}
+                return result.get("meta")
             try:
                 from common.gb10_gate import wait_for_gb10_ready
                 gate = wait_for_gb10_ready(
@@ -1526,6 +1606,15 @@ def _stage_deep_trade_adjudication(
 
         def _sky_queue_attempt() -> Optional[Dict[str, Any]]:
             """Layer 3: enqueue through Sky and poll for result."""
+            if adapter is not None:
+                return adapter.sky_queue(
+                    sky_url=sky_url,
+                    base_url=gb10_url,
+                    model=gb10_model,
+                    prompt=prompt_str,
+                    system_prompt=system_str,
+                    timeout_sec=timeout_sec,
+                )
             try:
                 import requests as _req
                 enqueue_resp = _req.post(
@@ -2109,7 +2198,7 @@ def run_cycle() -> Dict[str, Any]:
         status["stages"]["market"] = {"ok": m["ok"], "completed_at": m["completed_at"]}
         _write_json(run_dir / "status.json", status)
 
-        n = _stage_news_analysis(run_dir, m)
+        n = _stage_news_analysis(run_dir, m, h)
         status["stages"]["news"] = {"ok": n["ok"], "completed_at": n["completed_at"]}
         _write_json(run_dir / "status.json", status)
 
@@ -2169,6 +2258,10 @@ def run_cycle() -> Dict[str, Any]:
             "news_tickers_covered": news_cov,
             "news_evidence": news_evidence,
             "news_source_quality": n.get("source_quality") or "unknown",
+            "news_independent_domains": int(n.get("independent_domain_count") or 0),
+            "news_unique_stories": int(n.get("unique_story_count") or 0),
+            "news_deduplicated_count": int(n.get("deduplicated_count") or 0),
+            "news_eligibility_paths": list(n.get("eligibility_paths") or []),
             "gather_source_confidence": h.get("gather_source_confidence") or "unknown",
             "trade_confidence_cap": h.get("trade_confidence_cap") or "unknown",
             "standard_trade_ready_allowed": bool(h.get("standard_trade_ready_allowed", True)),

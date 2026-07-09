@@ -35,6 +35,10 @@ def _news_for(proposals):
                 "sentiment_backend": "local_model",
                 "sentiment_label": "positive",
                 "sentiment_confidence": 0.9,
+                "standard_sentiment_eligible": True,
+                "eligibility_path": "trusted_ab",
+                "independent_domain_count": 2,
+                "unique_story_count": 2,
                 "items": [],
             }
             for row in proposals
@@ -130,6 +134,7 @@ def test_aggressive_probe_is_paper_only_and_not_trade_ready(monkeypatch, tmp_pat
     )
     news = _news_for([proposal])
     news["news_by_ticker"]["DDOG"]["sentiment_backend"] = "keyword_fallback"
+    news["news_by_ticker"]["DDOG"]["standard_sentiment_eligible"] = False
 
     result = trade_cycle._stage_risk_checks(tmp_path, news, _market_for([proposal]))
 
@@ -168,6 +173,7 @@ def test_pressed_aggressive_uses_graph_backed_larger_paper_sizing(monkeypatch, t
     )
     news = _news_for([proposal])
     news["news_by_ticker"]["DDOG"]["sentiment_backend"] = "keyword_fallback"
+    news["news_by_ticker"]["DDOG"]["standard_sentiment_eligible"] = False
 
     result = trade_cycle._stage_risk_checks(tmp_path, news, _market_for([proposal]))
 
@@ -187,6 +193,7 @@ def test_aggressive_probe_low_reward_waits_or_blocks(monkeypatch, tmp_path):
     proposal = _proposal("NET", score=78, rr=0.9, event_impact={"impact_score": 40}, volume_confirmation={"ok": True, "volume_ratio": 1.0})
     news = _news_for([proposal])
     news["news_by_ticker"]["NET"]["sentiment_backend"] = "keyword_fallback"
+    news["news_by_ticker"]["NET"]["standard_sentiment_eligible"] = False
 
     result = trade_cycle._stage_risk_checks(tmp_path, news, _market_for([proposal]))
 
@@ -201,6 +208,7 @@ def test_aggressive_probe_invalid_price_blocks(monkeypatch, tmp_path):
     proposal = _proposal("COIN", score=80, rr=1.8, event_impact={"impact_score": 75})
     news = _news_for([proposal])
     news["news_by_ticker"]["COIN"]["sentiment_backend"] = "keyword_fallback"
+    news["news_by_ticker"]["COIN"]["standard_sentiment_eligible"] = False
 
     result = trade_cycle._stage_risk_checks(tmp_path, news, _market_for([proposal]))
 
@@ -215,6 +223,7 @@ def test_aggressive_probe_invalid_geometry_blocks(monkeypatch, tmp_path):
     proposal = _proposal("MDB", score=80, rr=1.8, stop_zone="105.00", event_impact={"impact_score": 75})
     news = _news_for([proposal])
     news["news_by_ticker"]["MDB"]["sentiment_backend"] = "keyword_fallback"
+    news["news_by_ticker"]["MDB"]["standard_sentiment_eligible"] = False
 
     result = trade_cycle._stage_risk_checks(tmp_path, news, _market_for([proposal]))
 
@@ -323,12 +332,14 @@ def test_keyword_sentiment_fallback_caps_standard(monkeypatch, tmp_path):
     proposal = _proposal("MSFT", rr=1.5)
     news = _news_for([proposal])
     news["news_by_ticker"]["MSFT"]["sentiment_backend"] = "keyword_fallback"
+    news["news_by_ticker"]["MSFT"]["standard_sentiment_eligible"] = False
+    news["news_by_ticker"]["MSFT"]["standard_cap_reason"] = "news_provenance_caps_standard"
 
     result = trade_cycle._stage_risk_checks(tmp_path, news, _market_for([proposal]))
 
     assert result["ok"] is False
     assert result["checks"][0]["sentiment_gate"]["ok"] is False
-    assert "sentiment_keyword_fallback_caps_standard" in result["checks"][0]["risk_notes"]
+    assert "news_provenance_caps_standard" in result["checks"][0]["risk_notes"]
 
 
 def test_keyword_sentiment_consensus_allows_standard(monkeypatch, tmp_path):
@@ -362,11 +373,10 @@ def test_news_stage_promotes_strong_keyword_consensus(monkeypatch, tmp_path):
         trade_cycle,
         "_fetch_ticker_news",
         lambda ticker, max_items=8: [
-            {"title": "MSFT beats estimates", "published": "Tue, 07 Jul 2026 05:53:55 +0000", "sentiment": 1.0, "sentiment_label": "positive", "sentiment_confidence": 1.0, "sentiment_backend": "keyword_fallback"},
-            {"title": "MSFT raises guidance", "published": "Tue, 07 Jul 2026 04:53:55 +0000", "sentiment": 1.0, "sentiment_label": "positive", "sentiment_confidence": 1.0, "sentiment_backend": "keyword_fallback"},
-            {"title": "MSFT wins cloud contract", "published": "Tue, 07 Jul 2026 03:53:55 +0000", "sentiment": 1.0, "sentiment_label": "positive", "sentiment_confidence": 1.0, "sentiment_backend": "keyword_fallback"},
-            {"title": "MSFT stock breakout continues", "published": "Tue, 07 Jul 2026 02:53:55 +0000", "sentiment": 1.0, "sentiment_label": "positive", "sentiment_confidence": 1.0, "sentiment_backend": "keyword_fallback"},
-            {"title": "MSFT update", "published": "Tue, 07 Jul 2026 01:53:55 +0000", "sentiment": 0.0, "sentiment_label": "neutral", "sentiment_confidence": 0.5, "sentiment_backend": "keyword_fallback"},
+            {"title": "MSFT beats estimates", "url": "https://cnbc.com/msft-beats", "origin_domain": "cnbc.com", "source_tier": "C", "published": "2099-07-09T05:53:55Z", "sentiment": 1.0, "sentiment_label": "positive", "sentiment_confidence": 1.0, "sentiment_backend": "keyword_fallback"},
+            {"title": "MSFT raises guidance", "url": "https://marketwatch.com/msft-guidance", "origin_domain": "marketwatch.com", "source_tier": "C", "published": "2099-07-09T04:53:55Z", "sentiment": 1.0, "sentiment_label": "positive", "sentiment_confidence": 1.0, "sentiment_backend": "keyword_fallback"},
+            {"title": "MSFT wins cloud contract", "url": "https://cnn.com/msft-contract", "origin_domain": "cnn.com", "source_tier": "C", "published": "2099-07-09T03:53:55Z", "sentiment": 1.0, "sentiment_label": "positive", "sentiment_confidence": 1.0, "sentiment_backend": "keyword_fallback"},
+            {"title": "MSFT stock breakout continues", "url": "https://investopedia.com/msft-breakout", "origin_domain": "investopedia.com", "source_tier": "C", "published": "2099-07-09T02:53:55Z", "sentiment": 1.0, "sentiment_label": "positive", "sentiment_confidence": 1.0, "sentiment_backend": "keyword_fallback"},
         ],
     )
 
@@ -377,7 +387,28 @@ def test_news_stage_promotes_strong_keyword_consensus(monkeypatch, tmp_path):
     assert msft["sentiment_label"] == "positive"
     assert msft["sentiment_confidence"] >= trade_cycle.KEYWORD_STANDARD_MIN_CONFIDENCE
     assert msft["standard_sentiment_eligible"] is True
+    assert msft["eligibility_path"] == "diverse_c"
+    assert msft["independent_domain_count"] == 4
     assert msft["sentiment_consensus_ratio"] >= trade_cycle.KEYWORD_STANDARD_MIN_CONSENSUS_RATIO
+
+
+def test_news_stage_caps_yahoo_only_consensus(monkeypatch, tmp_path):
+    monkeypatch.setattr(trade_cycle, "_log", lambda message: None)
+    rows = [
+        {"title": f"MSFT positive catalyst {index}", "url": f"https://finance.yahoo.com/news/{index}", "origin_domain": "finance.yahoo.com", "source_tier": "C", "published": "2099-07-09T05:53:55Z", "sentiment": 1.0, "sentiment_backend": "keyword_fallback", "sentiment_confidence": 1.0}
+        for index in range(6)
+    ]
+
+    result = trade_cycle._stage_news_analysis(
+        tmp_path,
+        _market_for([_proposal("MSFT")]),
+        news_fetcher=lambda ticker, max_items=8: rows,
+    )
+    msft = result["news_by_ticker"]["MSFT"]
+
+    assert msft["standard_sentiment_eligible"] is False
+    assert msft["standard_cap_reason"] == "aggregator_only_news"
+    assert msft["independent_domain_count"] == 0
 
 
 def test_high_risk_default_holdout_allows_explicit_override(monkeypatch, tmp_path):
@@ -691,17 +722,14 @@ def test_deep_adjudication_model_failure_records_unavailable_fallback(monkeypatc
         },
     )
 
-    def fail_query(*args, **kwargs):
-        raise TimeoutError("unit timeout")
+    class FailingAdapter:
+        def direct(self, **kwargs):
+            raise TimeoutError("unit timeout")
 
-    def fail_request(*args, **kwargs):
-        raise TimeoutError("sky queue unavailable")
+        def sky_queue(self, **kwargs):
+            return None
 
-    monkeypatch.setitem(sys.modules, "common.query_client", types.SimpleNamespace(query_model_with_meta=fail_query))
-    monkeypatch.setattr("requests.post", fail_request)
-    monkeypatch.setattr("requests.get", fail_request)
-
-    result = trade_cycle._stage_deep_trade_adjudication(tmp_path, risk, {}, {}, {})
+    result = trade_cycle._stage_deep_trade_adjudication(tmp_path, risk, {}, {}, {}, adapter=FailingAdapter())
 
     assert result["status"] == "unavailable"
     assert result["decision"] == "adjudication_unavailable"
@@ -757,7 +785,7 @@ def test_trade_cycle_not_ready_without_hipporag_enrichment(monkeypatch, tmp_path
     monkeypatch.setattr(
         trade_cycle,
         "_stage_news_analysis",
-        lambda run_dir, market: {
+        lambda run_dir, market, hipporag=None: {
             "ok": True,
             "completed_at": "2026-05-19T09:03:30Z",
             "news_evidence": "good",
