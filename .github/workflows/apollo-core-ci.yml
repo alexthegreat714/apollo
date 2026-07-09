@@ -32,6 +32,14 @@ jobs:
           python-version: "3.12"
           cache: pip
 
+      - name: Configure case-sensitive Apollo package path
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/apollo-engineering"
+          ln -s "$GITHUB_WORKSPACE" "$RUNNER_TEMP/apollo-engineering/Apollo"
+          echo "PYTHONPATH=$RUNNER_TEMP/apollo-engineering" >> "$GITHUB_ENV"
+
       - name: Install deterministic test dependencies
         run: |
           python -m pip install --upgrade pip
