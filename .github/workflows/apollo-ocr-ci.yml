@@ -1,8 +1,10 @@
 name: Apollo OCR — Tier 3 CI
 
+# This suite imports Engineering/common OCR services that are not vendored into
+# Apollo's standalone repository. Run it manually from a complete monorepo
+# checkout until those shared services are published as a package.
 on:
-  push:
-  pull_request:
+  workflow_dispatch:
 
 jobs:
   ocr-tier3:
