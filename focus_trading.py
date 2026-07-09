@@ -6,9 +6,6 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from Apollo import nightly_pipeline
-
-
 _APOLLO_ROOT = Path(__file__).resolve().parent
 STATE_PATH = _APOLLO_ROOT / "logs" / "nightly" / "background" / "focus_trading_state.json"
 FOCUS_DOC_ID = "apollo_focus_universe_current"
@@ -158,6 +155,8 @@ def sync_from_pipeline(
     note: str = "",
     path: Optional[str] = None,
 ) -> Dict[str, Any]:
+    from Apollo import nightly_pipeline
+
     state = load_state(path)
     status = dict(latest_status or nightly_pipeline.latest_status() or {})
     focus = _focus_from_status(status)
