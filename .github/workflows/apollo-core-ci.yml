@@ -1,0 +1,52 @@
+name: Apollo Core Reliability
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  deterministic-core:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      CI: "true"
+      APOLLO_SIM_EXECUTION_MODE: paper
+      APOLLO_SIM_LIVE_ENABLED: "0"
+      APOLLO_EVENT_MODEL_ENABLED: "0"
+      APOLLO_GB10_OCR_ENABLED: "0"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Scan current tree for secrets
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="8.24.3"
+          curl -fsSL "https://github.com/gitleaks/gitleaks/releases/download/v${version}/gitleaks_${version}_linux_x64.tar.gz" -o /tmp/gitleaks.tar.gz
+          tar -xzf /tmp/gitleaks.tar.gz -C /tmp gitleaks
+          /tmp/gitleaks detect --no-git --source . --redact --exit-code 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install deterministic test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r install/requirements/requirements-base.txt
+          pip install yfinance feedparser pandas numpy
+
+      - name: Trade-cycle unit budget
+        run: timeout 15s pytest tests/test_trade_cycle.py -m "unit and not external" -q
+
+      - name: Core unit budget
+        run: |
+          timeout 60s pytest \
+            tests/test_news_evidence.py \
+            tests/test_scheduler_state.py \
+            tests/test_simulation_spark.py \
+            tests/test_market_study.py \
+            tests/test_swing_study.py \
+            -m "unit and not external" -q --durations=10

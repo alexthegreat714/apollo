@@ -3,7 +3,12 @@ from __future__ import annotations
 import sys
 import types
 
+import pytest
+
 from Apollo import trade_cycle
+
+
+pytestmark = pytest.mark.unit
 
 
 def _proposal(ticker: str, *, score: float = 82, rr: float = 1.2, direction: str = "long_bias", **extra):

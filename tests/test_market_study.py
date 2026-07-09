@@ -2,8 +2,13 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
 
+import pytest
+
 from Apollo import market_data, market_study
 from Apollo.focus_universe import evaluate_decision_gate
+
+
+pytestmark = pytest.mark.unit
 
 
 def test_normalize_market_snapshot_good_data():

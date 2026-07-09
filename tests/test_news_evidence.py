@@ -3,7 +3,12 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from Apollo.news_evidence import aggregate_news_evidence, canonicalize_url
+
+
+pytestmark = pytest.mark.unit
 
 
 FRESH = "2099-07-09T05:53:55Z"

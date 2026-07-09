@@ -24,6 +24,8 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
+pytestmark = pytest.mark.unit
+
 
 # ── helpers ──────────────────────────────────────────────────────────────────
 
@@ -277,6 +279,7 @@ class TestPersistence:
 
 # ── 9. Real price data (yfinance) ─────────────────────────────────────────────
 
+@pytest.mark.external
 class TestRealData:
     def test_avgo_90d_returns_candles(self):
         candles = _fetch_history("AVGO", days=90)

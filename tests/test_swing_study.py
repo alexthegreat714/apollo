@@ -7,6 +7,9 @@ import pytest
 from Apollo import market_study, swing_data, swing_study
 
 
+pytestmark = pytest.mark.unit
+
+
 @pytest.fixture(autouse=True)
 def _disable_heavy_corpus_paths(monkeypatch):
     monkeypatch.setattr(swing_study, "_rag_context_for_ticker", lambda ticker, setup_type="": [])

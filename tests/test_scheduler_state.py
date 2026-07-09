@@ -11,6 +11,7 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 STATE_SCRIPT = ROOT / "watchdog" / "scheduler_state.ps1"
 POWERSHELL = shutil.which("powershell") or shutil.which("pwsh")
+pytestmark = pytest.mark.unit
 
 
 def _decision(**overrides):
