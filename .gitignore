@@ -11,6 +11,7 @@ nul
 .forge/
 scheduled_launchers/*.lock
 scheduled_launchers/*.pid
+scheduled_launchers/
 
 # Runtime artifacts
 logs/
@@ -25,6 +26,7 @@ reports/
 test_stress_db/
 _tmp*
 *.tmp.*
+chroma_db/
 chroma_db/*.json
 chroma_db/**/*.json
 chroma_db/*.sqlite*
@@ -32,6 +34,7 @@ chroma_db/**/*.sqlite*
 chroma_db/**/*.bin
 chroma_db/*.pkl
 chroma_db/**/*.pkl
+chroma_db/**/*.pickle
 chroma_db/**/*.jsonl
 chroma_db/**/*.db
 chroma_db/**/*.db-shm
