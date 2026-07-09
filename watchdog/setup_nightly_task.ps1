@@ -13,19 +13,27 @@ function Fix-Task {
         [string]$ScriptPath,
         [string]$ExtraArgs = "",
         [string]$TriggerTime,
-        [int]$TimeoutHours = 10
+        [int]$TimeoutHours = 10,
+        [int]$RestartCount = 0,
+        [int]$RestartMinutes = 15
     )
     $argStr = "-WindowStyle Hidden -NoProfile -ExecutionPolicy Bypass -File `"$ScriptPath`""
     if ($ExtraArgs) { $argStr += " $ExtraArgs" }
     $action   = New-ScheduledTaskAction -Execute $psExe -Argument $argStr -WorkingDirectory $workDir
     $trigger  = New-ScheduledTaskTrigger -Daily -At $TriggerTime
-    $settings = New-ScheduledTaskSettingsSet `
-        -StartWhenAvailable `
-        -DontStopOnIdleEnd `
-        -ExecutionTimeLimit (New-TimeSpan -Hours $TimeoutHours) `
-        -MultipleInstances IgnoreNew `
-        -AllowStartIfOnBatteries `
-        -DontStopIfGoingOnBatteries
+    $settingsArgs = @{
+        StartWhenAvailable = $true
+        DontStopOnIdleEnd = $true
+        ExecutionTimeLimit = (New-TimeSpan -Hours $TimeoutHours)
+        MultipleInstances = "IgnoreNew"
+        AllowStartIfOnBatteries = $true
+        DontStopIfGoingOnBatteries = $true
+    }
+    if ($RestartCount -gt 0) {
+        $settingsArgs["RestartCount"] = $RestartCount
+        $settingsArgs["RestartInterval"] = (New-TimeSpan -Minutes $RestartMinutes)
+    }
+    $settings = New-ScheduledTaskSettingsSet @settingsArgs
     Unregister-ScheduledTask -TaskName $TaskName -Confirm:$false -ErrorAction SilentlyContinue
     Register-ScheduledTask -TaskName $TaskName -Action $action -Trigger $trigger -Settings $settings -RunLevel Highest -Force
     Write-Host "OK: $TaskName"
@@ -82,7 +90,9 @@ Fix-Task `
     -TaskName   "ApolloNightlyPipeline0100" `
     -ScriptPath "C:\Users\blyth\Desktop\Engineering\Apollo\watchdog\run_apollo_nightly_daily.ps1" `
     -TriggerTime "01:00AM" `
-    -TimeoutHours 10
+    -TimeoutHours 10 `
+    -RestartCount 2 `
+    -RestartMinutes 15
 
 # Bounded main-corpus graph refresh after the nightly feed/article ingest.
 Fix-Task `
