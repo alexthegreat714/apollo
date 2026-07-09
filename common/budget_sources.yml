@@ -1,0 +1,25 @@
+sources:
+  - name: Consumer Financial Protection Bureau - Budgeting
+    url: https://www.consumerfinance.gov/consumer-tools/budgeting/
+    trust: 0.95
+  - name: FDIC - Money Smart
+    url: https://www.fdic.gov/consumer-resource-center/money-smart
+    trust: 0.9
+  - name: MyMoney.gov - Budgeting
+    url: https://www.mymoney.gov/budgeting
+    trust: 0.9
+  - name: IRS - Tax Withholding Estimator
+    url: https://www.irs.gov/individuals/tax-withholding-estimator
+    trust: 0.9
+  - name: Bureau of Labor Statistics - CPI
+    url: https://www.bls.gov/cpi/
+    trust: 0.85
+  - name: Federal Reserve - Household Finances
+    url: https://www.federalreserve.gov/consumerscommunities/household-finances.htm
+    trust: 0.85
+  - name: Treasury - Financial Education
+    url: https://www.treasury.gov/financial-education/
+    trust: 0.85
+  - name: FINRA - Budgeting Basics
+    url: https://www.finra.org/investors/insights/managing-credit-debt
+    trust: 0.85

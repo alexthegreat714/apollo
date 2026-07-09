@@ -1,0 +1,101 @@
+{
+  "name": "ocr97_night_2_charts_annual_reports",
+  "description": "Night 2: Chart-heavy annual reports and mixed visual content. Primary stress on gb10_deplot_chart and qwen3-vl:32b for chart-adjacent label extraction and figure-dense layouts. Exposes the routing gap seen in BIS Quarterly (score 72) by testing whether the full GB10 stack improves on similar document types.",
+  "score_floor_to_defend_97": 90,
+  "documents": [
+    {
+      "id": "bis_annual_2024",
+      "title": "BIS Annual Economic Report 2024",
+      "url": "https://www.bis.org/publ/arpdf/ar2024e.pdf",
+      "kind": "annual_report_charts",
+      "license_note": "Public BIS publication.",
+      "goal": "Extract text from a chart-dense annual report with chapter headings, figure captions, central bank policy language, and mixed text/figure layouts across multiple sections.",
+      "max_pages": 5,
+      "min_chars": 3000,
+      "expected_terms": [
+        "Annual Economic Report",
+        "Bank for International Settlements",
+        "monetary policy",
+        "global economy",
+        "financial system",
+        "central banks"
+      ],
+      "expected_regex": [
+        "annual\\s+economic\\s+report",
+        "central\\s+bank",
+        "Bank\\s+for\\s+International\\s+Settlements"
+      ],
+      "capability_focus": ["charts", "figures", "long_pdf", "finance_terms", "annual_report"]
+    },
+    {
+      "id": "fed_fsr_may2024",
+      "title": "Federal Reserve Financial Stability Report, May 2024",
+      "url": "https://www.federalreserve.gov/publications/files/financial-stability-report-20240507.pdf",
+      "kind": "long_financial_pdf",
+      "license_note": "Public Federal Reserve publication.",
+      "goal": "Extract text, risk terminology, chart-adjacent labels, and section headings from a Federal Reserve financial stability report with significant chart and figure content.",
+      "max_pages": 5,
+      "min_chars": 3500,
+      "expected_terms": [
+        "Financial Stability Report",
+        "May 2024",
+        "vulnerabilities",
+        "risk appetite",
+        "Federal Reserve"
+      ],
+      "expected_regex": [
+        "May\\s+2024",
+        "financial\\s+stability",
+        "vulnerabilit(?:y|ies)"
+      ],
+      "capability_focus": ["charts", "long_pdf", "finance_terms", "numeric_text"]
+    },
+    {
+      "id": "bis_quarterly_mar2025",
+      "title": "BIS Quarterly Review, March 2025",
+      "url": "https://www.bis.org/publ/qtrpdf/r_qt2503.pdf",
+      "kind": "long_financial_pdf",
+      "license_note": "Public BIS publication.",
+      "goal": "Extract text, chart captions, market terminology, and section headings from a BIS Quarterly Review with charts, figures, and table-adjacent narrative.",
+      "max_pages": 5,
+      "min_chars": 2500,
+      "expected_terms": [
+        "BIS Quarterly Review",
+        "Bank for International Settlements",
+        "financial markets",
+        "monetary policy",
+        "March 2025"
+      ],
+      "expected_regex": [
+        "March\\s+2025",
+        "Quarterly\\s+Review",
+        "market\\s+participants"
+      ],
+      "capability_focus": ["charts", "figures", "market_terms", "layout"]
+    },
+    {
+      "id": "fed_mpr_feb2025",
+      "title": "Federal Reserve Monetary Policy Report, February 2025",
+      "url": "https://www.federalreserve.gov/monetarypolicy/files/20250207_mprfullreport.pdf",
+      "kind": "long_financial_pdf",
+      "license_note": "Public Federal Reserve publication.",
+      "goal": "Extract policy text, chart-adjacent labels, economic indicator tables, and FOMC references from a monetary policy report with dense charts and economic analysis.",
+      "max_pages": 5,
+      "min_chars": 3000,
+      "expected_terms": [
+        "Monetary Policy Report",
+        "Federal Reserve",
+        "inflation",
+        "labor market",
+        "interest rates",
+        "FOMC"
+      ],
+      "expected_regex": [
+        "February\\s+2025",
+        "monetary\\s+policy",
+        "Federal\\s+Open\\s+Market"
+      ],
+      "capability_focus": ["charts", "figures", "long_pdf", "economic_text"]
+    }
+  ]
+}

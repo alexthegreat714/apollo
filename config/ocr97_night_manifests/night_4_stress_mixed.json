@@ -1,0 +1,103 @@
+{
+  "name": "ocr97_night_4_stress_mixed",
+  "description": "Night 4: Stress test — combines the hardest document types from all three prior nights plus new cases. USCIS I-9 (multi-page government form with instructions), a second BIS Quarterly (original failing doc, now with full GB10 stack), the IRS 1040 schedule cross-reference (most complex IRS form), and a mixed corpus re-run of the original 3-document baseline to verify regression. Goal is to confirm that previous 72-score gap on BIS quarterly closes when routing is correct.",
+  "score_floor_to_defend_97": 90,
+  "documents": [
+    {
+      "id": "uscis_i9_current",
+      "title": "USCIS Form I-9 — Employment Eligibility Verification",
+      "url": "https://www.uscis.gov/sites/default/files/document/forms/i-9.pdf",
+      "kind": "government_form_pdf",
+      "license_note": "Public USCIS form.",
+      "goal": "Extract a government eligibility form with employee attestation section, employer certification section, List A/B/C document type checkboxes, and dense instruction pages. Tests multi-section form OCR with checkbox fields and legal certification language.",
+      "max_pages": 4,
+      "min_chars": 1500,
+      "expected_terms": [
+        "Employment Eligibility Verification",
+        "Employee's Attestation",
+        "Department of Homeland Security",
+        "List A",
+        "List B",
+        "List C"
+      ],
+      "expected_regex": [
+        "Form\\s+I-9",
+        "employment\\s+eligibility",
+        "List\\s+[ABC]"
+      ],
+      "capability_focus": ["forms", "checkboxes", "government_form", "legal_language"]
+    },
+    {
+      "id": "bis_quarterly_2024q4_rerun",
+      "title": "BIS Quarterly Review, December 2024 — REGRESSION CHECK",
+      "url": "https://www.bis.org/publ/qtrpdf/r_qt2412.pdf",
+      "kind": "long_financial_pdf",
+      "license_note": "Public BIS publication.",
+      "goal": "Re-run the BIS Quarterly Review December 2024 — the document that scored 72.07 when rapidocr was selected as fallback. This run validates whether the ensemble now routes to qwen3-vl:32b when GB10 is available, closing the gap to the 90+ floor. Extract chart-adjacent text, market terminology, and quantitative financial language.",
+      "max_pages": 5,
+      "min_chars": 3000,
+      "expected_terms": [
+        "BIS Quarterly Review",
+        "Bank for International Settlements",
+        "financial markets",
+        "monetary policy",
+        "bond yields",
+        "December 2024"
+      ],
+      "expected_regex": [
+        "December\\s+2024",
+        "Quarterly\\s+Review",
+        "market\\s+participants"
+      ],
+      "capability_focus": ["charts", "figures", "market_terms", "regression_check"]
+    },
+    {
+      "id": "irs_schedule_b_dividends",
+      "title": "IRS Schedule B (2024) — Interest and Ordinary Dividends",
+      "url": "https://www.irs.gov/pub/irs-pdf/f1040sb.pdf",
+      "kind": "financial_table_form",
+      "license_note": "Public IRS form.",
+      "goal": "Extract a tabular financial form listing payers of interest and dividends with amounts, Part III foreign account questions, and summary lines. Tests narrow-column table parsing and foreign account checkbox logic.",
+      "max_pages": 1,
+      "min_chars": 800,
+      "expected_terms": [
+        "Interest and Ordinary Dividends",
+        "Part I",
+        "Part II",
+        "Part III",
+        "Payer's name",
+        "Foreign country"
+      ],
+      "expected_regex": [
+        "Schedule\\s+B",
+        "ordinary\\s+dividends",
+        "foreign\\s+account"
+      ],
+      "capability_focus": ["forms", "tables", "financial_terms", "checkboxes"]
+    },
+    {
+      "id": "fed_fsr_nov2024_rerun",
+      "title": "Federal Reserve Financial Stability Report, November 2024 — BASELINE RERUN",
+      "url": "https://www.federalreserve.gov/publications/files/financial-stability-report-20241122.pdf",
+      "kind": "long_financial_pdf",
+      "license_note": "Public Federal Reserve publication.",
+      "goal": "Re-run the original baseline document (scored 94.08 in May benchmark) to confirm no regression. Extract text, tables, numeric risk language, and section headings.",
+      "max_pages": 5,
+      "min_chars": 3500,
+      "expected_terms": [
+        "Financial Stability Report",
+        "Federal Reserve",
+        "asset valuations",
+        "borrowing by businesses",
+        "funding risks",
+        "November 2024"
+      ],
+      "expected_regex": [
+        "November\\s+2024",
+        "financial\\s+stability",
+        "vulnerabilit(?:y|ies)"
+      ],
+      "capability_focus": ["long_pdf", "finance_terms", "numeric_text", "layout", "regression_check"]
+    }
+  ]
+}

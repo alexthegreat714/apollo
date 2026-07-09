@@ -9,7 +9,9 @@ from common.rag_store import AgentRAG, read_jsonl_bomtolerant
 from .runtime_metrics import record_event
 
 bp_rag = Blueprint("bp_rag", __name__)
-RAG = AgentRAG(agent_name="Aegis")
+# NOTE: This blueprint is Apollo-specific; default its backing store to Apollo.
+# Apollo.app will also override this at runtime to ensure a single shared instance.
+RAG = AgentRAG(agent_name=os.getenv("AGENT_NAME", "Apollo") or "Apollo")
 
 # --- Task 03: scoring readout endpoint ---
 @bp_rag.route("/rag/settings", methods=["GET"])
@@ -29,7 +31,86 @@ def rag_settings():
 
 # --- Import whitelist guard (Task 01) ---
 IMPORT_ROOT = r"C:\Users\blyth\Desktop\Engineering"
-IMPORT_LOG = r"C:\Users\blyth\Desktop\Engineering\Aegis\logs\import_attempts.jsonl"
+IMPORT_LOG = os.getenv(
+    "APOLLO_IMPORT_LOG",
+    r"C:\Users\blyth\Desktop\Engineering\Apollo\logs\import_attempts.jsonl",
+)
+_AUTH_WARN_STATE = {"last_ts": 0.0, "suppressed": 0}
+
+
+def _auth_required() -> bool:
+    # Only require auth when a local token is explicitly configured.
+    return bool((os.getenv("APOLLO_LOCAL_TOKEN") or os.getenv("SKY_LOCAL_TOKEN") or "").strip())
+
+
+def _auth_ok() -> bool:
+    token = (os.getenv("APOLLO_LOCAL_TOKEN") or os.getenv("SKY_LOCAL_TOKEN") or "").strip()
+    if not token:
+        return True
+
+    header_token = (request.headers.get("X-Apollo-Token") or request.headers.get("X-Sky-Token") or "").strip()
+    if header_token and header_token == token:
+        return True
+
+    auth = (request.headers.get("Authorization") or "").strip()
+    if auth.lower().startswith("bearer "):
+        bearer = auth[7:].strip()
+        if bearer == token:
+            return True
+
+    return False
+
+
+def _reject_unauthorized():
+    if not _auth_required():
+        return None
+    if _auth_ok():
+        return None
+    _log_auth_reject()
+    return jsonify({"ok": False, "error": "unauthorized"}), 401
+
+
+def _log_auth_reject() -> None:
+    try:
+        now = time.time()
+        cooldown = 60.0
+        local_token_set = bool((os.getenv("APOLLO_LOCAL_TOKEN") or os.getenv("SKY_LOCAL_TOKEN") or "").strip())
+        source = (request.headers.get("X-Forwarded-For") or request.remote_addr or "").strip()
+        route = str(request.path or "").strip()
+        ua = str(request.headers.get("User-Agent") or "").strip()[:120]
+        has_bearer = bool(str(request.headers.get("Authorization") or "").strip().lower().startswith("bearer "))
+        has_header_token = bool((request.headers.get("X-Apollo-Token") or request.headers.get("X-Sky-Token") or "").strip())
+        token_state = "missing_token"
+        if has_bearer:
+            token_state = "bearer_mismatch"
+        elif has_header_token:
+            token_state = "header_token_mismatch"
+        suppressed = int(_AUTH_WARN_STATE.get("suppressed") or 0)
+        if now - float(_AUTH_WARN_STATE.get("last_ts") or 0.0) >= cooldown:
+            if suppressed > 0:
+                logging.warning(
+                    "[rag.auth] suppressed=%s route=%s source=%s token_required=%s token_state=%s ua=%s",
+                    suppressed,
+                    route,
+                    source,
+                    local_token_set,
+                    token_state,
+                    ua,
+                )
+            logging.warning(
+                "[rag.auth] unauthorized route=%s source=%s token_required=%s token_state=%s ua=%s",
+                route,
+                source,
+                local_token_set,
+                token_state,
+                ua,
+            )
+            _AUTH_WARN_STATE["last_ts"] = now
+            _AUTH_WARN_STATE["suppressed"] = 0
+        else:
+            _AUTH_WARN_STATE["suppressed"] = suppressed + 1
+    except Exception:
+        return
 
 
 def _norm(path: str) -> str:
@@ -81,6 +162,9 @@ def _validate_import_path(path: str):
 
 @bp_rag.route("/rag/write", methods=["POST"])
 def rag_write():
+    denied = _reject_unauthorized()
+    if denied is not None:
+        return denied
     js = request.get_json() or {}
     text = (js.get("text") or "").strip()
     if not text:
@@ -135,6 +219,9 @@ def rag_shortterm_export():
 
 @bp_rag.route("/rag/appendix", methods=["POST"])
 def rag_appendix():
+    denied = _reject_unauthorized()
+    if denied is not None:
+        return denied
     body = request.get_json(silent=True) or {}
     max_items = int(body.get("max_items", 50))
     summarize = bool(body.get("summarize", True))
@@ -167,6 +254,9 @@ def rag_search():
 
 @bp_rag.route("/rag/review", methods=["POST"])
 def rag_review():
+    denied = _reject_unauthorized()
+    if denied is not None:
+        return denied
     try:
         data = request.get_json(silent=True) or {}
         min_priority = 0.8
@@ -217,12 +307,7 @@ def rag_review():
 
 @bp_rag.route("/rag/count", methods=["GET"])
 def rag_count():
-    try:
-        n = RAG.count()
-        return jsonify({"ok": True, "count": n})
-    except Exception as exc:
-        current_app.logger.exception("rag_count failed")
-        return jsonify({"ok": False, "error": str(exc)}), 500
+    return jsonify({"use_post": True}), 200
 
 
 @bp_rag.route("/rag/count", methods=["POST"])
@@ -250,8 +335,14 @@ def rag_count_post():
 
 @bp_rag.route("/rag/export", methods=["GET"])
 def rag_export():
+    denied = _reject_unauthorized()
+    if denied is not None:
+        return denied
     try:
-        out_path = r"C:\Users\blyth\Desktop\Engineering\Aegis\logs\rag_export.jsonl"
+        out_path = os.getenv(
+            "APOLLO_RAG_EXPORT_PATH",
+            r"C:\Users\blyth\Desktop\Engineering\Apollo\logs\rag_export.jsonl",
+        )
         os.makedirs(os.path.dirname(out_path), exist_ok=True)
         RAG.export_jsonl(out_path)
         return send_file(out_path, as_attachment=True, download_name="rag_export.jsonl")
@@ -262,6 +353,9 @@ def rag_export():
 
 @bp_rag.route("/rag/import", methods=["POST"])
 def rag_import():
+    denied = _reject_unauthorized()
+    if denied is not None:
+        return denied
     try:
         body = request.get_json(silent=True) or {}
         path = body.get("path")
@@ -497,3 +591,87 @@ def rag_tags():
         if isinstance(val, str):
             tags.update(t.strip() for t in val.split(",") if t.strip())
     return jsonify({"ok": True, "tags": sorted(tags)})
+
+
+@bp_rag.route("/corpus/live_ingest", methods=["POST"])
+def corpus_live_ingest():
+    """
+    Trigger live ingestion of EDGAR filings and Yahoo Finance news RSS for
+    all focus universe tickers.
+
+    Body (all optional):
+      filing_types: ["8-K", "10-Q"]   — which EDGAR form types to pull
+      max_per_ticker_per_type: 5       — filings per ticker per type
+      max_news_per_ticker: 20          — YF RSS items per ticker
+      skip_edgar: false                — skip EDGAR ingestion
+      skip_news: false                 — skip news RSS ingestion
+      tickers: [{"ticker":"NVDA","theme":"ai_compute"}]  — override ticker list
+    """
+    denied = _reject_unauthorized()
+    if denied is not None:
+        return denied
+    try:
+        from Apollo.corpus_live_ingest import run_live_ingest
+        cfg = request.get_json(silent=True) or {}
+        result = run_live_ingest(cfg)
+        record_event("corpus_live_ingest")
+        return jsonify(result)
+    except Exception as exc:
+        current_app.logger.exception("corpus_live_ingest failed")
+        return jsonify({"ok": False, "error": str(exc)}), 500
+
+
+@bp_rag.route("/corpus/bootstrap", methods=["POST"])
+def corpus_bootstrap():
+    """
+    Trigger bootstrap ingestion from the static real_public_corpus_manifest.json
+    (FRED series, Federal Register, BIS reports, etc.).
+
+    Body (all optional):
+      packs: ["market_data_series"]    — limit to specific packs
+      max_sources: 30
+      timeout_sec: 20
+    """
+    denied = _reject_unauthorized()
+    if denied is not None:
+        return denied
+    try:
+        from Apollo.corpus_bootstrap import bootstrap_real_public_corpus
+        cfg = request.get_json(silent=True) or {}
+        result = bootstrap_real_public_corpus(cfg)
+        record_event("corpus_bootstrap")
+        return jsonify(result)
+    except Exception as exc:
+        current_app.logger.exception("corpus_bootstrap failed")
+        return jsonify({"ok": False, "error": str(exc)}), 500
+
+
+@bp_rag.route("/corpus/schedule", methods=["POST"])
+def corpus_schedule():
+    """
+    Install the daily Windows Task Scheduler entry for corpus refresh
+    (live ingest + build_graph at 03:15 CT) and post a Sky calendar event.
+    """
+    denied = _reject_unauthorized()
+    if denied is not None:
+        return denied
+    try:
+        from Apollo.corpus_live_ingest import schedule_corpus_refresh
+        result = schedule_corpus_refresh()
+        record_event("corpus_schedule")
+        return jsonify(result)
+    except Exception as exc:
+        current_app.logger.exception("corpus_schedule failed")
+        return jsonify({"ok": False, "error": str(exc)}), 500
+
+
+@bp_rag.route("/corpus/audit", methods=["GET"])
+def corpus_audit():
+    """Return a breakdown of the ChromaDB financial corpus by provenance, pack, and source."""
+    try:
+        from Apollo.corpus_bootstrap import audit_financial_corpus
+        result = audit_financial_corpus()
+        return jsonify(result)
+    except Exception as exc:
+        current_app.logger.exception("corpus_audit failed")
+        return jsonify({"ok": False, "error": str(exc)}), 500

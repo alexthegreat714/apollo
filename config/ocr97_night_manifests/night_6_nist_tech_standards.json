@@ -1,0 +1,104 @@
+{
+  "name": "ocr97_night_6_nist_tech_standards",
+  "description": "Night 6: NIST cybersecurity and technical standards. These documents have a distinctive NIST house style: dense paragraph text, numbered requirement sections, structured tables of controls, code-like identifiers (AC-1, IA-5, etc.), and occasional figures. Very different layout from financial PDFs. Tests whether OCR97 handles purely text-structural documents without charts.",
+  "score_floor_to_defend_97": 90,
+  "documents": [
+    {
+      "id": "nist_sp800_63b",
+      "title": "NIST SP 800-63B — Digital Identity Guidelines: Authentication and Lifecycle Management",
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63b.pdf",
+      "kind": "technical_standard_pdf",
+      "license_note": "Public NIST publication.",
+      "goal": "Extract a cybersecurity identity standard with numbered requirement sections, authenticator assurance level tables, and password policy requirements. Tests extraction of structured regulatory/technical text where section identifiers (e.g., 5.1.1) are important for document integrity.",
+      "max_pages": 5,
+      "min_chars": 3000,
+      "expected_terms": [
+        "Digital Identity",
+        "Authentication",
+        "authenticator",
+        "assurance level",
+        "password",
+        "verifier"
+      ],
+      "expected_regex": [
+        "authenticator\\s+assurance",
+        "NIST\\s+SP\\s+800",
+        "SHALL\\s+(NOT\\s+)?"
+      ],
+      "capability_focus": ["technical_standard", "numbered_sections", "requirements", "tables"]
+    },
+    {
+      "id": "nist_sp800_171r2",
+      "title": "NIST SP 800-171r2 — Protecting Controlled Unclassified Information",
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf",
+      "kind": "technical_standard_pdf",
+      "license_note": "Public NIST publication.",
+      "goal": "Extract a DoD/federal contractor security requirements document with control families, requirement identifiers (3.1.1 through 3.14.7), discussion sections, and source references. Tests reading of structured requirement numbering and cross-reference tables.",
+      "max_pages": 5,
+      "min_chars": 2500,
+      "expected_terms": [
+        "Controlled Unclassified Information",
+        "CUI",
+        "security requirements",
+        "access control",
+        "incident response",
+        "3.1"
+      ],
+      "expected_regex": [
+        "3\\.\\d+\\.\\d+",
+        "controlled\\s+unclassified",
+        "access\\s+control"
+      ],
+      "capability_focus": ["technical_standard", "numbered_requirements", "cross_references"]
+    },
+    {
+      "id": "nist_sp800_53r5_excerpt",
+      "title": "NIST SP 800-53r5 — Security and Privacy Controls for Information Systems",
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf",
+      "kind": "technical_standard_pdf",
+      "license_note": "Public NIST publication.",
+      "goal": "Extract the first 5 pages of a 600+ page comprehensive security controls catalog. Tests the opening framework description, control families overview, and control structure definitions. One of the densest and longest NIST documents — max_pages cap is critical here.",
+      "max_pages": 5,
+      "min_chars": 3500,
+      "expected_terms": [
+        "security controls",
+        "privacy controls",
+        "information systems",
+        "control families",
+        "NIST",
+        "federal agencies"
+      ],
+      "expected_regex": [
+        "security\\s+and\\s+privacy",
+        "control\\s+famil",
+        "information\\s+system"
+      ],
+      "capability_focus": ["technical_standard", "long_pdf", "numbered_sections", "dense_text"]
+    },
+    {
+      "id": "nist_cswp29_csf2",
+      "title": "NIST CSWP 29 — NIST Cybersecurity Framework 2.0",
+      "url": "https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf",
+      "kind": "technical_standard_pdf",
+      "license_note": "Public NIST publication.",
+      "goal": "Extract the NIST Cybersecurity Framework 2.0 with its six Function categories (Govern, Identify, Protect, Detect, Respond, Recover), Category/Subcategory tables, and implementation examples. Tests extraction of hierarchical structured tables where rows represent nested framework tiers.",
+      "max_pages": 5,
+      "min_chars": 2500,
+      "expected_terms": [
+        "Cybersecurity Framework",
+        "Govern",
+        "Identify",
+        "Protect",
+        "Detect",
+        "Respond",
+        "Recover"
+      ],
+      "expected_regex": [
+        "cybersecurity\\s+framework",
+        "CSF\\s+2\\.0",
+        "Govern|Identify|Protect"
+      ],
+      "capability_focus": ["technical_standard", "hierarchical_tables", "framework_structure"]
+    }
+  ]
+}

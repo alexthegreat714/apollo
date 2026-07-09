@@ -1,0 +1,96 @@
+{
+  "schema": "aegis.alpaca.vm_page_map.v1",
+  "last_checked": "2026-05-07 local / 2026-05-08 UTC",
+  "site": "alpaca",
+  "purpose": "Apollo paper-trading broker readiness and API-key setup inside the Aegis VM browser.",
+  "vm_browser": {
+    "container": "aegis-vm",
+    "display": ":1",
+    "profile_dir": "/root/.config/aegis-alpaca-chrome",
+    "cdp_port": 9224,
+    "open_route": "POST /forgeclaw/vm/browser/open_url",
+    "login_url": "https://app.alpaca.markets/account/login",
+    "dashboard_observed_url": "https://app.alpaca.markets/brokerage/new-account"
+  },
+  "login_persistence": {
+    "chrome_password_manager_entry_observed": false,
+    "authenticated_session_observed": true,
+    "evidence_without_secret_values": [
+      "Alpaca authenticated page loaded at /brokerage/new-account",
+      "Persistent Cognito refresh/access/id token cookies observed in the VM browser profile",
+      "Chrome Login Data did not contain an Alpaca saved-password entry"
+    ],
+    "operator_note": "Aegis can reuse the current VM browser session until it expires. If the site logs out, the operator may need to login again or explicitly save the password in Chrome inside the VM."
+  },
+  "authenticated_page": {
+    "title": "Alpaca - Crypto, Stock Trading API",
+    "account_mode_signal": "Paper Trading",
+    "safe_nav_buttons": [
+      "Home",
+      "Account",
+      "Positions",
+      "Orders",
+      "Activities",
+      "Balances",
+      "Configure",
+      "Alpaca Connect",
+      "Plans & Features",
+      "API",
+      "Community",
+      "Support",
+      "Legal"
+    ],
+    "safe_controls": [
+      {
+        "label": "Paper Trading account switcher",
+        "selector_hint": "[data-testid='account-switcher-button']",
+        "allowed_use": "Confirm paper mode or switch between paper accounts only."
+      },
+      {
+        "label": "API",
+        "selector_hint": "visible button text API",
+        "allowed_use": "Navigate to API keys/settings for paper account setup."
+      },
+      {
+        "label": "Positions",
+        "selector_hint": "visible button text Positions",
+        "allowed_use": "Read current paper positions only."
+      },
+      {
+        "label": "Orders",
+        "selector_hint": "visible button text Orders",
+        "allowed_use": "Read paper order history/status only."
+      },
+      {
+        "label": "Activities",
+        "selector_hint": "visible button text Activities",
+        "allowed_use": "Read paper account activity only."
+      }
+    ],
+    "current_operator_blocker": {
+      "label": "Secure Your Account",
+      "visible_text": "Enable multi-factor authentication. Authenticator Secure (Required). Activate.",
+      "aegis_action": "Stop and ask operator before activating or configuring MFA."
+    }
+  },
+  "apollo_integration_boundaries": {
+    "allowed": [
+      "Use VM browser session to find paper API key setup pages.",
+      "Use paper API credentials only after operator approves storing them in approved secret storage.",
+      "Run Apollo read-only provider health checks and paper-account validation.",
+      "Run Apollo swing studies and paper-only proposal workflows."
+    ],
+    "blocked": [
+      "Live trade execution",
+      "Funding or bank-linking flows",
+      "KYC/personal identity forms without operator control",
+      "MFA setup without operator control",
+      "Credential extraction into markdown, logs, RAG, reports, screenshots, or chat"
+    ],
+    "paper_env": {
+      "APOLLO_BROKER_PROVIDER": "alpaca",
+      "APOLLO_ALPACA_ENV": "paper",
+      "APCA_API_BASE_URL": "https://paper-api.alpaca.markets"
+    }
+  }
+}

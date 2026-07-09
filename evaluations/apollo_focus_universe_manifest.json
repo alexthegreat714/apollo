@@ -1,0 +1,90 @@
+{
+  "name": "Apollo Focus Universe",
+  "version": 1,
+  "themes": [
+    {
+      "id": "ai_compute",
+      "label": "AI Compute",
+      "why": "High-liquidity semiconductor and networking leaders with dense earnings, capex, and infrastructure coverage.",
+      "query_terms": "semiconductor datacenter accelerator networking capex",
+      "tickers": [
+        { "ticker": "NVDA", "name": "NVIDIA", "weight": 1.0 },
+        { "ticker": "AMD", "name": "Advanced Micro Devices", "weight": 0.96 },
+        { "ticker": "AVGO", "name": "Broadcom", "weight": 0.95 },
+        { "ticker": "TSM", "name": "Taiwan Semiconductor", "weight": 0.94 },
+        { "ticker": "ANET", "name": "Arista Networks", "weight": 0.9 },
+        { "ticker": "MRVL", "name": "Marvell Technology", "weight": 0.86 }
+      ]
+    },
+    {
+      "id": "enterprise_platforms",
+      "label": "Enterprise Platforms",
+      "why": "Large-cap software and platform operators with strong disclosure cadence and macro sensitivity.",
+      "query_terms": "cloud enterprise software advertising platform productivity infrastructure",
+      "tickers": [
+        { "ticker": "MSFT", "name": "Microsoft", "weight": 1.0 },
+        { "ticker": "AMZN", "name": "Amazon", "weight": 0.97 },
+        { "ticker": "GOOGL", "name": "Alphabet", "weight": 0.96 },
+        { "ticker": "META", "name": "Meta Platforms", "weight": 0.95 },
+        { "ticker": "ORCL", "name": "Oracle", "weight": 0.9 },
+        { "ticker": "CRM", "name": "Salesforce", "weight": 0.86 }
+      ]
+    },
+    {
+      "id": "money_center_financials",
+      "label": "Money Center Financials",
+      "why": "Highly liquid banks and brokers with strong macro, rates, and regulatory coverage.",
+      "query_terms": "banks brokers capital markets rates credit regulation",
+      "tickers": [
+        { "ticker": "JPM", "name": "JPMorgan Chase", "weight": 1.0 },
+        { "ticker": "GS", "name": "Goldman Sachs", "weight": 0.95 },
+        { "ticker": "MS", "name": "Morgan Stanley", "weight": 0.94 },
+        { "ticker": "BAC", "name": "Bank of America", "weight": 0.93 },
+        { "ticker": "C", "name": "Citigroup", "weight": 0.88 },
+        { "ticker": "SCHW", "name": "Charles Schwab", "weight": 0.87 }
+      ]
+    },
+    {
+      "id": "energy_infrastructure",
+      "label": "Energy Infrastructure",
+      "why": "Liquid energy operators and service names with strong commodity, capex, and macro coverage.",
+      "query_terms": "energy oil gas refining services capex commodity",
+      "tickers": [
+        { "ticker": "XOM", "name": "Exxon Mobil", "weight": 1.0 },
+        { "ticker": "CVX", "name": "Chevron", "weight": 0.96 },
+        { "ticker": "COP", "name": "ConocoPhillips", "weight": 0.93 },
+        { "ticker": "SLB", "name": "Schlumberger", "weight": 0.9 },
+        { "ticker": "HAL", "name": "Halliburton", "weight": 0.86 },
+        { "ticker": "OXY", "name": "Occidental Petroleum", "weight": 0.84 }
+      ]
+    },
+    {
+      "id": "healthcare_quality",
+      "label": "Healthcare Quality",
+      "why": "Large-cap healthcare names with durable liquidity and event-driven earnings or guidance catalysts.",
+      "query_terms": "pharma managed care therapeutics healthcare earnings guidance",
+      "tickers": [
+        { "ticker": "LLY", "name": "Eli Lilly", "weight": 1.0 },
+        { "ticker": "JNJ", "name": "Johnson & Johnson", "weight": 0.95 },
+        { "ticker": "ABBV", "name": "AbbVie", "weight": 0.93 },
+        { "ticker": "MRK", "name": "Merck", "weight": 0.92 },
+        { "ticker": "UNH", "name": "UnitedHealth Group", "weight": 0.9 },
+        { "ticker": "BMY", "name": "Bristol Myers Squibb", "weight": 0.84 }
+      ]
+    },
+    {
+      "id": "industrial_automation",
+      "label": "Industrial Automation",
+      "why": "Diversified industrials with strong capex and infrastructure read-through from macro and manufacturing cycles.",
+      "query_terms": "industrial automation electrical manufacturing capex infrastructure",
+      "tickers": [
+        { "ticker": "ETN", "name": "Eaton", "weight": 1.0 },
+        { "ticker": "PH", "name": "Parker-Hannifin", "weight": 0.95 },
+        { "ticker": "HON", "name": "Honeywell", "weight": 0.92 },
+        { "ticker": "EMR", "name": "Emerson Electric", "weight": 0.89 },
+        { "ticker": "ROK", "name": "Rockwell Automation", "weight": 0.88 },
+        { "ticker": "GE", "name": "GE Aerospace", "weight": 0.86 }
+      ]
+    }
+  ]
+}

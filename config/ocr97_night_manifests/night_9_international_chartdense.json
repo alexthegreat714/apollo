@@ -1,0 +1,102 @@
+{
+  "name": "ocr97_night_9_international_chartdense",
+  "description": "Night 9: International financial institutions — the most chart-dense documents in the corpus. IMF and BIS publications use economic chart layouts that are fundamentally different from Fed FSR charts: multiple panel charts on a single page, chart-sourced data notes, multilingual annotations, and chart titles embedded in figure captions rather than standalone headings. This is the ceiling test for gb10_deplot_chart and qwen3-vl on real financial chart interpretation.",
+  "score_floor_to_defend_97": 90,
+  "documents": [
+    {
+      "id": "imf_gfsr_oct2024",
+      "title": "IMF Global Financial Stability Report — October 2024",
+      "url": "https://www.imf.org/-/media/Files/Publications/GFSR/2024/October/English/text.ashx",
+      "kind": "annual_report_charts",
+      "license_note": "Public IMF publication. © International Monetary Fund.",
+      "goal": "Extract text, chart titles, figure captions, and financial stability risk language from a heavily charted IMF GFSR report. Charts include multi-panel grid figures, heatmaps, bar/line combinations, and sovereign spread plots. Tests whether DePlot or qwen3-VL extracts chart axis labels and values versus falling back to surrounding narrative only.",
+      "max_pages": 5,
+      "min_chars": 3000,
+      "expected_terms": [
+        "Global Financial Stability Report",
+        "International Monetary Fund",
+        "financial stability",
+        "sovereign",
+        "systemic risk",
+        "credit markets"
+      ],
+      "expected_regex": [
+        "financial\\s+stability\\s+report",
+        "global\\s+financial",
+        "International\\s+Monetary\\s+Fund"
+      ],
+      "capability_focus": ["charts", "figures", "heatmaps", "multi_panel", "international"]
+    },
+    {
+      "id": "imf_weo_apr2025",
+      "title": "IMF World Economic Outlook — April 2025",
+      "url": "https://www.imf.org/-/media/Files/Publications/WEO/2025/April/English/text.ashx",
+      "kind": "annual_report_charts",
+      "license_note": "Public IMF publication.",
+      "goal": "Extract opening chapters of the IMF WEO with growth forecast charts (bar charts by country/region), inflation trajectory lines, current account balance scatter plots, and the WEO projections table. The WEO is the most chart-dense document in international economics — each page has 2-4 figures. Tests DePlot and qwen3-VL on GDP growth bars, country comparison columns, and forecast uncertainty bands.",
+      "max_pages": 5,
+      "min_chars": 3000,
+      "expected_terms": [
+        "World Economic Outlook",
+        "global growth",
+        "inflation",
+        "advanced economies",
+        "emerging market",
+        "IMF"
+      ],
+      "expected_regex": [
+        "world\\s+economic\\s+outlook",
+        "global\\s+growth",
+        "advanced\\s+economies"
+      ],
+      "capability_focus": ["charts", "bar_charts", "line_charts", "scatter_plots", "forecast_tables"]
+    },
+    {
+      "id": "fed_feds_2024078",
+      "title": "Fed FEDS 2024-078 — Inflation Expectations and the Supply of Credit",
+      "url": "https://www.federalreserve.gov/econres/feds/files/2024078pap.pdf",
+      "kind": "academic_two_column_pdf",
+      "license_note": "Public Federal Reserve publication.",
+      "goal": "Extract a two-column Federal Reserve Finance and Economics Discussion Series working paper with econometric model tables, impulse response function charts, coefficient estimate tables, and regression output. FEDS papers use LaTeX two-column format. Tests Surya column detection and whether table cells with regression coefficients and standard errors in parentheses survive linearization.",
+      "max_pages": 5,
+      "min_chars": 2500,
+      "expected_terms": [
+        "Federal Reserve",
+        "inflation",
+        "credit",
+        "monetary policy",
+        "interest rate"
+      ],
+      "expected_regex": [
+        "Federal\\s+Reserve",
+        "inflation\\s+expect",
+        "monetary\\s+policy"
+      ],
+      "capability_focus": ["two_column", "econometric_tables", "regression_output", "academic"]
+    },
+    {
+      "id": "imf_fiscal_monitor_oct2024",
+      "title": "IMF Fiscal Monitor — October 2024",
+      "url": "https://www.imf.org/-/media/Files/Publications/fiscal-monitor/2024/October/English/text.ashx",
+      "kind": "annual_report_charts",
+      "license_note": "Public IMF publication.",
+      "goal": "Extract the IMF Fiscal Monitor with fiscal deficit charts, debt-to-GDP comparison bars, country fiscal outlook charts, and fiscal adjustment narrative text. The Fiscal Monitor uses the same multi-panel chart layout as the WEO and GFSR but focuses on public finances. Tests the chart_text_mixed routing on a third IMF publication type.",
+      "max_pages": 5,
+      "min_chars": 2500,
+      "expected_terms": [
+        "Fiscal Monitor",
+        "International Monetary Fund",
+        "fiscal deficit",
+        "debt",
+        "GDP",
+        "revenue"
+      ],
+      "expected_regex": [
+        "fiscal\\s+monitor",
+        "International\\s+Monetary\\s+Fund",
+        "fiscal\\s+deficit|debt\\s+to\\s+GDP"
+      ],
+      "capability_focus": ["charts", "bar_charts", "multi_panel", "fiscal_data", "international"]
+    }
+  ]
+}

@@ -1,129 +1,1303 @@
-<!doctype html>
+﻿<!doctype html>
 <html>
 <head>
   <meta charset="utf-8">
-  <title>{{ agent }} — Interface</title>
-  <link rel="stylesheet" href="/static/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ agent }} - Interface</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+  {% set base_styles = style_candidates if style_candidates else [url_for('static', filename='style.css') ~ '?v=' ~ asset_rev] %}
+  {% set ui_styles = ui_style_candidates if ui_style_candidates else [url_for('static', filename='apollo_ui.css') ~ '?v=' ~ asset_rev] %}
+  <link rel="stylesheet" href="{{ base_styles[0] }}">
+  <link rel="stylesheet" href="{{ ui_styles[0] }}">
+  {% if inline_css %}
+  <style id="apollo-inline-fallback-css">
+{{ inline_css | safe }}
+  </style>
+  {% endif %}
+  <style>
+    .ocrd-drop-zone {
+      border: 2px dashed var(--border, #1f2330);
+      border-radius: 8px;
+      padding: 28px 16px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .15s, background .15s;
+      background: var(--surface, #13161e);
+      margin-bottom: 12px;
+    }
+    .ocrd-drop-zone:hover,
+    .ocrd-drop-zone.drag-over {
+      border-color: var(--accent, #5b8af0);
+      background: rgba(91,138,240,.07);
+    }
+    .ocrd-drop-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      pointer-events: none;
+    }
+    .ocrd-drop-icon {
+      width: 38px;
+      height: 38px;
+      color: var(--muted, #5a6080);
+      transition: color .15s;
+    }
+    .ocrd-drop-zone.drag-over .ocrd-drop-icon { color: var(--accent, #5b8af0); }
+    .ocrd-drop-label {
+      font-size: .9rem;
+      color: var(--text, #d4d8e8);
+      font-weight: 500;
+    }
+    .ocrd-drop-sub { font-size: .75rem; color: var(--muted, #5a6080); }
+    .ocrd-drop-filename {
+      margin-top: 8px;
+      font-size: .78rem;
+      font-family: var(--mono, monospace);
+      color: var(--ok, #34d399);
+      min-height: 1.1em;
+      word-break: break-all;
+    }
+  </style>
 </head>
-<body>
-  <header class="bar">
-    <div class="title">{{ agent }}</div>
-    <div id="status" class="status badge">checking…</div>
-    <div id="model" class="badge dim">model: ?</div>
-  </header>
+<body data-app-base-path="{{ app_base_path | default('', true) }}">
+  <div class="app-shell">
+    <aside class="rail" id="rail">
+      <div class="brand">
+        <div class="brand-mark">A</div>
+        <div>
+          <div class="brand-title">{{ agent }}</div>
+          <div class="brand-sub">Budget command center</div>
+        </div>
+      </div>
+      <nav class="rail-nav">
+        <button class="nav-item" data-tab="overview" type="button">Overview</button>
+        <button class="nav-item is-active" data-tab="chat" type="button">Chat</button>
+        <button class="nav-item" data-tab="swing" type="button">Swing</button>
+        <button class="nav-item" data-tab="ebay" type="button">Ebay</button>
+        <button class="nav-item" data-tab="ocrdash" type="button">OCR Dashboard</button>
+        <button class="nav-item" data-tab="budget" type="button">Budget</button>
+        <button class="nav-item" data-tab="student-loan" type="button">Student Loans</button>
+        <button class="nav-item" data-tab="reports" type="button">Reports</button>
+        <button class="nav-item" data-tab="cashflow" type="button">Cashflow</button>
+        <button class="nav-item" data-tab="goals" type="button">Goals</button>
+        <button class="nav-item" data-tab="imports" type="button">Imports</button>
+        <button class="nav-item" data-tab="insights" type="button">Insights</button>
+        <button class="nav-item" data-tab="graph" type="button">Graph RAG</button>
+        <button class="nav-item" data-tab="pipeline" type="button">Pipeline</button>
+        <button class="nav-item" data-tab="settings" type="button">Settings</button>
+      </nav>
+      <div class="rail-utility-stack">
+        <div class="runtime-menu-card">
+          <div id="topbar-runtime-shell" class="topbar-runtime-shell">
+            <button id="topbar-runtime-toggle" class="ghost-btn topbar-runtime-toggle" type="button" aria-expanded="false" aria-controls="topbar-runtime-menu">
+              <span class="hamburger-glyph" aria-hidden="true">&#9776;</span>
+              <span>Runtime Menu</span>
+            </button>
+            <div id="topbar-runtime-menu" class="topbar-runtime-menu" hidden>
+              <div class="topbar-runtime-bar">
+                <span id="build-chip" class="pill dim">Build #{{ visible_build_seq }}</span>
+                <span id="files-edited-chip" class="pill dim">Files edited: {{ asset_last_edited_display }}</span>
+                <button id="rebuild-reload-btn" class="primary-btn" type="button">Rebuild &amp; Refresh</button>
+                <button id="ui-cache-bust-btn" class="ghost-btn" type="button">Reload UI (Cache Bust)</button>
+                <div id="runtime-menu-status" class="runtime-menu-status" aria-live="polite"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="rail-footer">
+      </div>
+    </aside>
 
-  <main class="grid">
-    <section class="panel">
-      <h2>Chat</h2>
-      <div id="chatWindow" class="scroll"></div>
-    </section>
-    <section class="panel">
-      <h2>Reasoning</h2>
-      <div id="reasoningWindow" class="scroll">(none)</div>
-    </section>
-  </main>
+    <div class="main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <div class="agent-title">{{ agent }}</div>
+          <div class="agent-sub">Live budget workspace with RAG guidance</div>
+        </div>
+        <div class="topbar-right">
+          <div class="status-group">
+            <span id="status" class="pill">checking...</span>
+            <span id="model" class="pill dim">model: ?</span>
+          </div>
+          <div class="control-group">
+            <label class="control">
+              <span>Budget month</span>
+              <input id="budget-month" type="month">
+            </label>
+            <button id="apollo-calendar-toggle" class="ghost-btn schedule-toggle" type="button">Apollo Calendar</button>
+            <button id="apollo-schedule-toggle" class="ghost-btn schedule-toggle" type="button">Daily Schedule</button>
+            <button id="budget-focus-toggle" class="chip" type="button">Budget Focus</button>
+          </div>
+        </div>
+        <button id="rail-toggle" class="rail-toggle" type="button">Menu</button>
+      </header>
 
-  <hr>
-  <h3>Agent Dialogue</h3>
-  <button onclick="runDialogue()">Start Aegis–Sky Exchange</button>
-  <pre id="dialogueLog" style="max-height:300px;overflow:auto;background:#111;color:#eee;padding:10px;"></pre>
+      <div id="apollo-schedule-overlay" class="schedule-overlay" hidden>
+        <div class="schedule-backdrop" data-schedule-close></div>
+        <section class="schedule-panel" role="dialog" aria-modal="true" aria-labelledby="apollo-schedule-title">
+          <div class="schedule-head">
+            <div>
+              <h2 id="apollo-schedule-title">Apollo Daily Schedule</h2>
+              <p>Research, simulation, review, and reporting. Live broker execution remains disabled.</p>
+            </div>
+            <button id="apollo-schedule-close" class="ghost-btn" type="button" aria-label="Close Apollo schedule">Close</button>
+          </div>
+          <div class="schedule-grid">
+            <button class="schedule-item" data-schedule-job="nightly" type="button">
+              <time>01:00 CT</time>
+              <strong>Nightly pipeline</strong>
+              <span>Run OCR/RAG ingestion and background research refresh.</span>
+            </button>
+            <button class="schedule-item" data-schedule-job="trade_cycle" type="button">
+              <time>04:00 CT</time>
+              <strong>Trade-cycle prep</strong>
+              <span>Build candidate context and paper-only trade-cycle readiness artifacts.</span>
+            </button>
+            <button class="schedule-item" data-schedule-job="gate_check" type="button">
+              <time>06:15 CT</time>
+              <strong>Overnight gate check</strong>
+              <span>Confirm Apollo, Aegis, providers, and guard states before market workflow.</span>
+            </button>
+            <button class="schedule-item" data-schedule-job="market_study" type="button">
+              <time>07:30 CT</time>
+              <strong>Market study</strong>
+              <span>Refresh setup list, score candidates, and flag no-trade/no-chase names.</span>
+            </button>
+            <button class="schedule-item" data-schedule-job="daily_report_open" type="button">
+              <time>07:45 CT</time>
+              <strong>Open daily report</strong>
+              <span>Start today's report with overnight learning, paper account state, and planned checks.</span>
+            </button>
+            <button class="schedule-item focus" data-schedule-job="day_trade" type="button">
+              <time>08:15 CT</time>
+              <strong>Simulated day-trade rehearsal</strong>
+              <span>Run queued paper_sim lifecycle test; Alpaca-paper remains optional and credential-gated.</span>
+            </button>
+            <button class="schedule-item" data-schedule-job="pretrade_gate" type="button">
+              <time>08:45-15:15 CT</time>
+              <strong>Pre-trade gate</strong>
+              <span>Light quote/news checks before paper_sim action; no daytime HippoRAG rebuild.</span>
+            </button>
+            <button class="schedule-item" data-schedule-job="market_observation" type="button">
+              <time>08:30-15:00 CT</time>
+              <strong>Market-hours observation</strong>
+              <span>Monitor candidates, update risk/reward, and keep all activity in paper simulation.</span>
+            </button>
+            <button class="schedule-item" data-schedule-job="swing_study" type="button">
+              <time>16:20 CT</time>
+              <strong>Post-close swing study</strong>
+              <span>Re-rank swing setups after close and update the Swing Trade Desk.</span>
+            </button>
+            <button class="schedule-item" data-schedule-job="daily_report_final" type="button">
+              <time>16:35 CT</time>
+              <strong>Finalize daily report</strong>
+              <span>Write the day's decisions, blockers, paper account state, and next-day plan.</span>
+            </button>
+            <button class="schedule-item" data-schedule-job="ledger_review" type="button">
+              <time>End of day</time>
+              <strong>Ledger and report review</strong>
+              <span>Write outcomes, blockers, paper orders, and readiness score into reports/ledger.</span>
+            </button>
+          </div>
+          <div id="schedule-detail" class="schedule-detail">
+            Select a scheduled item to view status, latest logs, and past runs.
+          </div>
+          <div class="schedule-footer-note">
+            Current posture: research and paper simulation only. Apollo should prove repeatable edge on live market data before any live broker connection.
+          </div>
+        </section>
+      </div>
 
-  <footer class="bar">
-    <textarea id="userInput" placeholder="Message…" rows="2"></textarea>
-    <button id="sendBtn">Send</button>
-  </footer>
+      <main class="tab-panels">
+        <section class="tab-panel" data-tab="overview">
+          <div class="panel-grid">
+            <div class="card metric-card">
+              <div class="metric-label">Ready to assign</div>
+              <div class="metric-value" id="overview-ready">$0.00</div>
+              <div class="metric-sub" id="overview-ready-sub">Based on latest totals</div>
+            </div>
+            <div class="card metric-card">
+              <div class="metric-label">Overspent categories</div>
+              <div class="metric-value" id="overview-overspent">0</div>
+              <div class="metric-sub">Need coverage</div>
+            </div>
+            <div class="card metric-card">
+              <div class="metric-label">Monthly net</div>
+              <div class="metric-value" id="overview-net">$0.00</div>
+              <div class="metric-sub">Income minus expenses</div>
+            </div>
+            <div class="card metric-card">
+              <div class="metric-label">Safe to spend</div>
+              <div class="metric-value" id="overview-safe">$0.00</div>
+              <div class="metric-sub">Scenario adjusted</div>
+            </div>
+          </div>
+
+          <div class="panel-grid">
+            <div class="card">
+              <div class="card-header">
+                <h3>Quick actions</h3>
+              </div>
+              <div class="button-row">
+                <button id="overview-add-transaction" class="primary-btn" type="button">Add transaction</button>
+                <button id="overview-import" class="ghost-btn" type="button">Import files</button>
+                <button id="overview-refresh-insights" class="ghost-btn" type="button">Refresh insights</button>
+                <button id="overview-start-dialogue" class="ghost-btn" type="button">Run dialogue test</button>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <h3>Budget guidance snapshot</h3>
+              </div>
+              <div id="overview-insights" class="insight-text">No guidance yet.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="tab-panel is-active" data-tab="chat">
+          <div class="chat-layout">
+            <div class="chat-main">
+              <div class="card">
+                <div class="card-header">
+                  <h2>Chat</h2>
+                  <span id="context-chip" class="chip small">Budget Focus</span>
+                </div>
+                <div id="chatWindow" class="chat-window"></div>
+                <div class="chat-input">
+                  <textarea id="userInput" placeholder="Message..." rows="3"></textarea>
+                  <button id="sendBtn" class="primary-btn" type="button">Send</button>
+                  <select id="model-mode" class="model-mode-select" title="Model mode">
+                    <option value="auto">Auto</option>
+                    <option value="fast">Fast (12B)</option>
+                    <option value="deep">Deep (27B)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="chat-side">
+              <div class="card">
+                <div class="card-header">
+                  <h3>Reasoning</h3>
+                </div>
+                <div id="reasoningWindow" class="scroll-box">(none)</div>
+              </div>
+              <div class="card">
+                <details class="ocr-panel" open>
+                  <summary>OCR / Vision</summary>
+                  <div class="ocr-controls">
+                    <input id="ocr-file" type="file" accept="image/*,.png,.jpg,.jpeg,.bmp,.tif,.tiff,.pdf" />
+                    <textarea id="ocr-goal" rows="2" placeholder="What should OCR or Vision do? (optional)"></textarea>
+                    <select id="media-task">
+                      <option value="ocr">OCR (text extraction)</option>
+                      <option value="vision">Vision (image understanding)</option>
+                    </select>
+                    <select id="vision-mode">
+                      <option value="auto">Vision Auto</option>
+                      <option value="describe">Describe</option>
+                      <option value="qa">Q and A</option>
+                      <option value="embeddings">Embeddings</option>
+                      <option value="detect">Detect Objects</option>
+                      <option value="segment">Segment Objects</option>
+                    </select>
+                    <select id="vision-model">
+                      <option value="auto">Auto Model</option>
+                      <option value="qwen3-vl">Qwen3-VL (default)</option>
+                      <option value="qwen2-vl">Qwen2-VL</option>
+                      <option value="llava">LLaVA 1.6</option>
+                      <option value="phi-3.5-vision">Phi-3.5-Vision</option>
+                      <option value="clip">CLIP</option>
+                      <option value="siglip">SigLIP</option>
+                      <option value="yolov8">YOLOv8</option>
+                      <option value="groundingdino-sam">GroundingDINO + SAM</option>
+                    </select>
+                    <div class="ocr-actions">
+                      <select id="ocr-engine">
+                        <option value="gb10_auto">GB10 Auto (primary)</option>
+                        <option value="gb10_paddleocr_vl">GB10 PaddleOCR-VL</option>
+                        <option value="gb10_got_ocr2">GB10 GOT-OCR2</option>
+                        <option value="gb10_qwen_ocr">GB10 Qwen OCR</option>
+                        <option value="auto">Auto (legacy local)</option>
+                        <option value="tesseract">Tesseract (fast text)</option>
+                        <option value="rapidocr">RapidOCR (layout/handwriting)</option>
+                      </select>
+                      <button id="ocr-run" class="ghost-btn" type="button">Run task</button>
+                    </div>
+                  </div>
+                  <div id="ocr-status" class="ocr-status"></div>
+                  <pre id="ocr-output" class="ocr-output">(no output yet)</pre>
+                </details>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="tab-panel" data-tab="swing">
+          <div class="swing-header">
+            <div>
+              <div class="budget-title">Swing Trade Desk</div>
+              <div class="budget-sub" id="swing-subtitle">Best setup, tradeability, levels, and review actions</div>
+            </div>
+            <div class="swing-controls">
+              <label>
+                <span>Tickers</span>
+                <input id="swing-tickers" class="swing-input" placeholder="NVDA, AMD, AVGO" />
+              </label>
+              <label>
+                <span>Status</span>
+                <select id="swing-status-filter" class="swing-select">
+                  <option value="">All statuses</option>
+                  <option value="new">New</option>
+                  <option value="watching">Watching</option>
+                  <option value="confirmed">Confirmed</option>
+                  <option value="invalidated">Invalidated</option>
+                  <option value="paper_open">Paper open</option>
+                  <option value="rejected">Rejected</option>
+                </select>
+              </label>
+              <button id="swing-calendar-open" class="ghost-btn schedule-toggle" type="button">Calendar</button>
+              <button id="swing-pretrade-check" class="ghost-btn" type="button">Pre-Trade Check</button>
+              <button id="swing-daily-report-open" class="ghost-btn" type="button">Daily Report</button>
+              <button id="swing-run" class="primary-btn" type="button">Run Study</button>
+              <button id="swing-refresh" class="ghost-btn" type="button">Refresh</button>
+            </div>
+          </div>
+          <div id="swing-status" class="status-line">Swing study idle.</div>
+          <div id="swing-pretrade-card" class="swing-pretrade-card">
+            <div>
+              <span>Pre-trade gate</span>
+              <strong id="swing-pretrade-decision">No check yet</strong>
+            </div>
+            <p id="swing-pretrade-note">Apollo will run a light quote/news gate before paper-sim action and document it in the daily report.</p>
+          </div>
+          <div id="swing-daily-report" class="swing-sim-report" hidden>
+            <div class="card-header">
+              <h3>Apollo Daily Report</h3>
+              <span id="swing-daily-report-path" class="chip small">daily report</span>
+            </div>
+            <pre id="swing-daily-report-text"></pre>
+          </div>
+          <div class="swing-summary">
+            <div class="swing-metric-card">
+              <span>Best setup</span>
+              <strong id="swing-best">-</strong>
+            </div>
+            <div class="swing-metric-card">
+              <span>Trade-ready</span>
+              <strong id="swing-actionable">0</strong>
+            </div>
+            <div class="swing-metric-card">
+              <span>Blocked / no chase</span>
+              <strong id="swing-blocked">0</strong>
+            </div>
+            <div class="swing-metric-card">
+              <span>Market regime</span>
+              <strong id="swing-regime">unknown</strong>
+            </div>
+          </div>
+          <div id="swing-selected-strip" class="swing-selected-strip">
+            Select a setup to review tradeability, levels, and next action.
+          </div>
+          <div class="swing-sim-account" id="swing-sim-account">
+            <div class="swing-sim-head">
+              <div>
+                <h3>Paper Simulation Account</h3>
+                <p id="swing-sim-note">Apollo has not started a paper swing trade yet.</p>
+              </div>
+              <div class="button-row">
+                <button id="swing-sim-report-toggle" class="ghost-btn" type="button">Report</button>
+                <button id="swing-sim-refresh" class="ghost-btn" type="button">Update</button>
+              </div>
+            </div>
+            <div class="swing-sim-metrics">
+              <div><span>Sim bank cash</span><strong id="swing-sim-cash">$100.00</strong></div>
+              <div><span>Trade acct value</span><strong id="swing-sim-balance">$100.00</strong></div>
+              <div><span>In positions</span><strong id="swing-sim-invested">$0.00</strong></div>
+              <div><span>Real + unreal</span><strong id="swing-sim-return">$0.00</strong></div>
+              <div><span>Queued next cycle</span><strong id="swing-sim-plan">$0.00</strong></div>
+            </div>
+            <div id="swing-sim-spread" class="swing-sim-spread">Tomorrow's paper cycle will wait for a trade-ready setup.</div>
+            <div id="swing-sim-report" class="swing-sim-report" hidden>
+              <div class="card-header">
+                <h3>Single Page Report</h3>
+                <span id="swing-sim-report-path" class="chip small">paper only</span>
+              </div>
+              <pre id="swing-sim-report-text"></pre>
+            </div>
+          </div>
+          <div class="swing-layout">
+            <div class="card">
+              <div class="card-header">
+                <h3>Setup Queue</h3>
+                <span class="chip small">ranked by score</span>
+              </div>
+              <div class="swing-table">
+                <div class="swing-row swing-row-head">
+                  <span>Ticker</span>
+                  <span>Setup</span>
+                  <span>Score</span>
+                  <span>RS</span>
+                  <span>R/R</span>
+                  <span>Status</span>
+                </div>
+                <div id="swing-list" class="swing-list"></div>
+              </div>
+            </div>
+            <div class="card swing-detail-card">
+              <div class="card-header">
+                <h3 id="swing-detail-title">Details</h3>
+              </div>
+              <div id="swing-chart" class="swing-chart">Select a setup to load chart context.</div>
+              <div id="swing-detail" class="swing-detail">Select a setup to review levels, catalysts, and lifecycle state.</div>
+              <div class="button-row swing-decision-row">
+                <button id="swing-watch" class="ghost-btn" type="button">Mark watching</button>
+                <button id="swing-paper" class="ghost-btn" type="button">Paper trade</button>
+                <button id="swing-reject" class="ghost-btn" type="button">Reject</button>
+              </div>
+              <details class="swing-raw">
+                <summary>Raw proposal JSON</summary>
+                <pre id="swing-json" class="ocr-output">(no proposal selected)</pre>
+              </details>
+            </div>
+          </div>
+        </section>
+
+        <section class="tab-panel" data-tab="student-loan">
+          <div class="panel-grid" style="grid-template-columns:minmax(320px, 640px);">
+            <div class="card loan-review-card">
+              <div class="card-header">
+                <h3>Student Loan Review</h3>
+                <span id="loan-review-mode" class="chip small">paused</span>
+              </div>
+              <div class="loan-review-controls">
+                <button id="loan-review-capture" class="primary-btn" type="button">Capture screen</button>
+                <button id="loan-review-compare" class="ghost-btn" type="button">Compare</button>
+                <button id="loan-review-pause" class="ghost-btn" type="button">Pause login</button>
+                <button id="loan-review-resume" class="ghost-btn" type="button">Resume</button>
+              </div>
+              <div id="loan-review-status" class="status-line">Login blind mode is enabled until you resume capture.</div>
+              <div id="loan-review-summary" class="insight-text">Apollo will capture the VM only when you ask it to look at the current page or when you use the capture controls here.</div>
+              <div id="loan-review-meta" class="loan-review-meta">Target: aegis_tab</div>
+              <img id="loan-review-image" class="loan-review-image" alt="Apollo student loan capture" hidden>
+              <pre id="loan-review-sample" class="ocr-output loan-review-sample">(no capture yet)</pre>
+            </div>
+          </div>
+        </section>
+
+        <section class="tab-panel" data-tab="ebay">
+          <div class="panel-grid" style="grid-template-columns:1fr;">
+            <div class="card">
+              <div class="card-header">
+                <h3>eBay Draft Dashboard</h3>
+                <div class="card-actions">
+                  <button class="ghost-btn" type="button" onclick="window.open((window.__apolloApiUrl ? window.__apolloApiUrl('/admin/ebay/drafts') : '/admin/ebay/drafts'), '_blank')">Open Draft Dashboard ↗</button>
+                  <span class="chip small">Local approval gate</span>
+                </div>
+              </div>
+              <p>Drafts from Apollo and Sky image requests appear here. Review the draft, approve it locally, then use the separate live publish gate only when the eBay API credentials and publish flag are intentionally enabled.</p>
+              <div class="panel" style="display:block;">
+                <iframe id="ebay-drafts-frame" src="about:blank" title="Apollo eBay Draft Dashboard" style="width:100%;height:75vh;border:1px solid rgba(255,255,255,0.12);border-radius:8px;background:#0b1220;"></iframe>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="tab-panel" data-tab="ocrdash">
+          <div class="panel-grid ocrdash-grid">
+            <div class="card">
+              <div class="card-header">
+                <h3>OCR97 Dashboard</h3>
+                <div class="card-actions">
+                  <button class="ghost-btn" type="button" onclick="window.open((window.__apolloApiUrl ? window.__apolloApiUrl('/admin/ocr/dashboard') : '/admin/ocr/dashboard'), '_blank')">Stack Dashboard ↗</button>
+                  <span class="chip small">Baseline Route</span>
+                </div>
+              </div>
+              <div class="ocrdash-controls">
+                <div id="ocrd-drop-zone" class="ocrd-drop-zone">
+                  <div class="ocrd-drop-inner">
+                    <svg class="ocrd-drop-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"/>
+                      <polyline points="16 10 12 6 8 10"/>
+                      <line x1="12" y1="6" x2="12" y2="18"/>
+                    </svg>
+                    <span class="ocrd-drop-label">Drop image or PDF here</span>
+                    <span class="ocrd-drop-sub">or click to browse</span>
+                  </div>
+                  <div id="ocrd-drop-filename" class="ocrd-drop-filename"></div>
+                  <input id="ocrd-file" type="file" accept="image/*,.png,.jpg,.jpeg,.bmp,.tif,.tiff,.pdf" style="display:none" />
+                </div>
+                <textarea id="ocrd-goal" rows="2" placeholder="Optional extraction focus for OCR97"></textarea>
+                <div class="ocrdash-control-row">
+                  <label class="ocrdash-field">
+                    <span>Example</span>
+                    <select id="ocrd-example-select">
+                      <option value="">Choose built-in example...</option>
+                    </select>
+                  </label>
+                  <button id="ocrd-example-run" class="ghost-btn" type="button">Run Example Compare</button>
+                </div>
+                <div class="ocrdash-control-row">
+                  <label class="ocrdash-field">
+                    <span>Max pages</span>
+                    <input id="ocrd-max-pages" type="number" min="1" max="8" value="1" />
+                  </label>
+                  <label class="ocrdash-field">
+                    <span>Max chars</span>
+                    <input id="ocrd-max-chars" type="number" min="200" max="20000" step="200" value="4000" />
+                  </label>
+                  <label class="ocrdash-field">
+                    <span>Typical OCR engine</span>
+                    <select id="ocrd-typical-engine">
+                      <option value="tesseract">Tesseract (typical)</option>
+                      <option value="rapidocr">RapidOCR</option>
+                      <option value="gb10_qwen_ocr">Qwen OCR</option>
+                    </select>
+                  </label>
+                  <button id="ocrd-run" class="primary-btn" type="button">Run Compare</button>
+                </div>
+              </div>
+              <div id="ocrd-status" class="ocr-status">Select a PDF or image to start.</div>
+              <div id="ocrd-metrics" class="ocrdash-metrics"></div>
+            </div>
+          </div>
+          <div class="panel-grid">
+            <div class="card">
+              <div class="card-header">
+                <h3>Source Snippet</h3>
+              </div>
+              <div id="ocrd-preview" class="ocrdash-preview">(no file selected)</div>
+              <pre id="ocrd-snippet" class="ocr-output">(no snippet yet)</pre>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <h3>OCR97 Rendered Output</h3>
+              </div>
+              <pre id="ocrd-output" class="ocr-output">(no OCR97 output yet)</pre>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <h3>Typical OCR Output</h3>
+              </div>
+              <pre id="ocrd-typical-output" class="ocr-output">(no typical OCR output yet)</pre>
+            </div>
+          </div>
+        </section>
+
+        <section class="tab-panel" data-tab="budget">
+          <div class="budget-header">
+            <div>
+              <div class="budget-title">Monthly Budget</div>
+              <div class="budget-sub" id="budget-subtitle">Apollo budget workspace</div>
+            </div>
+            <div class="budget-head-metrics">
+              <div class="stat-pill">
+                <span class="stat-label">Ready to assign</span>
+                <span class="stat-value" id="budget-ready">$0.00</span>
+              </div>
+              <div class="stat-pill alert">
+                <span class="stat-label">Overspent</span>
+                <span class="stat-value" id="budget-overspent-count">0</span>
+              </div>
+              <button id="budget-refresh" class="primary-btn" type="button">Refresh</button>
+            </div>
+          </div>
+
+          <div id="budget-status" class="status-line"></div>
+
+          <div class="budget-grid">
+            <div class="budget-main">
+              <div class="card">
+                <div class="card-header">
+                  <h3>Categories</h3>
+                  <div class="card-actions">
+                    <button id="category-add" class="ghost-btn" type="button">Add category</button>
+                  </div>
+                </div>
+                <div id="budget-category-list" class="category-list"></div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h3>Transactions</h3>
+                  <div class="card-actions">
+                    <button id="transaction-add" class="ghost-btn" type="button">Add transaction</button>
+                    <button id="transaction-split" class="ghost-btn" type="button">Split transaction</button>
+                    <button id="budget-receipt" class="ghost-btn" type="button">Import receipt</button>
+                  </div>
+                </div>
+                <div class="transaction-table">
+                  <div class="transaction-row header">
+                    <span>Date</span>
+                    <span>Payee</span>
+                    <span>Category</span>
+                    <span>Amount</span>
+                  </div>
+                  <div id="budget-transaction-list" class="transaction-body"></div>
+                </div>
+                <input id="budget-receipt-file" type="file" accept="image/*,.png,.jpg,.jpeg,.bmp,.tif,.tiff,.pdf" hidden />
+              </div>
+            </div>
+
+            <div class="budget-side">
+              <div class="card">
+                <div class="card-header">
+                  <h3>Accounts</h3>
+                  <button id="account-add" class="ghost-btn" type="button">Add account</button>
+                </div>
+                <div id="budget-accounts-list" class="account-list"></div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h3>Summary</h3>
+                </div>
+                <div class="summary-grid">
+                  <div class="summary-row"><span>Assigned</span><span id="summary-assigned">$0.00</span></div>
+                  <div class="summary-row"><span>Activity</span><span id="summary-activity">$0.00</span></div>
+                  <div class="summary-row"><span>Available</span><span id="summary-available">$0.00</span></div>
+                  <div class="summary-row"><span>Income</span><span id="summary-income">$0.00</span></div>
+                  <div class="summary-row"><span>Expense</span><span id="summary-expense">$0.00</span></div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h3>Paycheck planning</h3>
+                  <button id="paycheck-add" class="ghost-btn" type="button">Add paycheck</button>
+                </div>
+                <div id="budget-paycheck-list" class="paycheck-list"></div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h3>Bills due</h3>
+                </div>
+                <div id="due-list" class="due-list"></div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h3>Goals</h3>
+                  <button id="goal-add" class="ghost-btn" type="button">Add goal</button>
+                </div>
+                <div id="goal-list" class="goal-list"></div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h3>Scenario planning</h3>
+                </div>
+                <div class="scenario">
+                  <input id="scenario-slider" type="range" min="-25" max="25" value="0" />
+                  <div class="scenario-values">
+                    <span id="scenario-amount">0%</span>
+                    <span id="scenario-impact">$0.00 impact</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h3>Guidance</h3>
+                  <button id="insights-refresh" class="ghost-btn" type="button">Refresh</button>
+                </div>
+                <div id="budget-guidance" class="insight-text">Guidance will update as budget data changes.</div>
+                <div id="budget-context" class="context-text"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="tab-panel" data-tab="reports">
+          <div class="panel-grid">
+            <div class="card">
+              <div class="card-header">
+                <h3>Reports</h3>
+              </div>
+              <div id="reports-summary" class="insight-text">No report data yet.</div>
+              <div id="reports-list" class="report-list"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="tab-panel" data-tab="cashflow">
+          <div class="panel-grid">
+            <div class="card">
+              <div class="card-header">
+                <h3>Cashflow forecast</h3>
+              </div>
+              <div id="cashflow-summary" class="insight-text">No cashflow data yet.</div>
+              <div id="cashflow-timeline" class="cashflow-list"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="tab-panel" data-tab="goals">
+          <div class="panel-grid">
+            <div class="card">
+              <div class="card-header">
+                <h3>Goals</h3>
+                <button id="goals-add" class="ghost-btn" type="button">Add goal</button>
+              </div>
+              <div id="goals-list" class="goal-list"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="tab-panel" data-tab="imports">
+          <div class="panel-grid">
+            <div class="card">
+              <div class="card-header">
+                <h3>EveryDollar CSV import</h3>
+              </div>
+              <div class="import-row">
+                <input id="ed-csv-file" type="file" accept=".csv" />
+                <button id="ed-csv-import" class="primary-btn" type="button">Import CSV</button>
+              </div>
+              <div id="ed-csv-status" class="status-line"></div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <h3>Excel mapping import</h3>
+              </div>
+              <div class="import-row">
+                <input id="excel-file" type="file" accept=".xlsx,.xls" />
+                <button id="excel-preview" class="ghost-btn" type="button">Preview columns</button>
+                <button id="excel-import" class="primary-btn" type="button">Import Excel</button>
+              </div>
+              <div id="excel-mapping" class="mapping-grid"></div>
+              <div id="excel-status" class="status-line"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="tab-panel" data-tab="insights">
+          <div class="panel-grid">
+            <div class="card">
+              <div class="card-header">
+                <h3>Budget insights</h3>
+                <button id="insights-refresh-standalone" class="ghost-btn" type="button">Refresh</button>
+              </div>
+              <div id="budget-insights-body" class="insight-text">No insights yet.</div>
+              <div id="budget-insights-sources" class="source-list"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="tab-panel" data-tab="graph">
+          <div class="panel-grid">
+            <div class="card">
+              <div class="card-header">
+                <h3>HippoRAG graph visualizer</h3>
+                <div class="card-actions">
+                  <button id="graph-launch" class="primary-btn" type="button">Launch visualizer</button>
+                  <button id="graph-refresh" class="ghost-btn" type="button">Refresh</button>
+                </div>
+              </div>
+              <div class="graph-toolbar">
+                <label class="control">
+                  <span>Node query</span>
+                  <input id="graph-query" type="text" placeholder="Search entities or center node">
+                </label>
+                <label class="control">
+                  <span>Layout</span>
+                  <select id="graph-layout">
+                    <option value="force">Force</option>
+                    <option value="radial">Radial</option>
+                  </select>
+                </label>
+                <label class="control">
+                  <span>Neighborhood</span>
+                  <select id="graph-hops">
+                    <option value="1">1 hop</option>
+                    <option value="2" selected>2 hops</option>
+                    <option value="3">3 hops</option>
+                  </select>
+                </label>
+                <label class="control">
+                  <span>Node budget</span>
+                  <select id="graph-limit">
+                    <option value="80">80</option>
+                    <option value="120" selected>120</option>
+                    <option value="180">180</option>
+                    <option value="240">240</option>
+                  </select>
+                </label>
+                <label class="control">
+                  <span>Min degree</span>
+                  <select id="graph-min-degree">
+                    <option value="0">0</option>
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                  </select>
+                </label>
+                <label class="graph-live-toggle">
+                  <input id="graph-live" type="checkbox" checked>
+                  <span>Live refresh</span>
+                </label>
+              </div>
+              <div id="graph-status" class="status-line">Visualizer idle.</div>
+              <div class="graph-stats" id="graph-stats"></div>
+              <div class="graph-layout-shell">
+                <div class="graph-canvas-card">
+                  <div id="graph-canvas" class="graph-canvas">
+                    <div class="graph-empty">Launch the visualizer to load Apollo’s live HippoRAG graph.</div>
+                  </div>
+                </div>
+                <div class="graph-side">
+                  <div class="graph-detail-card">
+                    <div class="graph-detail-title">Selection</div>
+                    <div id="graph-selection" class="graph-selection">No node selected.</div>
+                  </div>
+                  <div class="graph-detail-card">
+                    <div class="graph-detail-title">Graph details</div>
+                    <div id="graph-details" class="graph-details">Apollo will show node, edge, and document coverage details here.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="tab-panel" data-tab="pipeline">
+          <div class="panel-grid" style="grid-template-columns:1fr;">
+            <div class="card">
+              <div class="card-header">
+                <h3>Background Pipeline</h3>
+                <div class="pipeline-controls" style="display:flex;gap:8px;margin-left:auto;">
+                  <button id="pipeline-pause-btn" class="ghost-btn" type="button">Pause</button>
+                  <button id="pipeline-resume-btn" class="ghost-btn" type="button" style="display:none;">Resume</button>
+                  <button id="pipeline-stop-btn" class="ghost-btn" type="button" style="color:#c0392b;">Stop</button>
+                  <button id="pipeline-run-btn" class="primary-btn" type="button">Run step</button>
+                  <button id="pipeline-refresh-btn" class="ghost-btn" type="button">Refresh</button>
+                </div>
+              </div>
+
+              <div id="pipeline-status-bar" style="display:flex;align-items:center;gap:12px;margin:12px 0 6px;">
+                <span id="pipeline-status-chip" class="pill" style="min-width:80px;text-align:center;">–</span>
+                <div style="flex:1;background:var(--surface-alt,#f0f0f0);border-radius:4px;height:10px;overflow:hidden;">
+                  <div id="pipeline-progress-fill" style="height:100%;width:0%;background:var(--accent,#2563eb);transition:width .4s ease;border-radius:4px;"></div>
+                </div>
+                <span id="pipeline-progress-pct" style="font-size:.8rem;color:var(--muted,#888);min-width:32px;text-align:right;">0%</span>
+              </div>
+
+              <div id="pipeline-stage-detail" style="font-size:.82rem;color:var(--muted,#888);margin-bottom:10px;padding:0 2px;">–</div>
+
+              <div class="pipeline-stages" style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;">
+                <div class="pipeline-stage-badge" data-stage="gather" style="padding:4px 10px;border-radius:12px;font-size:.75rem;background:var(--surface-alt,#eee);">Gather</div>
+                <div class="pipeline-stage-badge" data-stage="ocr" style="padding:4px 10px;border-radius:12px;font-size:.75rem;background:var(--surface-alt,#eee);">OCR</div>
+                <div class="pipeline-stage-badge" data-stage="hipporag" style="padding:4px 10px;border-radius:12px;font-size:.75rem;background:var(--surface-alt,#eee);">HippoRAG</div>
+                <div class="pipeline-stage-badge" data-stage="self_check" style="padding:4px 10px;border-radius:12px;font-size:.75rem;background:var(--surface-alt,#eee);">Self-check</div>
+              </div>
+
+              <pre id="pipeline-detail-json" style="font-size:.72rem;max-height:320px;overflow:auto;background:var(--surface-alt,#f5f5f5);padding:10px;border-radius:6px;white-space:pre-wrap;word-break:break-word;">–</pre>
+            </div>
+          </div>
+        </section>
+
+        <section class="tab-panel" data-tab="settings">
+          <div class="panel-grid">
+            <div class="card">
+              <div class="card-header">
+                <h3>Agent dialogue</h3>
+              </div>
+              <button id="dialogue-run" class="primary-btn" type="button">Start Aegis-Sky Exchange</button>
+              <pre id="dialogueLog" class="dialogue-log"></pre>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div id="rail-overlay" class="rail-overlay"></div>
 
   <script>
-    const chatEl = document.getElementById("chatWindow");
-    const reasEl = document.getElementById("reasoningWindow");
-    const inputEl = document.getElementById("userInput");
-    const sendBtn = document.getElementById("sendBtn");
-    const statusEl = document.getElementById("status");
-    const modelEl  = document.getElementById("model");
-
-    async function ping() {
-      try {
-        const h = await fetch("/health");
-        const m = await fetch("/meta");
-        if (h.ok) {
-          statusEl.textContent = "online";
-          statusEl.classList.remove("bad");
-          statusEl.classList.add("good");
-        } else {
-          statusEl.textContent = "error";
-          statusEl.classList.add("bad");
+    (function () {
+      if (window.__apolloApiUrl) return;
+      var configured = document.body && document.body.dataset ? String(document.body.dataset.appBasePath || '') : '';
+      var pathname = String((window.location && window.location.pathname) || '');
+      var derived = configured;
+      if (!derived) {
+        var low = pathname.toLowerCase();
+        var marker = '/apollo';
+        var idx = low.indexOf(marker + '/');
+        if (idx >= 0) derived = pathname.slice(0, idx + marker.length);
+        else if (low.endsWith(marker)) derived = pathname.slice(0, pathname.length - marker.length) + marker;
+      }
+      window.__APOLLO_BASE_PATH = String(derived || '').replace(/\/+$/, '');
+      window.__apolloApiUrl = function (path) {
+        var raw = String(path || '');
+        if (!raw) return window.__APOLLO_BASE_PATH || '';
+        if (/^https?:\/\//i.test(raw)) return raw;
+        var clean = raw.charAt(0) === '/' ? raw : '/' + raw;
+        return (window.__APOLLO_BASE_PATH || '') + clean;
+      };
+    })();
+  </script>
+  <script>
+    (function () {
+      if (typeof window.authHeaders === 'function') return;
+      var localToken = {{ local_token | default('', true) | tojson }};
+      window.__APOLLO_LOCAL_TOKEN = String(localToken || '').trim();
+      window.authHeaders = function (includeJson) {
+        var headers = {};
+        if (includeJson) headers['Content-Type'] = 'application/json';
+        if (window.__APOLLO_LOCAL_TOKEN) {
+          headers['X-Apollo-Token'] = window.__APOLLO_LOCAL_TOKEN;
+          headers['X-Sky-Token'] = window.__APOLLO_LOCAL_TOKEN;
         }
-        if (m.ok) {
-          const meta = await m.json();
-          const prov = meta.provider || "auto";
-          let model = meta.ollama?.model || meta.owui?.model || "?";
-          if (meta.ollama?.up && meta.ollama?.version) {
-            modelEl.textContent = `${prov} · ${model} · ollama ${meta.ollama.version}`;
-          } else {
-            modelEl.textContent = `${prov} · ${model}`;
+        return headers;
+      };
+    })();
+  </script>
+
+  {% if inline_js %}
+  <script>
+{{ inline_js | safe }}
+  </script>
+  {% else %}
+  <script src="{{ url_for('static', filename='apollo_ui.js') }}?v={{ asset_rev }}" defer></script>
+  {% endif %}
+    <script>
+      // MOBILE_CHAT_FIRST_PATCH
+      (function () {
+        function activateChatFirst() {
+          var selectors = [
+            '.tab-button[data-tab="chat"]',
+            '.nav-item[data-tab="chat"]',
+            '[data-tab="chat"]',
+            '[data-tab-content="chat"]'
+          ];
+          var clicked = false;
+          for (var i = 0; i < selectors.length; i += 1) {
+            var btn = document.querySelector(selectors[i]);
+            if (btn && typeof btn.click === 'function') {
+              btn.click();
+              clicked = true;
+              break;
+            }
+          }
+
+          var tabButtons = document.querySelectorAll('.tab-button, .nav-item, [data-tab]');
+          tabButtons.forEach(function (btn) {
+            var tab = String(btn.getAttribute('data-tab') || '').toLowerCase();
+            if (!tab) return;
+            if (tab === 'chat') {
+              btn.classList.add('active', 'is-active');
+            } else {
+              btn.classList.remove('active', 'is-active');
+            }
+          });
+
+          var tabPanels = document.querySelectorAll('.tab-content, .tab-panel, [data-tab-content]');
+          tabPanels.forEach(function (panel) {
+            var tab = String(panel.getAttribute('data-tab') || panel.getAttribute('data-tab-content') || '').toLowerCase();
+            if (!tab) return;
+            if (tab === 'chat') {
+              panel.classList.add('active', 'is-active');
+            } else {
+              panel.classList.remove('active', 'is-active');
+            }
+          });
+
+          if (typeof window.goToChat === 'function') {
+            try { window.goToChat(); } catch (_err) {}
+          }
+
+          var chatLog = document.getElementById('chat-log') || document.getElementById('chatWindow') || document.querySelector('.chat-log, .chat-window');
+          if (chatLog) {
+            requestAnimationFrame(function () {
+              try { chatLog.scrollTop = chatLog.scrollHeight; } catch (_err) {}
+            });
+          }
+
+          if (!clicked) {
+            var convoBtn = document.querySelector('#rail-chat, [data-label="Conversation"]');
+            if (convoBtn && typeof convoBtn.click === 'function') {
+              try { convoBtn.click(); } catch (_err) {}
+            }
           }
         }
-      } catch {
-        statusEl.textContent = "offline";
-        statusEl.classList.add("bad");
+
+        function run() {
+activateChatFirst();
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', run, { once: true });
+        } else {
+          run();
+        }
+      })();
+    </script>
+    <script>
+      (function () {
+        if (window.__stickyModelBootstrap) return;
+        window.__stickyModelBootstrap = true;
+        var AGENT_NAME = {{ agent_name | default(agent_id | default(app | default(agent | default('Agent', true), true), true), true) | tojson }};
+        var MODE_KEY = AGENT_NAME + '_chat_model_mode_v1';
+        var MODEL_KEY = AGENT_NAME + '_chat_model_select_v1';
+        var AGENT_MODEL_KEY = AGENT_NAME + '_agent_model_select_v1';
+        var VISION_KEY = AGENT_NAME + '_vision_state_v1';
+        var warmed = new Set();
+        var inflight = Object.create(null);
+        function getStored(key, fallback) { try { var v = localStorage.getItem(String(key || '')); return v == null ? fallback : v; } catch (_) { return fallback; } }
+        function setStored(key, value) { try { localStorage.setItem(String(key || ''), String(value == null ? '' : value)); } catch (_) {} }
+        function getStoredJson(key, fallback) { try { var raw = localStorage.getItem(String(key || '')); return raw == null ? fallback : JSON.parse(raw); } catch (_) { return fallback; } }
+        function setStoredJson(key, value) { try { localStorage.setItem(String(key || ''), JSON.stringify(value)); } catch (_) {} }
+        function pinnedModel() { var sel = document.getElementById('chat-model-select'); return String((sel && sel.value) || getStored(MODEL_KEY, 'auto') || 'auto').trim(); }
+        window.pinnedModel = pinnedModel;
+        function apiUrl(path) { return (window.__apolloApiUrl ? window.__apolloApiUrl(path) : path); }
+        function warmModel(model, force) { var target = String(model || '').trim(); if (!target || target.toLowerCase() === 'auto') return Promise.resolve({ ok: true, skipped: true }); if (!force && warmed.has(target)) return Promise.resolve({ ok: true, cached: true, model: target }); if (!force && inflight[target]) return inflight[target]; var req = fetch(apiUrl('/forge/model/warm'), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ model: target, keep_alive: '30m' }) }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { if (r.ok && d && d.ok) warmed.add(target); return d; }); }).catch(function (err) { return { ok: false, error: String(err || 'warm_failed'), model: target }; }).finally(function () { delete inflight[target]; }); inflight[target] = req; return req; }
+        function wrapChatFetch() { if (window.__stickyModelFetchWrapped) return; window.__stickyModelFetchWrapped = true; var nativeFetch = window.fetch.bind(window); window.fetch = function (input, init) { try { var url = typeof input === 'string' ? input : String((input && input.url) || ''); var method = String((init && init.method) || 'GET').toUpperCase(); var headers = (init && init.headers) || {}; var ctype = ''; if (headers && typeof headers.get === 'function') ctype = String(headers.get('Content-Type') || headers.get('content-type') || ''); else if (headers && typeof headers === 'object') ctype = String(headers['Content-Type'] || headers['content-type'] || ''); if (method === 'POST' && /\/chat(?:\?|$)/.test(url) && ctype.toLowerCase().indexOf('application/json') >= 0 && init && typeof init.body === 'string') { var body = JSON.parse(init.body || '{}'); var pinned = pinnedModel(); if (pinned && pinned !== 'auto' && !body.model && !body.llm_model && !body.model_override) { body.model = pinned; init = Object.assign({}, init, { body: JSON.stringify(body) }); } } } catch (_) {} return nativeFetch(input, init); }; }
+        function ensureChatModelSelect() { var existing = document.getElementById('chat-model-select'); if (existing) return existing; var modelMode = document.getElementById('model-mode'); var anchor = modelMode || document.querySelector('.chat-input-buttons') || document.querySelector('.chat-input'); if (!anchor) return null; var sel = document.createElement('select'); sel.id = 'chat-model-select'; sel.className = (modelMode && modelMode.className) || 'model-mode-select'; sel.title = 'Pin chat model'; sel.innerHTML = '<option value="auto">Pinned model: Auto</option>'; if (modelMode) modelMode.insertAdjacentElement('afterend', sel); else anchor.appendChild(sel); return sel; }
+        function populateChatModels(sel) { if (!sel) return; fetch(apiUrl('/forge/models')).then(function (r) { return r.json(); }).then(function (d) { if (!d || !d.ok || !Array.isArray(d.models) || !d.models.length) return; var saved = getStored(MODEL_KEY, 'auto') || 'auto'; sel.innerHTML = '<option value="auto">Pinned model: Auto</option>'; d.models.forEach(function (m) { var opt = document.createElement('option'); var label = String((m && m.name) || '').split(':')[0].split('/').pop(); if (label.length > 22) label = label.slice(0, 22); var tag = m && m.loaded ? 'LOADED ' : ((m && m.fits) ? 'FIT ' : 'WARN '); opt.value = String((m && m.name) || ''); opt.textContent = tag + label + ' · ' + String((m && m.vram_gb) || '?') + 'GB'; if (m && !m.fits) opt.style.opacity = '0.55'; sel.appendChild(opt); }); if ([].some.call(sel.options, function (opt) { return opt.value === saved; })) sel.value = saved; else sel.value = 'auto'; setStored(MODEL_KEY, sel.value || 'auto'); var pinned = pinnedModel(); if (pinned && pinned !== 'auto') warmModel(pinned, false); }).catch(function () {}); }
+        function bindAgentModelPersistence() { var sel = document.getElementById('agent-model-select'); if (!sel) return; var restore = function () { var saved = getStored(AGENT_MODEL_KEY, ''); if (saved && [].some.call(sel.options, function (opt) { return opt.value === saved; })) sel.value = saved; }; restore(); sel.addEventListener('change', function () { var value = String(sel.value || '').trim(); setStored(AGENT_MODEL_KEY, value); if (value) warmModel(value, true); }); try { var mo = new MutationObserver(function () { restore(); }); mo.observe(sel, { childList: true, subtree: true }); } catch (_) {} }
+        function restoreVisionState() { var task = document.getElementById('media-task'); var mode = document.getElementById('vision-mode'); var model = document.getElementById('vision-model'); var engine = document.getElementById('ocr-engine'); var saved = getStoredJson(VISION_KEY, {}); if (task && typeof saved.task === 'string') task.value = saved.task; if (mode && typeof saved.mode === 'string') mode.value = saved.mode; if (model && typeof saved.model === 'string') model.value = saved.model; if (engine && typeof saved.engine === 'string') engine.value = saved.engine; [task, mode, model, engine].forEach(function (el) { if (!el) return; el.addEventListener('change', function () { setStoredJson(VISION_KEY, { task: String((task && task.value) || 'ocr'), mode: String((mode && mode.value) || 'auto'), model: String((model && model.value) || 'auto'), engine: String((engine && engine.value) || 'auto') }); if (el === model) { var selected = String((model && model.value) || 'auto'); if (selected && selected !== 'auto') warmModel(selected, true); } }); }); }
+        function init() { wrapChatFetch(); var modelMode = document.getElementById('model-mode'); var chatSel = ensureChatModelSelect(); if (modelMode) { setStored(MODE_KEY, 'auto'); try { modelMode.remove(); } catch (_) { modelMode.style.display = 'none'; } } if (chatSel) { populateChatModels(chatSel); chatSel.addEventListener('change', function () { var selected = String(chatSel.value || 'auto'); setStored(MODEL_KEY, selected); if (selected && selected !== 'auto') warmModel(selected, true); }); } bindAgentModelPersistence(); restoreVisionState(); }
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true }); else init();
+      })();
+    </script>
+
+    <script>
+    // OCR drop zone
+    (function () {
+      var zone = document.getElementById('ocrd-drop-zone');
+      var fileInput = document.getElementById('ocrd-file');
+      var fnameEl = document.getElementById('ocrd-drop-filename');
+      if (!zone || !fileInput) return;
+
+      zone.addEventListener('click', function () { fileInput.click(); });
+
+      zone.addEventListener('dragover', function (e) {
+        e.preventDefault();
+        zone.classList.add('drag-over');
+      });
+
+      zone.addEventListener('dragleave', function (e) {
+        if (!zone.contains(e.relatedTarget)) zone.classList.remove('drag-over');
+      });
+
+      zone.addEventListener('drop', function (e) {
+        e.preventDefault();
+        zone.classList.remove('drag-over');
+        var files = e.dataTransfer && e.dataTransfer.files;
+        if (!files || !files.length) return;
+        assignFiles(files);
+      });
+
+      fileInput.addEventListener('change', function () {
+        showName(fileInput.files && fileInput.files[0]);
+      });
+
+      function assignFiles(files) {
+        try {
+          var dt = new DataTransfer();
+          for (var i = 0; i < files.length; i++) dt.items.add(files[i]);
+          fileInput.files = dt.files;
+          fileInput.dispatchEvent(new Event('change', { bubbles: true }));
+        } catch (_) {
+          showName(files[0]);
+        }
       }
-    }
 
-    async function sendMessage() {
-      const msg = (inputEl.value || "").trim();
-      if (!msg) return;
-      appendChat("You", msg);
-      inputEl.value = "";
-      sendBtn.disabled = true;
+      function showName(file) {
+        if (fnameEl) fnameEl.textContent = file ? file.name : '';
+      }
+    })();
+    </script>
 
-      try {
-        const resp = await fetch("/chat", {
-          method: "POST",
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify({message: msg})
+    <script>
+    // Apollo pipeline monitor
+    (function () {
+      var POLL_MS = 10000;
+      var _timer = null;
+      var _active = false;
+
+      var STAGE_ORDER = ['gather', 'ocr', 'hipporag', 'self_check'];
+      var STAGE_WEIGHT = {gather: 5, ocr: 10, hipporag: 80, self_check: 5};
+
+      function apiUrl(p) { return (window.__apolloApiUrl ? window.__apolloApiUrl(p) : p); }
+
+      function stageProgress(status) {
+        var stages = status.stages || {};
+        var current = String(status.current_stage || '');
+        var done = 0, total = 0;
+        for (var i = 0; i < STAGE_ORDER.length; i++) {
+          var s = STAGE_ORDER[i];
+          var w = STAGE_WEIGHT[s] || 10;
+          total += w;
+          var sd = stages[s] || {};
+          if (sd.completed) { done += w; continue; }
+          if (s === current) {
+            // partial credit for hipporag
+            if (s === 'hipporag' && sd.total_chunks && sd.processed) {
+              var frac = Math.min(sd.processed / sd.total_chunks, 0.99);
+              done += w * frac;
+            }
+          }
+        }
+        return total > 0 ? Math.round((done / total) * 100) : 0;
+      }
+
+      function stageDetail(status) {
+        var current = String(status.current_stage || '');
+        var stages = status.stages || {};
+        var waiting = status.waiting || {};
+        var sd = stages[current] || {};
+
+        if (status.ok && current === 'done') return 'Pipeline complete.';
+        if (waiting.reason === 'paused') return 'Paused by user.';
+        if (waiting.reason === 'stopped') return 'Stopped by user.';
+        if (waiting.reason === 'gb10_busy') {
+          return 'Waiting — GB10 busy (active_models=' + (waiting.active_models || 0) + ', idle_sec=' + (waiting.idle_seconds || 0) + '/' + (waiting.min_idle_sec || '?') + ').';
+        }
+        if (waiting.reason === 'gpu_preflight_failed') return 'Waiting — GPU preflight failed.';
+        if (waiting.reason) return 'Waiting: ' + waiting.reason;
+
+        if (current === 'gather') return 'Gathering sources...';
+        if (current === 'ocr') {
+          var rem = sd.remaining_documents != null ? sd.remaining_documents : '?';
+          return 'OCR — ' + rem + ' document(s) remaining.';
+        }
+        if (current === 'hipporag') {
+          var proc = sd.processed || 0, total = sd.total_chunks || 0, newc = sd.new_chunks || 0;
+          var pct = total > 0 ? Math.round((proc / total) * 100) : 0;
+          return 'HippoRAG — ' + proc + '/' + total + ' chunks (' + pct + '%), ' + newc + ' new this step.';
+        }
+        if (current === 'self_check') return 'Running self-check...';
+        return current || 'Idle';
+      }
+
+      function chipStyle(status) {
+        var current = String(status.current_stage || '');
+        var waiting = status.waiting || {};
+        if (status.ok && current === 'done') return {text: 'done', color: '#27ae60'};
+        if (waiting.reason === 'paused') return {text: 'paused', color: '#f39c12'};
+        if (waiting.reason === 'stopped') return {text: 'stopped', color: '#c0392b'};
+        if (waiting.reason) return {text: 'waiting', color: '#7f8c8d'};
+        if (current) return {text: current, color: '#2563eb'};
+        return {text: 'idle', color: '#888'};
+      }
+
+      function renderBadges(status) {
+        var stages = status.stages || {};
+        var current = String(status.current_stage || '');
+        var badges = document.querySelectorAll('#pipeline-tab-content .pipeline-stage-badge, .tab-panel[data-tab="pipeline"] .pipeline-stage-badge');
+        badges.forEach(function (b) {
+          var s = b.getAttribute('data-stage');
+          var sd = stages[s] || {};
+          b.style.background = sd.completed ? '#27ae60' : (s === current ? '#2563eb' : 'var(--surface-alt,#eee)');
+          b.style.color = (sd.completed || s === current) ? '#fff' : '';
         });
-        const data = await resp.json();
-        appendChat("Aegis", data.reply || "(no reply)");
-        reasEl.textContent = (data.reasoning || "(none)");
-      } catch (e) {
-        appendChat("Aegis", `(error: ${e})`);
-      } finally {
-        sendBtn.disabled = false;
-        chatEl.scrollTop = chatEl.scrollHeight;
       }
-    }
 
-    function appendChat(who, text) {
-      const p = document.createElement("p");
-      p.innerHTML = `<b>${who}:</b> ${escapeHtml(text)}`;
-      chatEl.appendChild(p);
-    }
+      function render(status) {
+        var pct = stageProgress(status);
+        var detail = stageDetail(status);
+        var chip = chipStyle(status);
+        var fill = document.getElementById('pipeline-progress-fill');
+        var pctEl = document.getElementById('pipeline-progress-pct');
+        var chipEl = document.getElementById('pipeline-status-chip');
+        var detailEl = document.getElementById('pipeline-stage-detail');
+        var jsonEl = document.getElementById('pipeline-detail-json');
+        var pauseBtn = document.getElementById('pipeline-pause-btn');
+        var resumeBtn = document.getElementById('pipeline-resume-btn');
 
-    function escapeHtml(s) {
-      return s.replace(/[&<>]/g, (c)=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
-    }
+        if (fill) fill.style.width = pct + '%';
+        if (pctEl) pctEl.textContent = pct + '%';
+        if (chipEl) { chipEl.textContent = chip.text; chipEl.style.background = chip.color; chipEl.style.color = '#fff'; }
+        if (detailEl) detailEl.textContent = detail;
+        if (jsonEl) {
+          // Show key fields only
+          var snap = {
+            run_id: status.run_id,
+            current_stage: status.current_stage,
+            started_at: status.started_at,
+            last_step_at: status.last_step_at,
+            finished_at: status.finished_at,
+            waiting: status.waiting,
+            estimate: status.estimate,
+            stages: {}
+          };
+          (Object.keys(status.stages || {})).forEach(function (k) {
+            var sd = status.stages[k];
+            snap.stages[k] = {ok: sd.ok, completed: sd.completed, processed: sd.processed, total_chunks: sd.total_chunks, new_chunks: sd.new_chunks, remaining_documents: sd.remaining_documents};
+          });
+          jsonEl.textContent = JSON.stringify(snap, null, 2);
+        }
+        renderBadges(status);
 
-    async function runDialogue() {
-      const logEl = document.getElementById("dialogueLog");
-      if (!logEl) return;
-      logEl.textContent = "Running inter-agent dialogue...";
-      try {
-        const startResp = await fetch("/dialogue/start", {method: "POST"});
-        if (!startResp.ok) throw new Error(`start failed: ${startResp.status}`);
-        const logResp = await fetch("/dialogue/log");
-        if (!logResp.ok) throw new Error(`log failed: ${logResp.status}`);
-        const data = await logResp.json();
-        logEl.textContent = JSON.stringify(data, null, 2);
-      } catch (err) {
-        logEl.textContent = `Error: ${err}`;
+        // Toggle pause/resume
+        var waiting = status.waiting || {};
+        var isPaused = waiting.reason === 'paused';
+        if (pauseBtn) pauseBtn.style.display = isPaused ? 'none' : '';
+        if (resumeBtn) resumeBtn.style.display = isPaused ? '' : 'none';
       }
-    }
 
-    sendBtn.addEventListener("click", sendMessage);
-    inputEl.addEventListener("keydown", (e)=>{ if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage(); }});
+      function fetchStatus() {
+        fetch(apiUrl('/admin/background_pipeline/status'), { headers: (typeof authHeaders === 'function' ? authHeaders(false) : {}) })
+          .then(function (r) { return r.json(); })
+          .then(function (d) { if (d && d.status) render(d.status); })
+          .catch(function () {});
+      }
 
-    ping();
-    setInterval(ping, 10000);
-  </script>
+      function startPolling() {
+        if (_active) return;
+        _active = true;
+        fetchStatus();
+        _timer = setInterval(fetchStatus, POLL_MS);
+      }
+
+      function stopPolling() {
+        _active = false;
+        if (_timer) { clearInterval(_timer); _timer = null; }
+      }
+
+      function initPipelinePanel() {
+        document.getElementById('pipeline-refresh-btn') && document.getElementById('pipeline-refresh-btn').addEventListener('click', fetchStatus);
+
+        document.getElementById('pipeline-pause-btn') && document.getElementById('pipeline-pause-btn').addEventListener('click', function () {
+          fetch(apiUrl('/admin/background_pipeline/pause'), {method:'POST',headers:(typeof authHeaders === 'function' ? authHeaders(true) : {'Content-Type':'application/json'}),body:JSON.stringify({paused:true})})
+            .then(function(){fetchStatus();}).catch(function(){});
+        });
+
+        document.getElementById('pipeline-resume-btn') && document.getElementById('pipeline-resume-btn').addEventListener('click', function () {
+          fetch(apiUrl('/admin/background_pipeline/resume'), {method:'POST',headers:(typeof authHeaders === 'function' ? authHeaders(true) : {'Content-Type':'application/json'}),body:JSON.stringify({})})
+            .then(function(){fetchStatus();}).catch(function(){});
+        });
+
+        document.getElementById('pipeline-stop-btn') && document.getElementById('pipeline-stop-btn').addEventListener('click', function () {
+          if (!confirm('Stop the background pipeline? This will not undo already-processed chunks.')) return;
+          fetch(apiUrl('/admin/background_pipeline/stop'), {method:'POST',headers:(typeof authHeaders === 'function' ? authHeaders(true) : {'Content-Type':'application/json'}),body:JSON.stringify({})})
+            .then(function(){fetchStatus();}).catch(function(){});
+        });
+
+        document.getElementById('pipeline-run-btn') && document.getElementById('pipeline-run-btn').addEventListener('click', function () {
+          fetch(apiUrl('/admin/background_pipeline/run'), {method:'POST',headers:(typeof authHeaders === 'function' ? authHeaders(true) : {'Content-Type':'application/json'}),body:JSON.stringify({})})
+            .then(function(r){return r.json();}).then(function(d){if(d&&d.status)render(d.status);}).catch(function(){});
+        });
+
+        // Start polling when the pipeline tab is visible
+        document.querySelectorAll('.nav-item[data-tab="pipeline"]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            startPolling();
+          });
+        });
+        startPolling();
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initPipelinePanel, {once:true});
+      } else {
+        initPipelinePanel();
+      }
+    })();
+    </script>
 </body>
 </html>

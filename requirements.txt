@@ -10,6 +10,13 @@ requests>=2.31.0
 # Vector database for RAG
 chromadb>=0.4.0
 
+# Environment management
+python-dotenv>=1.0.0
+
+# Market data and news feeds
+yfinance>=0.2.55
+feedparser>=6.0.11
+
 # Table formatting for CLI output
 tabulate>=0.9.0
 
@@ -25,9 +32,13 @@ pywin32>=306; sys_platform == 'win32'
 # Testing
 pytest>=7.4.0
 pytest-cov>=4.1.0
+pytest-timeout>=2.3.1
+
+# Budget ingestion + guidance
+openpyxl>=3.1.2
+readability-lxml>=0.8.1
 
 # Future dependencies (for financial analysis phases)
 # pandas>=2.0.0          # Data analysis (Phase 2)
 # numpy>=1.24.0          # Numerical computing (Phase 2)
-# yfinance>=0.2.0        # Yahoo Finance API (Phase 3)
 # alpha-vantage>=2.3.0   # Market data API (Phase 3)

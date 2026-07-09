@@ -1,0 +1,102 @@
+{
+  "name": "ocr97_night_7_irs_long_publications",
+  "description": "Night 7: Long-form IRS tax publications. These are 80-300+ page guides with dense two-column text, embedded examples, cross-reference tables, worksheets, and tax tables with numeric grids. Unlike the IRS forms (short, structured), publications are long mixed-content documents. Stresses native_pdf_text path on digital PDFs and quality_score on text-heavy pages.",
+  "score_floor_to_defend_97": 90,
+  "documents": [
+    {
+      "id": "irs_pub17_federal_income_tax",
+      "title": "IRS Publication 17 — Your Federal Income Tax (2024)",
+      "url": "https://www.irs.gov/pub/irs-pdf/p17.pdf",
+      "kind": "long_instructions_pdf",
+      "license_note": "Public IRS publication.",
+      "goal": "Extract the opening chapters of the most comprehensive IRS tax guide (~300 pages). Tests extraction from a very long document with two-column text, cross-reference tables, example calculations, and chapter headings across Filing Requirements, Filing Status, Dependents, and Taxable Income chapters.",
+      "max_pages": 5,
+      "min_chars": 4000,
+      "expected_terms": [
+        "Your Federal Income Tax",
+        "Filing Requirements",
+        "Filing Status",
+        "Dependents",
+        "Taxable Income",
+        "Internal Revenue Service"
+      ],
+      "expected_regex": [
+        "Publication\\s+17",
+        "filing\\s+requirements",
+        "taxable\\s+income"
+      ],
+      "capability_focus": ["long_pdf", "two_column", "dense_text", "tax_guide", "examples"]
+    },
+    {
+      "id": "irs_pub525_taxable_income",
+      "title": "IRS Publication 525 — Taxable and Nontaxable Income",
+      "url": "https://www.irs.gov/pub/irs-pdf/p525.pdf",
+      "kind": "long_instructions_pdf",
+      "license_note": "Public IRS publication.",
+      "goal": "Extract a classification guide for income types including wages, fringe benefits, stock options, gambling winnings, and nontaxable items. Tests extraction of definition-heavy sections with indented examples and category lists.",
+      "max_pages": 5,
+      "min_chars": 3500,
+      "expected_terms": [
+        "Taxable and Nontaxable Income",
+        "fringe benefits",
+        "stock options",
+        "wages",
+        "nontaxable"
+      ],
+      "expected_regex": [
+        "Publication\\s+525",
+        "fringe\\s+benefit",
+        "taxable\\s+and\\s+nontaxable"
+      ],
+      "capability_focus": ["long_pdf", "two_column", "definition_lists", "examples"]
+    },
+    {
+      "id": "irs_pub590a_ira_contributions",
+      "title": "IRS Publication 590-A — Contributions to Individual Retirement Arrangements (IRAs)",
+      "url": "https://www.irs.gov/pub/irs-pdf/p590a.pdf",
+      "kind": "long_instructions_pdf",
+      "license_note": "Public IRS publication.",
+      "goal": "Extract an IRA contribution guide with deduction limit tables, modified AGI worksheets, Roth contribution phase-out tables, and rollover rule summaries. Tests extraction of worksheets (numbered rows with calculation instructions) and tax tables with income range columns.",
+      "max_pages": 5,
+      "min_chars": 3000,
+      "expected_terms": [
+        "Individual Retirement Arrangements",
+        "IRA",
+        "contribution",
+        "deduction",
+        "Roth",
+        "modified adjusted gross income"
+      ],
+      "expected_regex": [
+        "Publication\\s+590",
+        "modified\\s+adjusted\\s+gross",
+        "Roth\\s+IRA"
+      ],
+      "capability_focus": ["long_pdf", "worksheets", "tax_tables", "phase_out_tables"]
+    },
+    {
+      "id": "irs_pub590b_ira_distributions",
+      "title": "IRS Publication 590-B — Distributions from Individual Retirement Arrangements (IRAs)",
+      "url": "https://www.irs.gov/pub/irs-pdf/p590b.pdf",
+      "kind": "long_instructions_pdf",
+      "license_note": "Public IRS publication.",
+      "goal": "Extract an IRA distribution guide with required minimum distribution (RMD) tables, life expectancy tables (Uniform Lifetime Table, Single Life Expectancy Table), and inherited IRA rule summaries. Tests extraction of large numeric tables where row/column alignment is critical for correct interpretation.",
+      "max_pages": 5,
+      "min_chars": 3000,
+      "expected_terms": [
+        "distributions",
+        "Individual Retirement Arrangements",
+        "required minimum distribution",
+        "life expectancy",
+        "inherited IRA",
+        "beneficiary"
+      ],
+      "expected_regex": [
+        "required\\s+minimum\\s+distribution",
+        "life\\s+expectancy",
+        "Publication\\s+590"
+      ],
+      "capability_focus": ["long_pdf", "large_numeric_tables", "life_expectancy_tables", "rmd"]
+    }
+  ]
+}

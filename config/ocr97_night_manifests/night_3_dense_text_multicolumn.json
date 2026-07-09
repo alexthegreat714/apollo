@@ -1,0 +1,104 @@
+{
+  "name": "ocr97_night_3_dense_text_multicolumn",
+  "description": "Night 3: Dense government text and multi-section long-form reports. Tests native PDF text extraction vs MinerU2.5 on text-heavy digital PDFs, Surya column detection on two-column layouts, and handling of multi-section/multi-district narrative reports. Exposes quality degradation on longer unstructured text.",
+  "score_floor_to_defend_97": 90,
+  "documents": [
+    {
+      "id": "fed_beige_book_nov2024",
+      "title": "Federal Reserve Beige Book, November 2024",
+      "url": "https://www.federalreserve.gov/monetarypolicy/files/BeigeBook_20241120.pdf",
+      "kind": "long_text_report",
+      "license_note": "Public Federal Reserve publication.",
+      "goal": "Extract multi-section regional economic narrative from a Beige Book report covering all 12 Federal Reserve Districts. Tests handling of dense sectioned text, district headings, and economic condition summaries.",
+      "max_pages": 5,
+      "min_chars": 4000,
+      "expected_terms": [
+        "Beige Book",
+        "Federal Reserve",
+        "economic conditions",
+        "consumer spending",
+        "labor markets",
+        "manufacturing",
+        "Districts"
+      ],
+      "expected_regex": [
+        "Federal\\s+Reserve",
+        "economic\\s+conditions",
+        "consumer\\s+spending"
+      ],
+      "capability_focus": ["long_pdf", "text_dense", "multi_section", "regional_economic"]
+    },
+    {
+      "id": "fed_beige_book_apr2025",
+      "title": "Federal Reserve Beige Book, April 2025",
+      "url": "https://www.federalreserve.gov/monetarypolicy/files/BeigeBook_20250416.pdf",
+      "kind": "long_text_report",
+      "license_note": "Public Federal Reserve publication.",
+      "goal": "Extract multi-section regional economic summary covering all Federal Reserve Districts. This run provides a second Beige Book instance to test consistency of multi-section text extraction across different content.",
+      "max_pages": 5,
+      "min_chars": 4000,
+      "expected_terms": [
+        "Beige Book",
+        "Federal Reserve",
+        "economic activity",
+        "prices",
+        "employment",
+        "April 2025"
+      ],
+      "expected_regex": [
+        "April\\s+2025",
+        "economic\\s+activit",
+        "Federal\\s+Reserve"
+      ],
+      "capability_focus": ["long_pdf", "text_dense", "multi_section", "regional_economic"]
+    },
+    {
+      "id": "irs_pub550_investment_income",
+      "title": "IRS Publication 550 — Investment Income and Expenses",
+      "url": "https://www.irs.gov/pub/irs-pdf/p550.pdf",
+      "kind": "long_technical_pdf",
+      "license_note": "Public IRS publication.",
+      "goal": "Extract a dense multi-chapter investment taxation guide with tables, examples, cross-references, and definitions. Tests extraction from a very long (100+ page) mixed-layout document across the first 5 pages covering dividends, interest, and capital gains definitions.",
+      "max_pages": 5,
+      "min_chars": 3500,
+      "expected_terms": [
+        "Investment Income",
+        "Dividends",
+        "Interest Income",
+        "Capital Gains",
+        "Basis",
+        "Wash Sale"
+      ],
+      "expected_regex": [
+        "Publication\\s+550",
+        "investment\\s+income",
+        "dividends"
+      ],
+      "capability_focus": ["long_pdf", "text_dense", "technical_instructions", "tables"]
+    },
+    {
+      "id": "irs_1040_instructions",
+      "title": "IRS Form 1040 Instructions (2024)",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1040gi.pdf",
+      "kind": "long_instructions_pdf",
+      "license_note": "Public IRS publication.",
+      "goal": "Extract the general instructions booklet for Form 1040 — a dense two-column layout with tables, line-by-line instructions, tax brackets, and cross-references. Tests column detection and dense tabular instruction extraction.",
+      "max_pages": 5,
+      "min_chars": 4000,
+      "expected_terms": [
+        "General Instructions",
+        "Form 1040",
+        "Standard Deduction",
+        "Tax Rate Schedules",
+        "Earned Income Credit",
+        "Filing Requirements"
+      ],
+      "expected_regex": [
+        "Form\\s+1040",
+        "standard\\s+deduction",
+        "tax\\s+rate"
+      ],
+      "capability_focus": ["long_pdf", "two_column", "tables", "dense_instructions"]
+    }
+  ]
+}

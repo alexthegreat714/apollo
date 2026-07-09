@@ -1,0 +1,305 @@
+{
+  "name": "ocr97_challenger_study_2026_04",
+  "baseline_route": "ocr97",
+  "paper_manifest": "Apollo/evaluations/ocr97_research/papers_manifest.json",
+  "documents": [
+    {
+      "id": "digital_finance_pdf",
+      "label": "Digital finance PDF",
+      "slice": "digital_finance_pdfs",
+      "path": "artifacts/ocr_phase2/sample_docs_20260420T185540Z/phase2_digital_finance.pdf",
+      "goal": "Extract digital finance text and preserve numeric fidelity and layout anchors.",
+      "must_contain": ["Assets", "Liabilities", "Revenue"],
+      "capability_weights": {
+        "literal_transcription_fidelity": 0.25,
+        "numeric_fidelity": 0.2,
+        "layout_preservation": 0.15,
+        "cross_element_semantic_reconstruction": 0.2,
+        "required_token_coverage": 0.2
+      },
+      "max_pages": 1,
+      "max_chars": 2000
+    },
+    {
+      "id": "scanned_finance_pdf",
+      "label": "Scanned finance PDF",
+      "slice": "scanned_finance_pdfs",
+      "path": "artifacts/ocr_phase2/sample_docs_20260420T185540Z/phase2_scanned_finance.pdf",
+      "goal": "Recover scanned finance content with numeric stability and degraded scan tolerance.",
+      "must_contain": ["Assets", "Liabilities", "Risk", "Margin"],
+      "capability_weights": {
+        "literal_transcription_fidelity": 0.2,
+        "numeric_fidelity": 0.2,
+        "degraded_scan_robustness": 0.2,
+        "cross_element_semantic_reconstruction": 0.15,
+        "required_token_coverage": 0.25
+      },
+      "max_pages": 1,
+      "max_chars": 2000
+    },
+    {
+      "id": "warped_scan_image",
+      "label": "Warped/degraded scan image",
+      "slice": "warped_or_degraded_image_captures",
+      "path": "artifacts/ocr_phase2/sample_docs_20260420T185540Z/phase2_scanned_finance.png",
+      "goal": "Recover warped image capture text with strong image-robust OCR.",
+      "must_contain": ["Assets", "Liabilities", "Risk", "Margin"],
+      "capability_weights": {
+        "literal_transcription_fidelity": 0.2,
+        "image_capture_robustness": 0.25,
+        "degraded_scan_robustness": 0.2,
+        "numeric_fidelity": 0.15,
+        "required_token_coverage": 0.2
+      },
+      "max_pages": 1,
+      "max_chars": 2000
+    },
+    {
+      "id": "table_dense_finance_pdf",
+      "label": "Table-dense financial page",
+      "slice": "table_dense_financial_pages",
+      "path": "artifacts/ocr_phase2/sample_docs_20260420T185540Z/phase2_table_dense_finance.pdf",
+      "goal": "Extract tabular finance content while preserving column and row structure.",
+      "must_contain": ["Account", "Cash", "Equity"],
+      "capability_weights": {
+        "table_structure_fidelity": 0.3,
+        "layout_preservation": 0.15,
+        "numeric_fidelity": 0.15,
+        "cross_element_semantic_reconstruction": 0.15,
+        "required_token_coverage": 0.25
+      },
+      "max_pages": 1,
+      "max_chars": 2000
+    },
+    {
+      "id": "tiny_text_probe",
+      "label": "Tiny-text/high-density image",
+      "slice": "tiny_text_high_density_pages",
+      "path": "artifacts/ocr_phase2/sample_docs_20260420T185540Z/phase2_table_probe.png",
+      "goal": "Recover tiny dense text under limited visual resolution.",
+      "must_contain": ["Assets", "Liabilities"],
+      "capability_weights": {
+        "tiny_text_recovery": 0.35,
+        "literal_transcription_fidelity": 0.2,
+        "numeric_fidelity": 0.15,
+        "required_token_coverage": 0.3
+      },
+      "max_pages": 1,
+      "max_chars": 2000
+    },
+    {
+      "id": "mixed_layout_finance_pdf",
+      "label": "Mixed-layout finance page",
+      "slice": "mixed_layout_pages",
+      "path": "artifacts/ocr_phase2/sample_docs_20260420T185540Z/phase2_table_dense_finance.pdf",
+      "goal": "Extract mixed-layout finance content with headings, narrative, and table regions intact.",
+      "must_contain": ["Quarterly", "Cash", "Bonds"],
+      "capability_weights": {
+        "layout_preservation": 0.25,
+        "table_structure_fidelity": 0.2,
+        "cross_element_semantic_reconstruction": 0.2,
+        "literal_transcription_fidelity": 0.15,
+        "required_token_coverage": 0.2
+      },
+      "max_pages": 1,
+      "max_chars": 2000
+    }
+  ],
+  "routes": [
+    {
+      "id": "ocr97",
+      "label": "OCR97 baseline",
+      "route_type": "baseline",
+      "execution": {
+        "kind": "mcp_ocr_dual",
+        "engine": "gb10_auto",
+        "route_mode": "quality_first",
+        "consensus": true,
+        "use_gateway": true,
+        "max_pages": 1,
+        "max_chars": 2000
+      },
+      "components": ["apollo_ocr97"],
+      "paired_components": [],
+      "papers": [
+        "ocrbench_v2_2024",
+        "omnidocbench_2024",
+        "real5_omnidocbench_2026",
+        "doclaynet_2022"
+      ],
+      "expected_strengths": [
+        "balanced production default",
+        "quality-first routing",
+        "built-in table reconstruction and finance verification"
+      ],
+      "literature_claims": [
+        "Used as the locked production baseline rather than a paper-native challenger."
+      ],
+      "operational_complexity": "production_default"
+    },
+    {
+      "id": "got_ocr2",
+      "label": "GOT-OCR2.0",
+      "route_type": "challenger",
+      "execution": {
+        "kind": "mcp_ocr_dual",
+        "engine": "gb10_got_ocr2",
+        "route_mode": "quality_first",
+        "consensus": true,
+        "use_gateway": false,
+        "max_pages": 1,
+        "max_chars": 2000
+      },
+      "components": ["gb10_got_ocr2"],
+      "paired_components": [],
+      "papers": ["got_ocr2_2024"],
+      "expected_strengths": ["tiny text", "dense scans", "end-to-end OCR"],
+      "literature_claims": ["Unified OCR-2.0 model with strong structured output and region-level interaction support."],
+      "operational_complexity": "medium"
+    },
+    {
+      "id": "paddleocr_vl",
+      "label": "PaddleOCR-VL",
+      "route_type": "challenger",
+      "execution": {
+        "kind": "mcp_ocr_dual",
+        "engine": "gb10_paddleocr_vl",
+        "route_mode": "quality_first",
+        "consensus": true,
+        "use_gateway": false,
+        "max_pages": 1,
+        "max_chars": 2000
+      },
+      "components": ["gb10_paddleocr_vl"],
+      "paired_components": [],
+      "papers": ["paddleocr_vl_2025"],
+      "expected_strengths": ["layout-heavy PDFs", "multilingual parsing", "compact VLM routing"],
+      "literature_claims": ["Ultra-compact multilingual document parser with dynamic-resolution visual encoding."],
+      "operational_complexity": "medium"
+    },
+    {
+      "id": "mineru2_5",
+      "label": "MinerU2.5",
+      "route_type": "challenger",
+      "execution": {
+        "kind": "gateway_http",
+        "url": "http://127.0.0.1:5221/ocr/mineru/extract",
+        "health_url": "http://127.0.0.1:5221/ocr/mineru/health",
+        "max_pages": 1,
+        "max_chars": 2000
+      },
+      "components": ["mineru2_5"],
+      "paired_components": [],
+      "papers": ["mineru2_5_2025"],
+      "expected_strengths": ["coarse-to-fine parsing", "high-resolution documents", "financial tables"],
+      "literature_claims": ["Decoupled layout-to-crop parsing should help dense high-resolution finance pages."],
+      "operational_complexity": "high"
+    },
+    {
+      "id": "omniparser",
+      "label": "OmniParser",
+      "route_type": "challenger",
+      "execution": {
+        "kind": "literature_only"
+      },
+      "components": ["omniparser"],
+      "paired_components": [],
+      "papers": ["omniparser_2024"],
+      "expected_strengths": ["unified spotting and KIE", "table recognition"],
+      "literature_claims": ["Unified parsing across text spotting, KIE, and tables could outperform modular routing on mixed-layout documents."],
+      "operational_complexity": "high"
+    },
+    {
+      "id": "mocr",
+      "label": "MOCR",
+      "route_type": "challenger",
+      "execution": {
+        "kind": "literature_only"
+      },
+      "components": ["mocr"],
+      "paired_components": [],
+      "papers": ["mocr_2026"],
+      "expected_strengths": ["parse-anything semantics", "graphics and charts", "cross-element document understanding"],
+      "literature_claims": ["Promising for mixed graphics-plus-text parsing beyond text-only OCR."],
+      "operational_complexity": "high"
+    },
+    {
+      "id": "table_specialist_lane",
+      "label": "Table specialist lane",
+      "route_type": "challenger",
+      "execution": {
+        "kind": "mcp_ocr_dual",
+        "engine": "gb10_got_ocr2",
+        "route_mode": "quality_first",
+        "consensus": true,
+        "use_gateway": false,
+        "max_pages": 1,
+        "max_chars": 2000
+      },
+      "components": ["tableformer_local"],
+      "paired_components": ["tableformer_local"],
+      "papers": ["pubtables_1m_2021"],
+      "expected_strengths": ["table structure recovery", "financial rows and columns"],
+      "literature_claims": ["Backed by the Table Transformer family used in Apollo's local table reconstruction stage."],
+      "operational_complexity": "low"
+    },
+    {
+      "id": "layout_plus_table_specialist",
+      "label": "Layout/parser + table specialist",
+      "route_type": "paired_route",
+      "execution": {
+        "kind": "mcp_ocr_dual",
+        "engine": "gb10_paddleocr_vl",
+        "route_mode": "quality_first",
+        "consensus": true,
+        "use_gateway": false,
+        "max_pages": 1,
+        "max_chars": 2000
+      },
+      "components": ["gb10_paddleocr_vl", "tableformer_local"],
+      "paired_components": ["tableformer_local"],
+      "papers": ["paddleocr_vl_2025", "pubtables_1m_2021"],
+      "expected_strengths": ["layout parsing plus table recovery"],
+      "literature_claims": ["Should be strongest when page-level layout and table structure both matter."],
+      "operational_complexity": "high"
+    },
+    {
+      "id": "end_to_end_plus_table_specialist",
+      "label": "End-to-end OCR + table specialist",
+      "route_type": "paired_route",
+      "execution": {
+        "kind": "mcp_ocr_dual",
+        "engine": "gb10_got_ocr2",
+        "route_mode": "quality_first",
+        "consensus": true,
+        "use_gateway": false,
+        "max_pages": 1,
+        "max_chars": 2000
+      },
+      "components": ["gb10_got_ocr2", "tableformer_local"],
+      "paired_components": ["tableformer_local"],
+      "papers": ["got_ocr2_2024", "pubtables_1m_2021"],
+      "expected_strengths": ["tiny text with table recovery", "end-to-end OCR plus structure hints"],
+      "literature_claims": ["Useful where OCR-2.0 style extraction still needs explicit table structure recovery."],
+      "operational_complexity": "medium"
+    },
+    {
+      "id": "coarse_to_fine_plus_verifier_table_lane",
+      "label": "Coarse-to-fine parser + verifier/table lane",
+      "route_type": "paired_route",
+      "execution": {
+        "kind": "gateway_http",
+        "url": "http://127.0.0.1:5221/ocr/mineru/extract",
+        "health_url": "http://127.0.0.1:5221/ocr/mineru/health",
+        "max_pages": 1,
+        "max_chars": 2000
+      },
+      "components": ["mineru2_5", "local_finbert", "tableformer_local"],
+      "paired_components": ["local_finbert", "tableformer_local"],
+      "papers": ["mineru2_5_2025", "pubtables_1m_2021"],
+      "expected_strengths": ["high-resolution financial documents", "table-heavy pages", "semantic verification"],
+      "literature_claims": ["Coarse-to-fine parsing plus Apollo's finance/table verification should be strongest on dense finance documents."],
+      "operational_complexity": "high"
+    }
+  ]
+}

@@ -5,10 +5,20 @@ APP_DIR = os.path.dirname(__file__)
 if APP_DIR not in sys.path:
     sys.path.insert(0, APP_DIR)
 
-from auto_run.runner import plan, run
+try:
+    from auto_run.runner import plan, run  # type: ignore
+except Exception:  # pragma: no cover
+    def plan():  # type: ignore
+        return {"ok": False, "error": "auto_run_unavailable"}
+
+    def run(dry_run: bool = False, force: bool = False):  # type: ignore
+        return {"ok": False, "error": "auto_run_unavailable", "dry_run": bool(dry_run), "force": bool(force)}
 
 bp = Blueprint("autorun", __name__, url_prefix="/autorun")
-LOGS = r"C:\\Users\\blyth\\Desktop\\Engineering\\Aegis\\logs\\auto_run"
+LOGS = os.getenv(
+    "APOLLO_AUTORUN_LOG_DIR",
+    r"C:\\Users\\blyth\\Desktop\\Engineering\\Apollo\\logs\\auto_run",
+)
 
 @bp.route("/plan", methods=["POST"])
 def autorun_plan():

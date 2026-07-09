@@ -43,7 +43,7 @@ class DeepModeController:
             timeout: Request timeout
         """
         self.ollama_host = ollama_host or os.getenv("OLLAMA_URL", "http://localhost:11434")
-        self.model_name = model_name or os.getenv("OLLAMA_MODEL", "Fino1-8B.Q6_K")
+        self.model_name = model_name or os.getenv("OLLAMA_MODEL", "gemma4:31b")
         self.max_steps = max_steps
         self.timeout = timeout
 

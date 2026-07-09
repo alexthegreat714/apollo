@@ -1,0 +1,101 @@
+{
+  "schema": "aegis.ebay.vm_page_map.v1",
+  "last_checked": "2026-06-30 local",
+  "site": "ebay",
+  "purpose": "Supervised eBay listing preparation inside the Aegis VM browser while API access is pending or intentionally avoided.",
+  "vm_browser": {
+    "container": "aegis-vm",
+    "display": ":1",
+    "profile_slug": "ebay",
+    "profile_dir": "/root/.config/apollo-ebay-login",
+    "cdp_port": 9234,
+    "open_route": "POST /forgeclaw/vm/browser/open_url",
+    "login_url": "https://signin.ebay.com/",
+    "sell_url": "https://www.ebay.com/sl/sell",
+    "developer_url": "https://developer.ebay.com/my/keys",
+    "operator_console_url": "http://127.0.0.1:5221/vm/console?host=127.0.0.1&port=6080"
+  },
+  "developer_api_setup": {
+    "owner_agent": "Apollo",
+    "executor_agent": "Aegis",
+    "mcp_tool": "apollo.ebay_listing",
+    "oauth_actions": [
+      "oauth_status",
+      "oauth_authorize_url",
+      "oauth_exchange_code",
+      "oauth_refresh_access_token"
+    ],
+    "seller_setup_actions": [
+      "credential_status",
+      "setup_status",
+      "seller_prerequisites",
+      "category_suggestions"
+    ],
+    "required_secret_env": [
+      "APOLLO_EBAY_CLIENT_ID",
+      "APOLLO_EBAY_CLIENT_SECRET",
+      "APOLLO_EBAY_RUNAME",
+      "APOLLO_EBAY_ACCESS_TOKEN",
+      "APOLLO_EBAY_REFRESH_TOKEN"
+    ],
+    "required_seller_env": [
+      "APOLLO_EBAY_MERCHANT_LOCATION_KEY",
+      "APOLLO_EBAY_FULFILLMENT_POLICY_ID",
+      "APOLLO_EBAY_PAYMENT_POLICY_ID",
+      "APOLLO_EBAY_RETURN_POLICY_ID"
+    ],
+    "default_scopes": [
+      "https://api.ebay.com/oauth/api_scope/sell.inventory",
+      "https://api.ebay.com/oauth/api_scope/sell.account"
+    ],
+    "operator_note": "Use the VM developer portal only for human-visible setup and consent. Do not log client secrets, OAuth tokens, cookies, payment settings, payout settings, or account-security fields."
+  },
+  "login_persistence": {
+    "authenticated_session_observed": false,
+    "manual_login_required": true,
+    "operator_note": "The operator should sign in inside the Aegis VM Chrome window and use browser save/remember prompts as desired. Do not copy credentials into chat, markdown, logs, screenshots, or RAG.",
+    "evidence_without_secret_values": [
+      "Persistent Chrome profile exists at /root/.config/apollo-ebay-login.",
+      "eBay sign-in page loaded in the Aegis VM on Chrome CDP port 9234.",
+      "Aegis profile_slug=ebay resolves to the persistent Apollo eBay profile."
+    ]
+  },
+  "forgeclaw_boundaries": {
+    "execution_surface": "vm_guest",
+    "host_input_allowed": false,
+    "ui_automation_allowed": true,
+    "human_review_required": true,
+    "final_publish_allowed": false,
+    "must_stop_before_final_submit": true,
+    "allowed": [
+      "Open the eBay sell flow in the Aegis VM browser.",
+      "Use Apollo prepared review packets to fill draft listing fields.",
+      "Attach or upload operator-approved item images.",
+      "Capture evidence screenshots and field summaries for human review.",
+      "Pause for the operator at pricing, shipping, return, fee, warning, and final publish/list screens."
+    ],
+    "blocked": [
+      "Clicking final Publish, List, Submit, Confirm, or equivalent live listing buttons.",
+      "Changing account security, payout, tax, bank, or identity settings.",
+      "Reading, exporting, logging, or storing credentials, cookies, OAuth tokens, or payment details.",
+      "Using the native desktop browser unless the operator explicitly requests native desktop execution."
+    ]
+  },
+  "apollo_integration": {
+    "mcp_tool": "apollo.ebay_listing",
+    "packet_action": "prepared_review_packet",
+    "packet_root": "Apollo/artifacts/ebay_listing_drafts/<draft_id>/",
+    "packet_files": [
+      "draft.json",
+      "approval.md",
+      "prepared_review_packet.json",
+      "prepared_review_packet.md"
+    ],
+    "publish_api_gates": [
+      "APOLLO_EBAY_ENABLE_MUTATIONS=1",
+      "APOLLO_EBAY_ENABLE_PUBLISH=1",
+      "operator_confirmed=true",
+      "I approve Apollo listing this item on eBay"
+    ]
+  }
+}

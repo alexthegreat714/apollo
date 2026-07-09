@@ -1,0 +1,294 @@
+{
+  "sources": [
+    {
+      "id": "sec-margin-account-bulletin",
+      "pack": "regulatory_compliance",
+      "tier": "A",
+      "title": "SEC Investor Bulletin: Margin Accounts",
+      "url": "https://www.sec.gov/resources-for-investors/investor-alerts-bulletins/margin-accounts",
+      "format": "html",
+      "license_hint": "Public U.S. government publication",
+      "source_type": "regulator"
+    },
+    {
+      "id": "finra-rule-4210",
+      "pack": "regulatory_compliance",
+      "tier": "A",
+      "title": "FINRA Rule 4210 Margin Requirements",
+      "url": "https://www.finra.org/rules-guidance/rulebooks/finra-rules/4210",
+      "format": "html",
+      "license_hint": "Public regulatory rulebook",
+      "source_type": "regulator"
+    },
+    {
+      "id": "cftc-investor-advisories",
+      "pack": "regulatory_compliance",
+      "tier": "A",
+      "title": "CFTC Customer Advisory Feed",
+      "url": "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/index.htm",
+      "format": "html",
+      "license_hint": "Public U.S. government publication",
+      "source_type": "regulator"
+    },
+    {
+      "id": "federal-register-documents",
+      "pack": "regulatory_compliance",
+      "tier": "A",
+      "title": "Federal Register API (financial term filter)",
+      "url": "https://www.federalregister.gov/api/v1/documents.json?conditions%5Bterm%5D=pattern%20day%20trader&per_page=25",
+      "format": "json",
+      "license_hint": "Public U.S. government API",
+      "source_type": "regulator"
+    },
+    {
+      "id": "federal-register-day-trading",
+      "pack": "regulatory_compliance",
+      "tier": "A",
+      "title": "Federal Register API (day trading)",
+      "url": "https://www.federalregister.gov/api/v1/documents.json?conditions%5Bterm%5D=day%20trading&per_page=50",
+      "format": "json",
+      "license_hint": "Public U.S. government API",
+      "source_type": "regulator"
+    },
+    {
+      "id": "federal-register-margin",
+      "pack": "regulatory_compliance",
+      "tier": "A",
+      "title": "Federal Register API (margin requirements)",
+      "url": "https://www.federalregister.gov/api/v1/documents.json?conditions%5Bterm%5D=margin%20requirements&per_page=50",
+      "format": "json",
+      "license_hint": "Public U.S. government API",
+      "source_type": "regulator"
+    },
+    {
+      "id": "federal-register-market-structure",
+      "pack": "microstructure_execution",
+      "tier": "A",
+      "title": "Federal Register API (market structure)",
+      "url": "https://www.federalregister.gov/api/v1/documents.json?conditions%5Bterm%5D=market%20structure&per_page=50",
+      "format": "json",
+      "license_hint": "Public U.S. government API",
+      "source_type": "regulator"
+    },
+    {
+      "id": "federal-register-capital-markets",
+      "pack": "microstructure_execution",
+      "tier": "A",
+      "title": "Federal Register API (capital markets)",
+      "url": "https://www.federalregister.gov/api/v1/documents.json?conditions%5Bterm%5D=capital%20markets&per_page=50",
+      "format": "json",
+      "license_hint": "Public U.S. government API",
+      "source_type": "regulator"
+    },
+    {
+      "id": "federal-register-equity-markets",
+      "pack": "microstructure_execution",
+      "tier": "A",
+      "title": "Federal Register API (equity markets)",
+      "url": "https://www.federalregister.gov/api/v1/documents.json?conditions%5Bterm%5D=equity%20markets&per_page=50",
+      "format": "json",
+      "license_hint": "Public U.S. government API",
+      "source_type": "regulator"
+    },
+    {
+      "id": "federal-register-securities-exchange-act",
+      "pack": "regulatory_compliance",
+      "tier": "A",
+      "title": "Federal Register API (Securities Exchange Act)",
+      "url": "https://www.federalregister.gov/api/v1/documents.json?conditions%5Bterm%5D=securities%20exchange%20act&per_page=50",
+      "format": "json",
+      "license_hint": "Public U.S. government API",
+      "source_type": "regulator"
+    },
+    {
+      "id": "fred-cpi-series",
+      "pack": "market_data_series",
+      "tier": "A",
+      "title": "FRED CPIAUCSL Series",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=CPIAUCSL",
+      "format": "csv",
+      "license_hint": "Public Federal Reserve economic data",
+      "source_type": "macro_data"
+    },
+    {
+      "id": "fred-fedfunds-series",
+      "pack": "market_data_series",
+      "tier": "A",
+      "title": "FRED FEDFUNDS Series",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=FEDFUNDS",
+      "format": "csv",
+      "license_hint": "Public Federal Reserve economic data",
+      "source_type": "macro_data"
+    },
+    {
+      "id": "fred-gs10-series",
+      "pack": "market_data_series",
+      "tier": "A",
+      "title": "FRED GS10 Treasury Yield Series",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=GS10",
+      "format": "csv",
+      "license_hint": "Public Federal Reserve economic data",
+      "source_type": "macro_data"
+    },
+    {
+      "id": "fred-t10y2y-series",
+      "pack": "market_data_series",
+      "tier": "A",
+      "title": "FRED T10Y2Y Yield Curve Series",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=T10Y2Y",
+      "format": "csv",
+      "license_hint": "Public Federal Reserve economic data",
+      "source_type": "macro_data"
+    },
+    {
+      "id": "fred-unrate-series",
+      "pack": "market_data_series",
+      "tier": "A",
+      "title": "FRED UNRATE Series",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=UNRATE",
+      "format": "csv",
+      "license_hint": "Public Federal Reserve economic data",
+      "source_type": "macro_data"
+    },
+    {
+      "id": "federal-reserve-market-liquidity-note",
+      "pack": "microstructure_execution",
+      "tier": "A",
+      "title": "Federal Reserve Research and Analysis",
+      "url": "https://www.federalreserve.gov/econres.htm",
+      "format": "html",
+      "license_hint": "Public U.S. government publication",
+      "source_type": "macro_research"
+    },
+    {
+      "id": "nber-microstructure-paper",
+      "pack": "microstructure_execution",
+      "tier": "B",
+      "title": "NBER Working Papers Listing (finance)",
+      "url": "https://www.nber.org/research/data",
+      "format": "html",
+      "license_hint": "Public research index",
+      "source_type": "research"
+    },
+    {
+      "id": "bea-gdp-data",
+      "pack": "market_data_series",
+      "tier": "A",
+      "title": "BEA GDP Data",
+      "url": "https://apps.bea.gov/api/data?UserID=sampleUser&method=GETDATASETLIST",
+      "format": "json",
+      "license_hint": "Public U.S. government API listing",
+      "source_type": "macro_data"
+    },
+    {
+      "id": "bea-gdp-by-industry",
+      "pack": "market_data_series",
+      "tier": "A",
+      "title": "BEA GDP by Industry DataSet List",
+      "url": "https://apps.bea.gov/api/data?UserID=sampleUser&method=GETPARAMETERLIST&DATASETNAME=GDPbyIndustry",
+      "format": "json",
+      "license_hint": "Public U.S. government API listing",
+      "source_type": "macro_data"
+    },
+    {
+      "id": "bls-cpi-tables",
+      "pack": "market_data_series",
+      "tier": "A",
+      "title": "BLS CPI Data Tables",
+      "url": "https://download.bls.gov/pub/time.series/cu/cu.data.1.AllItems",
+      "format": "csv",
+      "license_hint": "Public U.S. Bureau of Labor Statistics data",
+      "source_type": "macro_data"
+    },
+    {
+      "id": "fed-financial-stability-report-2024",
+      "pack": "microstructure_execution",
+      "tier": "A",
+      "title": "Federal Reserve Financial Stability Report November 2024",
+      "url": "https://www.federalreserve.gov/publications/files/financial-stability-report-20241122.pdf",
+      "format": "pdf",
+      "license_hint": "Public U.S. government publication",
+      "source_type": "macro_research"
+    },
+    {
+      "id": "bis-quarterly-review-dec-2024",
+      "pack": "market_risk_analysis",
+      "tier": "A",
+      "title": "BIS Quarterly Review December 2024",
+      "url": "https://www.bis.org/publ/qtrpdf/r_qt2412.pdf",
+      "format": "pdf",
+      "license_hint": "Public BIS publication",
+      "source_type": "macro_research"
+    },
+    {
+      "id": "fred-vix-series",
+      "pack": "market_risk_analysis",
+      "tier": "A",
+      "title": "FRED VIXCLS Volatility Index Series",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=VIXCLS",
+      "format": "csv",
+      "license_hint": "Public Federal Reserve economic data",
+      "source_type": "macro_data"
+    },
+    {
+      "id": "fred-pce-series",
+      "pack": "market_data_series",
+      "tier": "A",
+      "title": "FRED PCEPI Personal Consumption Expenditures Series",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=PCEPI",
+      "format": "csv",
+      "license_hint": "Public Federal Reserve economic data",
+      "source_type": "macro_data"
+    },
+    {
+      "id": "fred-indpro-series",
+      "pack": "market_data_series",
+      "tier": "A",
+      "title": "FRED INDPRO Industrial Production Index",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=INDPRO",
+      "format": "csv",
+      "license_hint": "Public Federal Reserve economic data",
+      "source_type": "macro_data"
+    },
+    {
+      "id": "fred-dexuseu-series",
+      "pack": "market_data_series",
+      "tier": "A",
+      "title": "FRED DEXUSEU US Dollar / Euro Exchange Rate",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DEXUSEU",
+      "format": "csv",
+      "license_hint": "Public Federal Reserve economic data",
+      "source_type": "macro_data"
+    },
+    {
+      "id": "fred-houst-series",
+      "pack": "market_data_series",
+      "tier": "A",
+      "title": "FRED HOUST Housing Starts Series",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=HOUST",
+      "format": "csv",
+      "license_hint": "Public Federal Reserve economic data",
+      "source_type": "macro_data"
+    },
+    {
+      "id": "fred-m2sl-series",
+      "pack": "market_data_series",
+      "tier": "A",
+      "title": "FRED M2SL Money Supply M2 Series",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=M2SL",
+      "format": "csv",
+      "license_hint": "Public Federal Reserve economic data",
+      "source_type": "macro_data"
+    },
+    {
+      "id": "bls-ppi-series",
+      "pack": "market_data_series",
+      "tier": "A",
+      "title": "BLS PPI Finished Goods Data",
+      "url": "https://download.bls.gov/pub/time.series/wp/wp.data.1.AllCommodities",
+      "format": "csv",
+      "license_hint": "Public U.S. Bureau of Labor Statistics data",
+      "source_type": "macro_data"
+    }
+  ]
+}

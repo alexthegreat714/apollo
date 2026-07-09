@@ -1,0 +1,101 @@
+{
+  "name": "ocr97_challenger_local_routes_v1",
+  "baseline_route": "ocr97",
+  "documents": [
+    {
+      "id": "invoice_summary",
+      "label": "Invoice summary synthetic",
+      "path": "Apollo/evaluations/fixtures/ocr97_challenger/invoice_summary.png",
+      "slice": "forms_and_finance_images",
+      "must_contain": ["Invoice", "Subtotal", "Tax", "Total", "Payment due"],
+      "capability_weights": {
+        "literal_transcription_fidelity": 0.35,
+        "numeric_fidelity": 0.25,
+        "layout_preservation": 0.20,
+        "cross_element_semantic_reconstruction": 0.10,
+        "required_token_coverage": 0.10
+      }
+    },
+    {
+      "id": "tiny_equity_terms",
+      "label": "Tiny equity terms synthetic",
+      "path": "Apollo/evaluations/fixtures/ocr97_challenger/tiny_equity_terms.png",
+      "slice": "tiny_text_high_density_pages",
+      "must_contain": ["Pattern day trader", "25000", "equity markets", "liquidity"],
+      "capability_weights": {
+        "tiny_text_recovery": 0.45,
+        "literal_transcription_fidelity": 0.25,
+        "layout_preservation": 0.10,
+        "cross_element_semantic_reconstruction": 0.10,
+        "required_token_coverage": 0.10
+      }
+    },
+    {
+      "id": "rotated_totals",
+      "label": "Rotated totals synthetic",
+      "path": "Apollo/evaluations/fixtures/ocr97_challenger/rotated_totals.png",
+      "slice": "warped_or_degraded_image_captures",
+      "must_contain": ["Total Assets", "Total Liabilities", "Shareholder Equity"],
+      "capability_weights": {
+        "degraded_scan_robustness": 0.35,
+        "image_capture_robustness": 0.25,
+        "literal_transcription_fidelity": 0.20,
+        "numeric_fidelity": 0.10,
+        "required_token_coverage": 0.10
+      }
+    }
+  ],
+  "routes": [
+    {
+      "id": "ocr97",
+      "label": "OCR97 baseline",
+      "route_type": "baseline",
+      "execution": {
+        "kind": "mcp_ocr_dual",
+        "engine": "auto",
+        "route_mode": "quality_first",
+        "consensus": true,
+        "use_gateway": true,
+        "timeout_sec": 45,
+        "max_pages": 1,
+        "max_chars": 6000
+      },
+      "operational_complexity": "existing_baseline",
+      "expected_strengths": ["best current production route"]
+    },
+    {
+      "id": "client_ocr",
+      "label": "Client OCR",
+      "route_type": "challenger",
+      "execution": {
+        "kind": "node_cli_json",
+        "command": [
+          "node",
+          "Apollo/tools/ocr_challenger_routes/runtime/client_ocr_route.mjs"
+        ],
+        "timeout_sec": 45,
+        "max_chars": 6000
+      },
+      "components": ["client-side-ocr", "onnxruntime-web", "rapidocr", "paddleocr"],
+      "operational_complexity": "headless_browser_local",
+      "expected_strengths": ["tiny text", "fully local browser OCR path"]
+    },
+    {
+      "id": "ollama_ocr",
+      "label": "Ollama OCR",
+      "route_type": "challenger",
+      "execution": {
+        "kind": "node_cli_json",
+        "command": [
+          "node",
+          "Apollo/tools/ocr_challenger_routes/runtime/ollama_ocr_route.mjs"
+        ],
+        "timeout_sec": 120,
+        "max_chars": 6000
+      },
+      "components": ["ollama-ocr", "qwen3-vl:32b"],
+      "operational_complexity": "local_vision_model",
+      "expected_strengths": ["semantic fallback", "layout-aware markdown OCR"]
+    }
+  ]
+}

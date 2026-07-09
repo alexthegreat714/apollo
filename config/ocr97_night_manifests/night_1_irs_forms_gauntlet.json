@@ -1,0 +1,124 @@
+{
+  "name": "ocr97_night_1_irs_forms_gauntlet",
+  "description": "Night 1: IRS forms gauntlet. Stresses the forms_or_checkboxes routing path — gb10_qwen_ocr primary, rapidocr fallback. Tests checkbox detection, field label extraction, multi-section layouts, and financial table parsing across documents significantly harder than the W-4.",
+  "score_floor_to_defend_97": 90,
+  "documents": [
+    {
+      "id": "irs_1040_2024",
+      "title": "IRS Form 1040 (2024) — U.S. Individual Income Tax Return",
+      "url": "https://www.irs.gov/pub/irs-pdf/f1040.pdf",
+      "kind": "complex_form_pdf",
+      "license_note": "Public IRS form, no copyright restrictions.",
+      "goal": "Extract a complex multi-section tax form with numbered lines, dollar fields, filing status checkboxes, signature area, and tabular income/deduction sections.",
+      "max_pages": 2,
+      "min_chars": 2500,
+      "expected_terms": [
+        "Individual Income Tax Return",
+        "Filing Status",
+        "Adjusted Gross Income",
+        "Standard Deduction",
+        "Social security number",
+        "Internal Revenue Service"
+      ],
+      "expected_regex": [
+        "Form\\s+1040",
+        "filing\\s+status",
+        "adjusted\\s+gross"
+      ],
+      "capability_focus": ["forms", "checkboxes", "labels", "numbered_lines", "complex_layout"]
+    },
+    {
+      "id": "irs_schedule_d_2024",
+      "title": "IRS Schedule D (2024) — Capital Gains and Losses",
+      "url": "https://www.irs.gov/pub/irs-pdf/f1040sd.pdf",
+      "kind": "financial_table_form",
+      "license_note": "Public IRS form.",
+      "goal": "Extract a financial table form tracking capital gains and losses with multi-column Part I (short-term) and Part II (long-term) sections, date columns, and gain/loss totals.",
+      "max_pages": 2,
+      "min_chars": 1500,
+      "expected_terms": [
+        "Capital Gains and Losses",
+        "Short-term",
+        "Long-term",
+        "Date acquired",
+        "Date sold",
+        "Part I",
+        "Part II"
+      ],
+      "expected_regex": [
+        "Schedule\\s+D",
+        "short.term\\s+capital",
+        "long.term\\s+capital"
+      ],
+      "capability_focus": ["forms", "tables", "financial_terms", "multi_column"]
+    },
+    {
+      "id": "irs_w9_current",
+      "title": "IRS Form W-9 — Request for Taxpayer Identification Number",
+      "url": "https://www.irs.gov/pub/irs-pdf/fw9.pdf",
+      "kind": "public_form_pdf",
+      "license_note": "Public IRS form.",
+      "goal": "Extract a government form with entity-type checkboxes, TIN fields, certification/signature section, and a dense instruction block.",
+      "max_pages": 2,
+      "min_chars": 1000,
+      "expected_terms": [
+        "Request for Taxpayer Identification Number",
+        "Tax classification",
+        "Under penalties of perjury",
+        "Backup withholding",
+        "Employer identification number"
+      ],
+      "expected_regex": [
+        "Form\\s+W-9",
+        "taxpayer\\s+identification",
+        "penalties\\s+of\\s+perjury"
+      ],
+      "capability_focus": ["forms", "checkboxes", "certification_text", "labels"]
+    },
+    {
+      "id": "irs_1099b_broker",
+      "title": "IRS Form 1099-B — Proceeds From Broker and Barter Exchange Transactions",
+      "url": "https://www.irs.gov/pub/irs-pdf/f1099b.pdf",
+      "kind": "financial_form_pdf",
+      "license_note": "Public IRS form.",
+      "goal": "Extract a multi-box tax form with financial fields for broker proceeds, cost basis, FATCA indicator checkbox, and accrued market discount. Tests dense small-type form parsing.",
+      "max_pages": 1,
+      "min_chars": 600,
+      "expected_terms": [
+        "Proceeds From Broker",
+        "Barter Exchange Transactions",
+        "Cost or other basis",
+        "FATCA"
+      ],
+      "expected_regex": [
+        "Form\\s+1099.B",
+        "applicable\\s+checkbox",
+        "accrued\\s+market"
+      ],
+      "capability_focus": ["forms", "financial_fields", "checkboxes", "small_print"]
+    },
+    {
+      "id": "irs_form_8949",
+      "title": "IRS Form 8949 — Sales and Other Dispositions of Capital Assets",
+      "url": "https://www.irs.gov/pub/irs-pdf/f8949.pdf",
+      "kind": "financial_table_form",
+      "license_note": "Public IRS form.",
+      "goal": "Extract a brokerage-style financial table with Part I and Part II sections for short-term and long-term capital asset dispositions. Tests dense row/column table OCR with numeric fields.",
+      "max_pages": 2,
+      "min_chars": 1200,
+      "expected_terms": [
+        "Sales and Other Dispositions",
+        "Capital Assets",
+        "Description of property",
+        "Proceeds",
+        "Adjustments to gain or loss"
+      ],
+      "expected_regex": [
+        "Form\\s+8949",
+        "Part\\s+I",
+        "proceeds\\s+\\(sales\\s+price\\)"
+      ],
+      "capability_focus": ["forms", "tables", "financial_terms", "dense_rows"]
+    }
+  ]
+}

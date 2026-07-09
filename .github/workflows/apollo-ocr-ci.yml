@@ -1,0 +1,185 @@
+name: Apollo OCR — Tier 3 CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  ocr-tier3:
+    name: OCR stack (Tier 3 — CPU portable components)
+    runs-on: ubuntu-latest
+
+    env:
+      CI: "true"
+      HF_HUB_DISABLE_SYMLINKS_WARNING: "1"
+      AEGIS_DEPLOT_ENABLE: "1"
+      AEGIS_TROCR_ENABLE: "1"
+      AEGIS_QWEN_PRECLASSIFY_ENABLE: "0"
+      APOLLO_GB10_OCR_ENABLED: "0"
+      AEGIS_SCALE_ENSEMBLE_WORKERS: "1"
+      AEGIS_SC_PAGE_WORKERS: "1"
+      AEGIS_DPI_ENSEMBLE_WORKERS: "1"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install base dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r install/requirements/requirements-base.txt -q
+
+      - name: Install tier3 dependencies
+        run: |
+          pip install -r install/requirements/requirements-tier3.txt -q
+
+      - name: Write tier3 .env
+        run: |
+          python install/install.py \
+            --tier tier3 \
+            --no-confirm \
+            --skip-models \
+            --skip-ollama \
+            --skip-verify
+
+      - name: Sanity check env-driven settings and core imports
+        run: |
+          python - <<'PY'
+          import os
+          import importlib
+          import re
+          from pathlib import Path
+          import sys
+
+          workspace = Path(os.getenv("GITHUB_WORKSPACE", ".")).resolve()
+          apollo_root = workspace
+          sys.path.insert(0, str(workspace))
+          sys.path.insert(0, str(apollo_root))
+          env_path = apollo_root / ".env"
+          if not env_path.exists():
+              raise SystemExit(".env not found after install script")
+
+          env = {}
+          for line in env_path.read_text(encoding="utf-8").splitlines():
+              stripped = line.strip()
+              if not stripped or stripped.startswith("#") or "=" not in stripped:
+                  continue
+              key, value = stripped.split("=", 1)
+              env[key.strip()] = value.strip().strip('"').strip("'")
+
+          port_raw = env.get("PORT", "5010").strip()
+          if not re.fullmatch(r"\d+", port_raw):
+              raise SystemExit(f"PORT must be integer, got: {port_raw!r}")
+          if not (1 <= int(port_raw) <= 65535):
+              raise SystemExit(f"PORT out of range: {port_raw!r}")
+          if env.get("AGENT_PORT") and not re.fullmatch(r"\d+", env["AGENT_PORT"].strip()):
+              raise SystemExit(f"AGENT_PORT must be integer, got: {env['AGENT_PORT']!r}")
+          if env.get("APOLLO_PORT") and not re.fullmatch(r"\d+", env["APOLLO_PORT"].strip()):
+              raise SystemExit(f"APOLLO_PORT must be integer, got: {env['APOLLO_PORT']!r}")
+
+          host_raw = env.get("HOST", "127.0.0.1").strip()
+          if not host_raw:
+              raise SystemExit("HOST must not be empty")
+          for key in ("APOLLO_HOST", "AGENT_HOST"):
+              host_override = env.get(key, "").strip()
+              if host_override:
+                  # Optional explicit host aliases should be non-empty if configured.
+                  pass
+
+          execution_mode = env.get("APOLLO_SIM_EXECUTION_MODE", "paper").strip().lower().replace("-", "_")
+          if execution_mode not in {"paper", "live"}:
+              raise SystemExit(f"APOLLO_SIM_EXECUTION_MODE must be 'paper' or 'live', got: {execution_mode!r}")
+
+          sim_live_enabled = env.get("APOLLO_SIM_LIVE_ENABLED", "0").strip().lower()
+          if sim_live_enabled not in {"0", "1", "true", "false", "yes", "no", "on", "off"}:
+              raise SystemExit(f"APOLLO_SIM_LIVE_ENABLED must be boolean-like, got: {sim_live_enabled!r}")
+
+          try:
+              int(env.get("APOLLO_SIM_BROKER_MAX_RETRIES", "3"))
+          except ValueError:
+              raise SystemExit("APOLLO_SIM_BROKER_MAX_RETRIES must be integer")
+          try:
+              int(env.get("APOLLO_SIM_BROKER_RETRY_WINDOW_SEC", "600"))
+          except ValueError:
+              raise SystemExit("APOLLO_SIM_BROKER_RETRY_WINDOW_SEC must be integer")
+          try:
+              int(env.get("APOLLO_SIM_STALE_ORDER_SECONDS", "1200"))
+          except ValueError:
+              raise SystemExit("APOLLO_SIM_STALE_ORDER_SECONDS must be integer")
+          try:
+              int(env.get("APOLLO_SIM_RECONCILE_LOCK_STALE_SECONDS", "300"))
+          except ValueError:
+              raise SystemExit("APOLLO_SIM_RECONCILE_LOCK_STALE_SECONDS must be integer")
+          try:
+              int(env.get("APOLLO_SIM_RECONCILE_MAX_PLANS", "0"))
+          except ValueError:
+              raise SystemExit("APOLLO_SIM_RECONCILE_MAX_PLANS must be integer")
+
+          allow_anon = env.get("SKY_ALLOW_ANON", "0").strip()
+          if allow_anon not in {"0", "1"}:
+              raise SystemExit("SKY_ALLOW_ANON must be 0 or 1")
+
+          chat_model = env.get("OLLAMA_MODEL_CHAT", "").strip() or env.get("OLLAMA_MODEL", "").strip()
+          if not chat_model:
+              raise SystemExit("No chat model configured (OLLAMA_MODEL_CHAT/OLLAMA_MODEL)")
+          deep_model = env.get("OLLAMA_MODEL_DEEP", "").strip() or env.get("OLLAMA_MODEL_REASON", "").strip()
+          if not deep_model:
+              raise SystemExit("No deep model configured (OLLAMA_MODEL_DEEP/OLLAMA_MODEL_REASON)")
+          if not env.get("OLLAMA_URL", "").strip():
+              raise SystemExit("OLLAMA_URL must be configured")
+
+          os.environ.update(env)
+
+          try:
+              from Apollo.config import Config, get_watchlist
+          except ModuleNotFoundError:
+              from config import Config, get_watchlist
+          watchlist = get_watchlist(os.getenv("APOLLO_WATCHLIST"))
+          if not watchlist:
+              raise SystemExit("watchlist must not be empty")
+          if Config.PORT != int(port_raw):
+              raise SystemExit(f"Config.PORT mismatch: {Config.PORT} != {int(port_raw)}")
+          if Config.HOST != host_raw:
+              raise SystemExit(f"Config.HOST mismatch: {Config.HOST!r} != {host_raw!r}")
+          if Config.WATCHLIST != watchlist:
+              raise SystemExit(f"Config.WATCHLIST mismatch: {Config.WATCHLIST} != {watchlist}")
+
+          for module in (
+              "config",
+              "trade_cycle",
+              "swing_simulation",
+              "swing_study",
+              "simulation_execution",
+              "event_impact",
+              "homework_trade_pipeline",
+              "simulation_server",
+          ):
+              try:
+                  importlib.import_module(f"Apollo.{module}")
+                  continue
+              except ModuleNotFoundError:
+                  importlib.import_module(module)
+
+          print("sanity_check_ok")
+          PY
+
+      - name: Run OCR unit tests (no model weights required)
+        working-directory: .
+        run: |
+          python -m pytest tests/test_ocr_dual_tool.py \
+                           tests/test_ocr_gaps_20260505.py \
+                           tests/test_ocr_improvements_20260505.py \
+                           tests/test_ocr_ceiling_20260506.py \
+                           tests/test_ocr_phase2_services.py \
+            -q --timeout=120
+
+      - name: Run simulation execution unit tests (phase 7b safety checks)
+        run: python -m pytest tests/test_simulation_execution.py -q
+
+      - name: Hardware detection report
+        run: python install/detect_hardware.py

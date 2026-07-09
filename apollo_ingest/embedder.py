@@ -26,7 +26,7 @@ class DocumentEmbedder:
             model: Model name for embeddings (defaults to env or Fino1-8B.Q6_K)
             ollama_host: Ollama API host (defaults to env or localhost:11434)
         """
-        self.model = model or os.getenv("EMBEDDING_MODEL", os.getenv("OLLAMA_MODEL", "Fino1-8B.Q6_K"))
+        self.model = model or os.getenv("EMBEDDING_MODEL", os.getenv("OLLAMA_MODEL", "gemma4:31b"))
         self.ollama_host = ollama_host or os.getenv("OLLAMA_URL", os.getenv("OLLAMA_HOST", "http://localhost:11434"))
 
     def embed(self, text: str) -> Optional[List[float]]:

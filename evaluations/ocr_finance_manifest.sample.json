@@ -1,0 +1,17 @@
+{
+  "name": "apollo_finance_ocr_regression_sample",
+  "documents": [
+    {
+      "path": "Apollo/evaluations/fixtures/finra_rule_00519.pdf",
+      "goal": "Extract margin requirements and day trading thresholds with tables",
+      "engine": "gb10_auto",
+      "must_contain": ["margin", "day trading", "requirement"]
+    },
+    {
+      "path": "Apollo/evaluations/fixtures/position_sizing_scan.png",
+      "goal": "Extract risk of ruin equations and numeric values",
+      "engine": "gb10_auto",
+      "must_contain": ["risk", "position sizing"]
+    }
+  ]
+}

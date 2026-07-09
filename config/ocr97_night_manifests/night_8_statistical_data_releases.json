@@ -1,0 +1,103 @@
+{
+  "name": "ocr97_night_8_statistical_data_releases",
+  "description": "Night 8: BLS and Fed statistical data releases. These documents are the hardest pure-table OCR challenge: multi-row, multi-column tables of employment, price, and monetary data with precise numeric values, percentage changes, seasonal adjustment flags, and footnote codes. Token accuracy here requires correct column alignment — a misaligned row drops the value into the wrong cell. This night specifically probes whether OCR97 can extract numbers from data-release layouts accurately enough to be used in financial analysis pipelines.",
+  "score_floor_to_defend_97": 90,
+  "documents": [
+    {
+      "id": "bls_employment_situation_mar2025",
+      "title": "BLS Employment Situation Summary — March 2025 (Released April 4, 2025)",
+      "url": "https://www.bls.gov/news.release/archives/empsit_04042025.pdf",
+      "kind": "statistical_release_pdf",
+      "license_note": "Public BLS publication. Bureau of Labor Statistics, U.S. Department of Labor.",
+      "goal": "Extract the Employment Situation news release with nonfarm payroll tables, unemployment rate by demographic group, hours and earnings tables, and industry-level employment change columns. Tests dense multi-column numeric table extraction where precision matters.",
+      "max_pages": 5,
+      "min_chars": 3000,
+      "expected_terms": [
+        "nonfarm payroll",
+        "unemployment rate",
+        "Bureau of Labor Statistics",
+        "seasonally adjusted",
+        "labor force",
+        "participation rate"
+      ],
+      "expected_regex": [
+        "nonfarm\\s+payroll",
+        "unemployment\\s+rate",
+        "Bureau\\s+of\\s+Labor\\s+Statistics"
+      ],
+      "capability_focus": ["statistical_tables", "dense_numbers", "economic_data", "multi_column"]
+    },
+    {
+      "id": "bls_cpi_mar2025",
+      "title": "BLS Consumer Price Index Summary — March 2025 (Released April 10, 2025)",
+      "url": "https://www.bls.gov/news.release/archives/cpi_04102025.pdf",
+      "kind": "statistical_release_pdf",
+      "license_note": "Public BLS publication.",
+      "goal": "Extract CPI news release with the all-items index table, category-level price change percentages, energy and food sub-index tables, and year-over-year comparison columns. The table structure has percent-change columns side-by-side with index levels — correct column alignment is critical.",
+      "max_pages": 5,
+      "min_chars": 2500,
+      "expected_terms": [
+        "Consumer Price Index",
+        "All items",
+        "Energy",
+        "Food",
+        "seasonally adjusted",
+        "percent change"
+      ],
+      "expected_regex": [
+        "consumer\\s+price\\s+index",
+        "All\\s+items",
+        "percent\\s+change"
+      ],
+      "capability_focus": ["statistical_tables", "price_indices", "percent_change_columns"]
+    },
+    {
+      "id": "bls_jolts_feb2025",
+      "title": "BLS Job Openings and Labor Turnover Survey (JOLTS) — February 2025 (Released April 1, 2025)",
+      "url": "https://www.bls.gov/news.release/archives/jolts_04012025.pdf",
+      "kind": "statistical_release_pdf",
+      "license_note": "Public BLS publication.",
+      "goal": "Extract JOLTS release with job openings, hires, quits, and layoff/discharge tables broken down by industry sector. Tests a wide table where multiple data series (openings, hires, separations, quits) appear side-by-side with industry rows.",
+      "max_pages": 5,
+      "min_chars": 2500,
+      "expected_terms": [
+        "Job Openings",
+        "Labor Turnover",
+        "hires",
+        "separations",
+        "quits",
+        "layoffs and discharges"
+      ],
+      "expected_regex": [
+        "job\\s+openings",
+        "labor\\s+turnover",
+        "hires\\s+rate"
+      ],
+      "capability_focus": ["statistical_tables", "multi_series", "industry_breakdown"]
+    },
+    {
+      "id": "fed_h6_money_stock",
+      "title": "Federal Reserve H.6 — Money Stock Measures (Current Release)",
+      "url": "https://www.federalreserve.gov/releases/h6/current/h6.pdf",
+      "kind": "statistical_release_pdf",
+      "license_note": "Public Federal Reserve release.",
+      "goal": "Extract the Federal Reserve H.6 money stock release with M1, M2, and component tables showing seasonally adjusted and not seasonally adjusted figures across multiple time periods. Tests extraction of very compact statistical tables with footnote references and data revision markers.",
+      "max_pages": 3,
+      "min_chars": 1500,
+      "expected_terms": [
+        "Money Stock",
+        "M1",
+        "M2",
+        "seasonally adjusted",
+        "Federal Reserve",
+        "billions of dollars"
+      ],
+      "expected_regex": [
+        "money\\s+stock",
+        "M1|M2",
+        "seasonally\\s+adjusted"
+      ],
+      "capability_focus": ["statistical_tables", "monetary_data", "compact_tables", "footnotes"]
+    }
+  ]
+}

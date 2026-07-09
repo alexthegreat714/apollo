@@ -1,0 +1,76 @@
+{
+  "name": "ocr97_real_document_capability_v1",
+  "description": "Public real-document OCR97 capability benchmark used to defend or rescore the OCR97 grade.",
+  "score_floor_to_defend_97": 90,
+  "documents": [
+    {
+      "id": "fed_fsr_2024",
+      "title": "Federal Reserve Financial Stability Report, November 2024",
+      "url": "https://www.federalreserve.gov/publications/files/financial-stability-report-20241122.pdf",
+      "kind": "long_financial_pdf",
+      "license_note": "Public Federal Reserve publication.",
+      "goal": "Extract text, tables, numeric risk language, and section headings from a Federal Reserve financial stability report.",
+      "max_pages": 5,
+      "min_chars": 3500,
+      "expected_terms": [
+        "Financial Stability Report",
+        "Federal Reserve",
+        "asset valuations",
+        "borrowing by businesses",
+        "funding risks"
+      ],
+      "expected_regex": [
+        "November\\s+2024",
+        "financial\\s+stability",
+        "vulnerabilit(?:y|ies)"
+      ],
+      "capability_focus": ["long_pdf", "finance_terms", "numeric_text", "layout"]
+    },
+    {
+      "id": "bis_quarterly_2024q4",
+      "title": "BIS Quarterly Review, December 2024",
+      "url": "https://www.bis.org/publ/qtrpdf/r_qt2412.pdf",
+      "kind": "long_financial_pdf",
+      "license_note": "Public Bank for International Settlements publication.",
+      "goal": "Extract text, headings, chart-adjacent labels, and market terminology from a BIS Quarterly Review.",
+      "max_pages": 5,
+      "min_chars": 3000,
+      "expected_terms": [
+        "BIS Quarterly Review",
+        "Bank for International Settlements",
+        "financial markets",
+        "monetary policy",
+        "bond yields"
+      ],
+      "expected_regex": [
+        "December\\s+2024",
+        "Quarterly\\s+Review",
+        "market\\s+participants"
+      ],
+      "capability_focus": ["long_pdf", "market_terms", "figures", "layout"]
+    },
+    {
+      "id": "irs_w4_current",
+      "title": "IRS Form W-4",
+      "url": "https://www.irs.gov/pub/irs-pdf/fw4.pdf",
+      "kind": "public_form_pdf",
+      "license_note": "Public IRS form.",
+      "goal": "Extract a public form with checkboxes, labels, numbered steps, and tabular instructions.",
+      "max_pages": 4,
+      "min_chars": 2000,
+      "expected_terms": [
+        "Form W-4",
+        "Employee's Withholding Certificate",
+        "Internal Revenue Service",
+        "Step 1",
+        "Multiple Jobs"
+      ],
+      "expected_regex": [
+        "OMB\\s+No\\.",
+        "Step\\s+2",
+        "Dependents"
+      ],
+      "capability_focus": ["forms", "checkboxes", "labels", "tables"]
+    }
+  ]
+}

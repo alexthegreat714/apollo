@@ -1,0 +1,103 @@
+{
+  "name": "ocr97_night_5_academic_twocolumn",
+  "description": "Night 5: Two-column academic papers and technical algorithm specifications. Directly stresses Surya column detection, phase2 ensemble on diagrams/figures, and extraction of structured benchmark tables with precise numeric cells. arXiv papers use LaTeX-rendered two-column layout with sub-figures, attention diagrams, and performance matrices.",
+  "score_floor_to_defend_97": 90,
+  "documents": [
+    {
+      "id": "arxiv_transformer_2017",
+      "title": "Attention Is All You Need (Vaswani et al., 2017) — arXiv:1706.03762",
+      "url": "https://arxiv.org/pdf/1706.03762",
+      "kind": "academic_two_column_pdf",
+      "license_note": "arXiv open access preprint. Non-commercial use.",
+      "goal": "Extract a two-column academic machine learning paper with BLEU score benchmark tables, training configuration tables, and equation-heavy prose describing the attention mechanism and multi-head self-attention architecture. Tests column detection and structured table parsing in LaTeX two-column format.",
+      "max_pages": 5,
+      "min_chars": 3000,
+      "expected_terms": [
+        "Attention Is All You Need",
+        "multi-head attention",
+        "encoder",
+        "decoder",
+        "transformer",
+        "BLEU"
+      ],
+      "expected_regex": [
+        "attention\\s+mechanism",
+        "multi.head",
+        "encoder.decoder"
+      ],
+      "capability_focus": ["two_column", "figures", "tables", "academic", "equations"]
+    },
+    {
+      "id": "arxiv_bert_2018",
+      "title": "BERT: Pre-training of Deep Bidirectional Transformers (Devlin et al., 2018) — arXiv:1810.04805",
+      "url": "https://arxiv.org/pdf/1810.04805",
+      "kind": "academic_two_column_pdf",
+      "license_note": "arXiv open access preprint.",
+      "goal": "Extract a two-column NLP paper with GLUE benchmark result tables, pre-training task description, and ablation study tables. Tests extraction of numeric performance tables in academic two-column layout where numbers are dense and column alignment is critical.",
+      "max_pages": 5,
+      "min_chars": 3000,
+      "expected_terms": [
+        "BERT",
+        "pre-training",
+        "fine-tuning",
+        "GLUE",
+        "bidirectional",
+        "masked language model"
+      ],
+      "expected_regex": [
+        "pre.training",
+        "fine.tuning",
+        "GLUE\\s+benchmark"
+      ],
+      "capability_focus": ["two_column", "tables", "academic", "numeric_dense"]
+    },
+    {
+      "id": "arxiv_gpt3_2020",
+      "title": "Language Models are Few-Shot Learners (Brown et al., 2020) — arXiv:2005.14165",
+      "url": "https://arxiv.org/pdf/2005.14165",
+      "kind": "academic_two_column_pdf",
+      "license_note": "arXiv open access preprint.",
+      "goal": "Extract a two-column paper with extensive few-shot benchmark result tables, training compute scaling tables, and model performance comparisons. This is one of the longest arXiv ML papers (70+ pages). Tests handling of very long two-column academic documents with dense result tables.",
+      "max_pages": 5,
+      "min_chars": 3500,
+      "expected_terms": [
+        "few-shot",
+        "language model",
+        "in-context learning",
+        "GPT",
+        "parameters",
+        "benchmark"
+      ],
+      "expected_regex": [
+        "few.shot\\s+learner",
+        "in.context\\s+learning",
+        "language\\s+model"
+      ],
+      "capability_focus": ["two_column", "charts", "tables", "long_pdf", "figures"]
+    },
+    {
+      "id": "nist_fips197_aes",
+      "title": "NIST FIPS 197 — Advanced Encryption Standard (AES)",
+      "url": "https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197.pdf",
+      "kind": "technical_standard_pdf",
+      "license_note": "Public NIST publication.",
+      "goal": "Extract a technical cryptography standard with pseudocode listings, state matrix representations, and mathematical notation. Tests extraction of algorithmic structure, tables of hex values (16x16 SubBytes S-Box lookup), and formal specification text.",
+      "max_pages": 5,
+      "min_chars": 2500,
+      "expected_terms": [
+        "Advanced Encryption Standard",
+        "AES",
+        "block cipher",
+        "key schedule",
+        "SubBytes",
+        "ShiftRows"
+      ],
+      "expected_regex": [
+        "key\\s+schedule",
+        "block\\s+cipher",
+        "SubBytes|ShiftRows|MixColumns"
+      ],
+      "capability_focus": ["technical_standard", "tables", "hex_values", "pseudocode"]
+    }
+  ]
+}

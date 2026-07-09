@@ -1,0 +1,103 @@
+{
+  "name": "ocr97_night_10_legal_regulatory",
+  "description": "Night 10: Legal and regulatory documents. Long-form dense prose with numbered sections, cross-references, defined terms, and no charts. Federal rules and court documents test whether OCR97's quality_score scoring holds on text-only PDFs where there are no numeric tables to boost the numeric_score component. Also tests extraction of legal citation patterns (e.g., 28 U.S.C. § 1331) and rule numbering hierarchies.",
+  "score_floor_to_defend_97": 90,
+  "documents": [
+    {
+      "id": "frcp_federal_rules_civil_procedure",
+      "title": "Federal Rules of Civil Procedure (Effective December 1, 2023)",
+      "url": "https://www.uscourts.gov/sites/default/files/cv_rules_eff._dec._1_2023_0.pdf",
+      "kind": "legal_rules_pdf",
+      "license_note": "Public U.S. federal court rules.",
+      "goal": "Extract the Federal Rules of Civil Procedure with Rule numbered sections (Rule 1 through Rule 86), subsection numbering, definitional lists, and cross-references. Tests whether OCR correctly preserves hierarchical legal numbering and extracts italicized terms-of-art from a dense government legal document.",
+      "max_pages": 5,
+      "min_chars": 3500,
+      "expected_terms": [
+        "Federal Rules of Civil Procedure",
+        "summons",
+        "complaint",
+        "defendant",
+        "plaintiff",
+        "discovery"
+      ],
+      "expected_regex": [
+        "Rule\\s+\\d+",
+        "civil\\s+procedure",
+        "defendant|plaintiff"
+      ],
+      "capability_focus": ["legal_text", "numbered_rules", "dense_prose", "cross_references"]
+    },
+    {
+      "id": "fre_federal_rules_evidence",
+      "title": "Federal Rules of Evidence (Effective December 1, 2023)",
+      "url": "https://www.uscourts.gov/sites/default/files/rules_of_evidence.pdf",
+      "kind": "legal_rules_pdf",
+      "license_note": "Public U.S. federal court rules.",
+      "goal": "Extract Federal Rules of Evidence with Article I through Article XI headings, Rule 101-1103 section numbers, hearsay exception lists, and authenticity requirements. Tests structured legal list extraction where each rule has (a), (b), (c) subsections and numbered exceptions.",
+      "max_pages": 5,
+      "min_chars": 3000,
+      "expected_terms": [
+        "Federal Rules of Evidence",
+        "hearsay",
+        "relevance",
+        "witness",
+        "authentication",
+        "privilege"
+      ],
+      "expected_regex": [
+        "Rule\\s+\\d{3}",
+        "hearsay",
+        "Federal\\s+Rules\\s+of\\s+Evidence"
+      ],
+      "capability_focus": ["legal_text", "numbered_rules", "exception_lists", "hierarchical"]
+    },
+    {
+      "id": "govinfo_cfr_title17_vol3_part229",
+      "title": "SEC Regulation S-K — 17 CFR Part 229 (GovInfo Annual CFR 2024)",
+      "url": "https://www.govinfo.gov/content/pkg/CFR-2024-title17-vol3/pdf/CFR-2024-title17-vol3-part229.pdf",
+      "kind": "regulatory_text_pdf",
+      "license_note": "Public federal regulation via GovInfo (govinfo.gov). Annual CFR edition.",
+      "goal": "Extract SEC Regulation S-K covering disclosure requirements for securities registrations, including Item 101 (Business Description), Item 303 (MD&A), and Item 407 (Corporate Governance). Tests extraction of regulatory item numbering (Item XXX), cross-references to other forms, and definition blocks.",
+      "max_pages": 5,
+      "min_chars": 3000,
+      "expected_terms": [
+        "Regulation S-K",
+        "registrant",
+        "disclosure",
+        "Securities and Exchange Commission",
+        "Item 101",
+        "material"
+      ],
+      "expected_regex": [
+        "Item\\s+\\d{3}",
+        "Securities\\s+and\\s+Exchange",
+        "registrant"
+      ],
+      "capability_focus": ["regulatory_text", "item_numbering", "cross_references", "legal_definitions"]
+    },
+    {
+      "id": "govinfo_cfr_title17_vol1_part4",
+      "title": "CFTC Part 4 — Commodity Pool Operators and CTAs (GovInfo Annual CFR 2024)",
+      "url": "https://www.govinfo.gov/content/pkg/CFR-2024-title17-vol1/pdf/CFR-2024-title17-vol1-part4.pdf",
+      "kind": "regulatory_text_pdf",
+      "license_note": "Public federal regulation via GovInfo (govinfo.gov). Annual CFR edition.",
+      "goal": "Extract CFTC Part 4 regulations governing commodity pool operators (CPOs) and commodity trading advisors (CTAs) including registration requirements, disclosure document content, and reporting obligations. Tests legal document OCR on highly relevant trading regulation text with section numbering (4.1, 4.2, etc.).",
+      "max_pages": 5,
+      "min_chars": 2500,
+      "expected_terms": [
+        "commodity pool",
+        "trading advisor",
+        "disclosure document",
+        "CFTC",
+        "registration",
+        "operator"
+      ],
+      "expected_regex": [
+        "commodity\\s+pool\\s+operator",
+        "trading\\s+advisor",
+        "§\\s*4\\.\\d+"
+      ],
+      "capability_focus": ["regulatory_text", "trading_regulations", "section_numbering"]
+    }
+  ]
+}

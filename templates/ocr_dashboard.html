@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OCR Stack — {{ agent }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #0d0f14;
+      --surface: #13161e;
+      --border:  #1f2330;
+      --text:    #d4d8e8;
+      --muted:   #5a6080;
+      --accent:  #5b8af0;
+      --ok:      #34d399;
+      --warn:    #fbbf24;
+      --fail:    #f87171;
+      --skip:    #6b7280;
+      --mono:    'IBM Plex Mono', monospace;
+      --sans:    'Space Grotesk', sans-serif;
+    }
+
+    body { font-family: var(--sans); background: var(--bg); color: var(--text); min-height: 100vh; padding: 2rem; }
+
+    /* ── header ── */
+    .header {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border);
+      gap: 1rem; flex-wrap: wrap;
+    }
+    .header-left { display: flex; flex-direction: column; gap: 0.25rem; }
+    .header h1 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.01em; }
+    .header .subtitle { font-size: 0.8rem; color: var(--muted); }
+    .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
+    .refresh-info { font-size: 0.75rem; color: var(--muted); font-family: var(--mono); }
+
+    /* ── tier simulation selector ── */
+    .tier-selector { display: flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; color: var(--muted); }
+    .tier-selector label { white-space: nowrap; }
+    .tier-selector select {
+      font-family: var(--mono); font-size: 0.75rem;
+      background: var(--surface); color: var(--text);
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: 0.3rem 0.6rem; cursor: pointer; outline: none;
+    }
+    .tier-selector select:focus { border-color: var(--accent); }
+
+    /* ── sim banner ── */
+    .sim-banner {
+      display: none; margin-bottom: 1rem; padding: 0.55rem 1rem;
+      background: rgba(91,138,240,.1); border: 1px solid var(--accent);
+      border-radius: 6px; font-size: 0.78rem; color: var(--accent);
+    }
+    .sim-banner.visible { display: block; }
+
+    /* ── error banner ── */
+    #error-banner {
+      display: none; background: #2a1010; border: 1px solid #5a2020;
+      border-radius: 6px; padding: 0.6rem 1rem; font-size: 0.78rem;
+      color: var(--fail); margin-bottom: 1rem;
+    }
+
+    /* ── tier badge row ── */
+    .tier-row {
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;
+      padding: 1rem 1.25rem; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 8px; flex-wrap: wrap;
+    }
+    .tier-badge {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.25rem 0.65rem; border-radius: 4px;
+      background: #1d2340; color: var(--accent); border: 1px solid #2a3460;
+    }
+    .tier-badge.tier1     { background: #0f2a1e; color: var(--ok);   border-color: #1a4a30; }
+    .tier-badge.tier2     { background: #1d2340; color: var(--accent); border-color: #2a3460; }
+    .tier-badge.tier2_lite{ background: #2a2010; color: var(--warn); border-color: #4a3810; }
+    .tier-badge.tier3     { background: #1a1a1a; color: var(--skip);  border-color: #333; }
+    .tier-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .tier-meta span { font-size: 0.8rem; color: var(--muted); }
+    .tier-meta strong { color: var(--text); font-weight: 500; }
+    .grade-pill { margin-left: auto; font-size: 0.85rem; font-weight: 600; font-family: var(--mono); color: var(--ok); }
+
+    /* ── section title ── */
+    .section-title {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem;
+    }
+
+    /* ── grids ── */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+    @media (max-width: 900px) { .grid-4 { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 700px) { .grid-3, .grid-2, .grid-4 { grid-template-columns: 1fr; } }
+
+    /* ── card ── */
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1rem 1.125rem;
+    }
+    .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.6rem; }
+    .card-name { font-size: 0.85rem; font-weight: 600; }
+    .card-class { font-size: 0.7rem; color: var(--muted); font-family: var(--mono); }
+    .card-detail { font-size: 0.72rem; color: var(--muted); font-family: var(--mono); word-break: break-all; }
+    .card-detail.ok-text   { color: var(--ok); }
+    .card-detail.fail-text { color: var(--fail); }
+    .card-detail.warn-text { color: var(--warn); }
+
+    /* ── status dot ── */
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .status-dot.ok      { background: var(--ok);   box-shadow: 0 0 6px var(--ok); }
+    .status-dot.fail    { background: var(--fail);  box-shadow: 0 0 6px var(--fail); }
+    .status-dot.warn    { background: var(--warn);  box-shadow: 0 0 4px var(--warn); }
+    .status-dot.skip    { background: var(--skip); }
+    .status-dot.loading { background: var(--accent); animation: pulse 1.2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    /* ── metrics ── */
+    .metrics-grid {
+      display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.75rem; margin-bottom: 1.5rem;
+    }
+    @media (max-width: 1100px) { .metrics-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 600px)  { .metrics-grid { grid-template-columns: repeat(2, 1fr); } }
+    .metric-tile {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem 1rem;
+    }
+    .metric-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); margin-bottom: 0.3rem; }
+    .metric-value { font-size: 1.05rem; font-weight: 600; font-family: var(--mono); color: var(--text); }
+
+    /* ── verdict ── */
+    .verdict-row {
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;
+      padding: 0.75rem 1rem; border-radius: 6px; font-size: 0.82rem; flex-wrap: wrap;
+    }
+    .verdict-row.pass    { background: rgba(52,211,153,.07); border: 1px solid rgba(52,211,153,.3); }
+    .verdict-row.partial { background: rgba(251,191,36,.07);  border: 1px solid rgba(251,191,36,.3); }
+    .verdict-row.fail    { background: rgba(248,113,113,.07); border: 1px solid rgba(248,113,113,.3); }
+    .verdict-label { font-weight: 700; font-size: 0.88rem; }
+    .verdict-row.pass    .verdict-label { color: var(--ok); }
+    .verdict-row.partial .verdict-label { color: var(--warn); }
+    .verdict-row.fail    .verdict-label { color: var(--fail); }
+    .verdict-detail { color: var(--muted); font-size: 0.78rem; }
+
+    /* ── readiness matrix ── */
+    .readiness-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; margin-bottom: 1.5rem;
+    }
+    @media (max-width: 900px) { .readiness-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 580px) { .readiness-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    .rc-cell {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 0.65rem 0.8rem;
+    }
+    .rc-cell.pass { border-color: rgba(52,211,153,.4); }
+    .rc-cell.fail { border-color: rgba(248,113,113,.4); }
+    .rc-cell.disabled { opacity: 0.55; }
+    .rc-name { font-size: 0.78rem; font-weight: 600; margin-bottom: 0.2rem; }
+    .rc-req  { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0.3rem; }
+    .rc-req.required { color: var(--accent); }
+    .rc-req.disabled { color: var(--skip); }
+    .rc-status { font-size: 0.7rem; font-family: var(--mono); }
+    .rc-status.ok-text   { color: var(--ok); }
+    .rc-status.fail-text { color: var(--fail); }
+    .rc-status.skip-text { color: var(--skip); }
+
+    /* ── feature flags ── */
+    .flags-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+      padding: 0.9rem 1.125rem; margin-bottom: 1.5rem;
+    }
+    .flags-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 0.35rem; }
+    .flag-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.72rem; font-family: var(--mono); padding: 0.18rem 0; }
+    .flag-key { color: var(--muted); }
+    .flag-val     { color: var(--ok); }
+    .flag-val.off { color: var(--skip); }
+
+    /* ── qwen block ── */
+    .qwen-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.125rem;
+    }
+    .qwen-row {
+      display: flex; align-items: center; gap: 0.75rem; padding: 0.4rem 0; border-bottom: 1px solid var(--border);
+    }
+    .qwen-row:last-child { border-bottom: none; }
+    .qwen-label  { font-size: 0.75rem; color: var(--muted); width: 5rem; flex-shrink: 0; }
+    .qwen-model  { font-size: 0.78rem; font-family: var(--mono); color: var(--text); flex: 1; }
+    .qwen-status { font-size: 0.72rem; font-family: var(--mono); }
+    .qwen-status.ok   { color: var(--ok); }
+    .qwen-status.fail { color: var(--fail); }
+    .qwen-status.skip { color: var(--skip); }
+
+    /* ── pipeline card ── */
+    .pipeline-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.125rem;
+    }
+    .pipeline-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.3rem 0; border-bottom: 1px solid var(--border); font-size: 0.78rem;
+    }
+    .pipeline-row:last-child { border-bottom: none; }
+    .pipeline-key { color: var(--muted); }
+    .pipeline-val { font-family: var(--mono); color: var(--text); }
+    .pipeline-val.ok   { color: var(--ok); }
+    .pipeline-val.warn { color: var(--warn); }
+    .pipeline-val.fail { color: var(--fail); }
+
+    /* ── install note ── */
+    .install-note {
+      margin-top: 1.5rem; padding: 0.75rem 1rem; border: 1px solid var(--border);
+      border-radius: 6px; font-size: 0.75rem; color: var(--muted); font-family: var(--mono);
+    }
+    .install-note strong { color: var(--text); }
+  </style>
+</head>
+<body>
+
+<!-- ── Header ───────────────────────────────────────────────── -->
+<div class="header">
+  <div class="header-left">
+    <h1>OCR Stack Monitor</h1>
+    <div class="subtitle">{{ agent }} — hardware-adaptive build status</div>
+  </div>
+  <div class="header-right">
+    <div class="refresh-info">auto-refresh 5s &nbsp;·&nbsp; last: <span id="ts">—</span></div>
+    <div class="tier-selector">
+      <label for="sim-tier-select">Simulate build:</label>
+      <select id="sim-tier-select">
+        <option value="">Live (actual hardware)</option>
+        <option value="tier1">tier1 — Full stack (≥20 GB GPU)</option>
+        <option value="tier2">tier2 — Mid-range (8–19 GB GPU)</option>
+        <option value="tier2_lite">tier2_lite — Lite (4–7 GB GPU / 32 GB CPU)</option>
+        <option value="tier3">tier3 — CPU / CI</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div id="sim-banner" class="sim-banner"></div>
+<div id="error-banner"></div>
+
+<!-- ── Tier / Hardware ──────────────────────────────────────── -->
+<div class="tier-row">
+  <div class="tier-badge {{ hw.tier or 'unknown' }}" id="tier-badge">{{ hw.tier or 'detecting…' }}</div>
+  <div class="tier-meta">
+    <span><strong id="hw-gpu">{{ hw.gpu_name or '—' }}</strong></span>
+    <span>VRAM <strong id="hw-vram">{{ hw.vram_gb or '?' }} GB</strong></span>
+    <span>RAM  <strong id="hw-ram">{{ hw.ram_gb or '?' }} GB</strong></span>
+    <span>OS   <strong>{{ hw.os or '—' }}</strong></span>
+  </div>
+  <div class="grade-pill" id="grade-pill">~{{ hw.grade_estimate or '?' }} / 97</div>
+</div>
+
+<!-- ── Session metrics ──────────────────────────────────────── -->
+<div class="section-title">Session metrics</div>
+<div class="metrics-grid">
+  <div class="metric-tile"><div class="metric-label">Uptime</div><div class="metric-value" id="m-uptime">—</div></div>
+  <div class="metric-tile"><div class="metric-label">Chat requests</div><div class="metric-value" id="m-chat">—</div></div>
+  <div class="metric-tile"><div class="metric-label">OCR pages</div><div class="metric-value" id="m-ocr">—</div></div>
+  <div class="metric-tile"><div class="metric-label">P50 latency</div><div class="metric-value" id="m-p50">—</div></div>
+  <div class="metric-tile"><div class="metric-label">P95 latency</div><div class="metric-value" id="m-p95">—</div></div>
+  <div class="metric-tile"><div class="metric-label">RAG avg hits</div><div class="metric-value" id="m-rag">—</div></div>
+</div>
+
+<!-- ── Production readiness (shown when simulating) ─────────── -->
+<div id="readiness-section" style="display:none">
+  <div class="section-title">Production readiness — <span id="readiness-tier-label"></span></div>
+  <div id="verdict-row" class="verdict-row">
+    <span class="verdict-label" id="verdict-label">Checking…</span>
+    <span class="verdict-detail" id="verdict-detail"></span>
+  </div>
+  <div class="readiness-grid" id="readiness-grid"></div>
+
+  <div class="section-title">Feature flags for this tier</div>
+  <div class="flags-card">
+    <div class="flags-grid" id="flags-grid"></div>
+  </div>
+</div>
+
+<!-- ── Qwen models + Pipeline ───────────────────────────────── -->
+<div class="grid-2">
+  <div>
+    <div class="section-title">Qwen VL models</div>
+    <div class="qwen-card" id="qwen-panel">
+      <div class="qwen-row">
+        <div class="qwen-label">primary</div>
+        <div class="qwen-model" id="qwen-primary-model">—</div>
+        <div class="qwen-status skip" id="qwen-primary-status">—</div>
+        <div class="status-dot loading" id="qwen-primary-dot"></div>
+      </div>
+      <div class="qwen-row">
+        <div class="qwen-label">fallback</div>
+        <div class="qwen-model" id="qwen-fallback-model">—</div>
+        <div class="qwen-status skip" id="qwen-fallback-status">—</div>
+        <div class="status-dot loading" id="qwen-fallback-dot"></div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="section-title">Background pipeline</div>
+    <div class="pipeline-card">
+      <div class="pipeline-row"><span class="pipeline-key">state</span><span class="pipeline-val" id="p-state">—</span></div>
+      <div class="pipeline-row"><span class="pipeline-key">stage</span><span class="pipeline-val" id="p-stage">—</span></div>
+      <div class="pipeline-row"><span class="pipeline-key">last run</span><span class="pipeline-val" id="p-last">—</span></div>
+      <div class="pipeline-row"><span class="pipeline-key">docs queued</span><span class="pipeline-val" id="p-queued">—</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── OCR engines (gateway probes) ────────────────────────── -->
+<div class="section-title">OCR engines (gateway)</div>
+<div class="grid-4">
+  <div class="card" id="card-got_ocr2">
+    <div class="card-header">
+      <div><div class="card-name">GOT-OCR2.0</div><div class="card-class">dense_scan</div></div>
+      <div class="status-dot loading" id="dot-got_ocr2"></div>
+    </div>
+    <div class="card-detail" id="detail-got_ocr2">connecting…</div>
+  </div>
+  <div class="card" id="card-trocr">
+    <div class="card-header">
+      <div><div class="card-name">TrOCR</div><div class="card-class">handwriting</div></div>
+      <div class="status-dot loading" id="dot-trocr"></div>
+    </div>
+    <div class="card-detail" id="detail-trocr">connecting…</div>
+  </div>
+  <div class="card" id="card-deplot">
+    <div class="card-header">
+      <div><div class="card-name">DePlot</div><div class="card-class">chart → table</div></div>
+      <div class="status-dot loading" id="dot-deplot"></div>
+    </div>
+    <div class="card-detail" id="detail-deplot">connecting…</div>
+  </div>
+  <div class="card" id="card-paddleocr">
+    <div class="card-header">
+      <div><div class="card-name">PaddleOCR-VL</div><div class="card-class">layout</div></div>
+      <div class="status-dot loading" id="dot-paddleocr"></div>
+    </div>
+    <div class="card-detail" id="detail-paddleocr">connecting…</div>
+  </div>
+  <div class="card" id="card-mineru">
+    <div class="card-header">
+      <div><div class="card-name">MinerU 2.5</div><div class="card-class">structured PDF</div></div>
+      <div class="status-dot loading" id="dot-mineru"></div>
+    </div>
+    <div class="card-detail" id="detail-mineru">connecting…</div>
+  </div>
+</div>
+
+<!-- ── Install note ─────────────────────────────────────────── -->
+<div class="install-note">
+  <strong>Build package:</strong> Apollo/install/install.py &nbsp;·&nbsp;
+  <strong>Tiers:</strong> tier1 (≥20GB VRAM) · tier2 (8GB GPU) · tier2_lite (4GB/32GB CPU) · tier3 (CPU/CI) &nbsp;·&nbsp;
+  <strong>Run:</strong> python Apollo/install/install.py --help
+</div>
+
+<script>
+  const ENGINES = ['got_ocr2', 'trocr', 'deplot', 'paddleocr', 'mineru'];
+  const ENGINE_NAMES = { got_ocr2: 'GOT-OCR2.0', trocr: 'TrOCR', deplot: 'DePlot', paddleocr: 'PaddleOCR', mineru: 'MinerU' };
+
+  let simTier = '';
+
+  // ── tier selector ─────────────────────────────────────────
+  document.getElementById('sim-tier-select').addEventListener('change', function () {
+    simTier = this.value;
+    refresh();
+  });
+
+  // ── helpers ───────────────────────────────────────────────
+  function setDot(id, cls) {
+    const el = document.getElementById(id);
+    if (el) el.className = `status-dot ${cls}`;
+  }
+
+  function setText(id, text, cls) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = text;
+    if (cls) el.className = `card-detail ${cls}`;
+  }
+
+  function fmt_uptime(s) {
+    if (s == null) return '—';
+    const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60);
+    return h > 0 ? `${h}h ${m}m` : `${m}m`;
+  }
+
+  function fmt_ms(ms) {
+    if (ms == null || ms === 0) return '—';
+    return ms > 1000 ? `${(ms/1000).toFixed(1)}s` : `${Math.round(ms)}ms`;
+  }
+
+  // ── readiness matrix ──────────────────────────────────────
+  function renderReadiness(data) {
+    const section = document.getElementById('readiness-section');
+    if (!data.sim_mode) { section.style.display = 'none'; return; }
+    section.style.display = '';
+
+    const tc = data.tier_config || {};
+    const engines = data.engines || {};
+    const engineReqs = tc.engines || {};
+    const hw = data.hardware || {};
+
+    document.getElementById('readiness-tier-label').textContent =
+      `${hw.tier || '?'} — ${hw.tier_label || ''} (${hw.vram_req || ''}) · expected grade ~${hw.grade_estimate || '?'}/97`;
+
+    // cells
+    const grid = document.getElementById('readiness-grid');
+    grid.innerHTML = '';
+    let required_up = 0, required_total = 0, any_fail = false;
+
+    ENGINES.forEach(name => {
+      const req = engineReqs[name] || 'required';
+      const eng = engines[name] || {};
+      const isDisabled = req === 'disabled';
+      const isUp = !isDisabled && (eng.ok || eng.runtime_loaded);
+      const reason = eng.reason || eng.error || (isUp ? 'ready' : isDisabled ? 'disabled for tier' : 'not ready');
+
+      if (!isDisabled) {
+        required_total++;
+        if (isUp) required_up++;
+        else any_fail = true;
+      }
+
+      const cellCls = isDisabled ? 'rc-cell disabled' : isUp ? 'rc-cell pass' : 'rc-cell fail';
+      const reqCls  = isDisabled ? 'rc-req disabled' : 'rc-req required';
+      const stCls   = isDisabled ? 'rc-status skip-text' : isUp ? 'rc-status ok-text' : 'rc-status fail-text';
+
+      grid.innerHTML += `
+        <div class="${cellCls}">
+          <div class="rc-name">${ENGINE_NAMES[name] || name}</div>
+          <div class="${reqCls}">${req}</div>
+          <div class="${stCls}">${reason}</div>
+        </div>`;
+    });
+
+    // verdict
+    const vrow = document.getElementById('verdict-row');
+    const vlabel = document.getElementById('verdict-label');
+    const vdetail = document.getElementById('verdict-detail');
+
+    if (required_total === 0) {
+      vrow.className = 'verdict-row pass';
+      vlabel.textContent = 'No engine requirements';
+      vdetail.textContent = '';
+    } else if (!any_fail) {
+      vrow.className = 'verdict-row pass';
+      vlabel.textContent = 'PRODUCTION READY';
+      vdetail.textContent = `All ${required_total} required engines are up. ` +
+        (tc.gb10_ocr_enabled ? (tc.primary_model || 'Qwen') + ' needed for full grade.' : 'No Qwen required at this tier.');
+    } else if (required_up > 0) {
+      vrow.className = 'verdict-row partial';
+      vlabel.textContent = 'PARTIAL';
+      vdetail.textContent = `${required_up}/${required_total} required engines ready. Missing engines will reduce grade.`;
+    } else {
+      vrow.className = 'verdict-row fail';
+      vlabel.textContent = 'NOT READY';
+      vdetail.textContent = 'Gateway unreachable or no required engines are up.';
+    }
+
+    // flags
+    const flagsGrid = document.getElementById('flags-grid');
+    flagsGrid.innerHTML = '';
+    const flags = tc.flags || {};
+    Object.entries(flags).forEach(([k, v]) => {
+      const isOff = v === '0' || v === '' || v === 'false';
+      flagsGrid.innerHTML += `
+        <div class="flag-row">
+          <span class="flag-key">${k}</span>
+          <span class="flag-val ${isOff ? 'off' : ''}">${v || '""'}</span>
+        </div>`;
+    });
+  }
+
+  // ── main refresh ─────────────────────────────────────────
+  function refresh() {
+    const url = simTier ? `/admin/ocr/status?sim_tier=${encodeURIComponent(simTier)}` : '/admin/ocr/status';
+
+    fetch(url)
+      .then(r => r.json())
+      .then(data => {
+        document.getElementById('error-banner').style.display = 'none';
+        document.getElementById('ts').textContent = new Date(data.ts || Date.now()).toLocaleTimeString();
+
+        // sim banner
+        const banner = document.getElementById('sim-banner');
+        if (data.sim_mode) {
+          const hw = data.hardware || {};
+          banner.textContent = `Simulating ${hw.tier || simTier} (${hw.vram_req || ''}) — engine probes are live against the real gateway.`;
+          banner.classList.add('visible');
+        } else {
+          banner.classList.remove('visible');
+        }
+
+        // metrics
+        const m = data.metrics || {};
+        document.getElementById('m-uptime').textContent = fmt_uptime(m.uptime_s);
+        document.getElementById('m-chat').textContent   = (m.counts || {}).chat ?? '0';
+        document.getElementById('m-ocr').textContent    = (m.external_ingestion || {}).ocr_pages_processed ?? '0';
+        document.getElementById('m-p50').textContent    = fmt_ms((m.latency_ms || {}).chat_p50);
+        document.getElementById('m-p95').textContent    = fmt_ms((m.latency_ms || {}).chat_p95);
+        document.getElementById('m-rag').textContent    = ((m.rag_hit_at_k || {}).avg_hits ?? '—');
+
+        // hardware row
+        const hw = data.hardware || {};
+        if (hw.tier) {
+          const badge = document.getElementById('tier-badge');
+          badge.textContent = hw.tier;
+          badge.className   = `tier-badge ${hw.tier}`;
+        }
+        if (hw.grade_estimate) document.getElementById('grade-pill').textContent = `~${hw.grade_estimate} / 97`;
+        if (hw.simulated) {
+          document.getElementById('hw-gpu').textContent  = `${hw.actual_gpu_name || '—'} (host)`;
+          document.getElementById('hw-vram').textContent = `${hw.actual_vram_gb ?? '?'} GB (host)`;
+          document.getElementById('hw-ram').textContent  = `${hw.actual_ram_gb ?? '?'} GB (host)`;
+        }
+
+        // engines
+        const engines = data.engines || {};
+        ENGINES.forEach(name => {
+          const eng = engines[name] || {};
+          const enabled = eng.backend_enabled !== false;
+          const ready   = eng.ok || eng.runtime_loaded;
+          const reason  = eng.reason || eng.error || eng.last_error || (ready ? 'ready' : 'not ready');
+          setDot(`dot-${name}`, !enabled ? 'skip' : ready ? 'ok' : 'fail');
+          setText(`detail-${name}`, reason, !enabled ? 'skip' : ready ? 'ok-text' : 'fail-text');
+        });
+
+        // qwen
+        const qwen = data.qwen || {};
+        const qp = qwen.primary || {}, qf = qwen.fallback || {};
+        document.getElementById('qwen-primary-model').textContent  = qp.model || '—';
+        document.getElementById('qwen-primary-status').textContent = qp.status || (qp.ok ? 'loaded' : 'not found');
+        document.getElementById('qwen-primary-status').className   = `qwen-status ${qp.ok ? 'ok' : 'fail'}`;
+        setDot('qwen-primary-dot', qp.ok ? 'ok' : 'fail');
+        document.getElementById('qwen-fallback-model').textContent  = qf.model || '—';
+        document.getElementById('qwen-fallback-status').textContent = qf.status || (qf.ok ? 'loaded' : 'not found');
+        document.getElementById('qwen-fallback-status').className   = `qwen-status ${qf.ok ? 'ok' : qf.model ? 'fail' : 'skip'}`;
+        setDot('qwen-fallback-dot', qf.ok ? 'ok' : qf.model ? 'fail' : 'skip');
+
+        // pipeline
+        const pl = data.pipeline || {};
+        const pstate = pl.state || pl.status || (pl.ok === false ? 'unreachable' : '—');
+        const stateEl = document.getElementById('p-state');
+        stateEl.textContent = pstate;
+        stateEl.className   = `pipeline-val ${pstate === 'running' ? 'ok' : pstate === 'unreachable' ? 'warn' : ''}`;
+        document.getElementById('p-stage').textContent   = pl.stage || pl.current_stage || '—';
+        document.getElementById('p-last').textContent    = pl.last_run || pl.last_completed || '—';
+        document.getElementById('p-queued').textContent  = pl.docs_queued ?? pl.queue_size ?? '—';
+
+        // readiness matrix (sim mode only)
+        renderReadiness(data);
+      })
+      .catch(err => {
+        const b = document.getElementById('error-banner');
+        b.style.display = 'block';
+        b.textContent = `Status fetch failed: ${err.message}`;
+      });
+  }
+
+  refresh();
+  setInterval(refresh, 5000);
+</script>
+</body>
+</html>

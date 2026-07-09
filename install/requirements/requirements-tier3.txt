@@ -1,0 +1,15 @@
+# Tier 3 — CPU only / GitHub Actions
+# CPU PyTorch build. No Qwen, no MinerU, no GPU PaddleOCR.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch>=2.5.0
+torchvision>=0.20.0
+
+transformers>=5.0.0
+datasets>=2.0.0
+sentencepiece>=0.1.99
+timm>=0.9.0
+
+paddlepaddle>=2.6.1
+paddleocr>=2.7.3
+
+rapidocr-onnxruntime>=1.3.0

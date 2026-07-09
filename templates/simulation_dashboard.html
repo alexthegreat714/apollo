@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apollo — Trade Simulation</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
+  <style>
+    :root {
+      --bg: #0d0f14;
+      --surface: #141720;
+      --border: #242834;
+      --text: #e2e8f0;
+      --muted: #6b7280;
+      --accent: #6366f1;
+      --green: #22c55e;
+      --red: #ef4444;
+      --amber: #f59e0b;
+      --blue: #3b82f6;
+      --entry-color: rgba(99,102,241,0.15);
+      --stop-color: rgba(239,68,68,0.12);
+      --target-color: rgba(34,197,94,0.12);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 13px; min-height: 100vh; }
+
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 24px; border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    header h1 { font-size: 15px; font-weight: 600; letter-spacing: 0.05em; color: var(--accent); }
+    header .live-badge {
+      display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--muted);
+    }
+    header .live-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+    .layout { display: grid; grid-template-columns: 1fr 340px; gap: 16px; padding: 16px; }
+
+    .card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+      padding: 16px;
+    }
+    .card-title { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 12px; }
+
+    /* chart section */
+    .chart-card { display: flex; flex-direction: column; gap: 12px; }
+    .chart-header { display: flex; align-items: flex-start; justify-content: space-between; }
+    .ticker-block .ticker { font-size: 28px; font-weight: 700; color: var(--text); }
+    .ticker-block .price { font-size: 22px; font-weight: 600; }
+    .ticker-block .price.up { color: var(--green); }
+    .ticker-block .price.down { color: var(--red); }
+    .ticker-block .price.flat { color: var(--muted); }
+    .ticker-block .meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+    .outcome-badge {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em; padding: 4px 10px;
+      border-radius: 4px; text-transform: uppercase;
+    }
+    .outcome-badge.open { background: rgba(99,102,241,0.2); color: var(--accent); }
+    .outcome-badge.hit_target { background: rgba(34,197,94,0.2); color: var(--green); }
+    .outcome-badge.stopped_out { background: rgba(239,68,68,0.2); color: var(--red); }
+    .outcome-badge.never_entered { background: rgba(107,114,128,0.2); color: var(--muted); }
+
+    .chart-wrap { position: relative; height: 320px; }
+
+    /* zones legend */
+    .zones-row { display: flex; gap: 16px; flex-wrap: wrap; }
+    .zone-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--muted); }
+    .zone-swatch { width: 28px; height: 3px; border-radius: 2px; }
+
+    /* sidebar */
+    .sidebar { display: flex; flex-direction: column; gap: 12px; }
+
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .stat { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 10px; }
+    .stat .label { font-size: 10px; color: var(--muted); margin-bottom: 4px; }
+    .stat .value { font-size: 14px; font-weight: 600; color: var(--text); }
+    .stat .value.positive { color: var(--green); }
+    .stat .value.negative { color: var(--red); }
+
+    /* watchlist */
+    .watchlist-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 7px 0; border-bottom: 1px solid var(--border);
+    }
+    .watchlist-row:last-child { border-bottom: none; }
+    .watchlist-row .sym { font-weight: 600; color: var(--text); font-size: 12px; }
+    .watchlist-row .wl-score { font-size: 11px; color: var(--muted); }
+    .watchlist-row .wl-label { font-size: 10px; padding: 2px 6px; border-radius: 3px; }
+    .wl-label.high { background: rgba(34,197,94,0.15); color: var(--green); }
+    .wl-label.medium { background: rgba(245,158,11,0.15); color: var(--amber); }
+    .wl-label.low { background: rgba(239,68,68,0.12); color: var(--red); }
+    .wl-label.no_trade { background: rgba(107,114,128,0.12); color: var(--muted); }
+    .wl-bias { font-size: 10px; color: var(--muted); }
+
+    /* rubric */
+    .rubric-item { padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 11px; color: var(--muted); line-height: 1.5; }
+    .rubric-item:last-child { border-bottom: none; }
+    .rubric-title { color: var(--text); font-weight: 600; margin-bottom: 2px; }
+
+    /* catalysts */
+    .catalyst-item { padding: 5px 0; border-bottom: 1px solid var(--border); font-size: 11px; color: var(--muted); line-height: 1.4; }
+    .catalyst-item:last-child { border-bottom: none; }
+
+    /* controls */
+    .controls { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
+    .btn {
+      padding: 6px 14px; border: 1px solid var(--border); border-radius: 5px;
+      background: var(--bg); color: var(--text); cursor: pointer; font-size: 12px;
+      font-family: inherit; transition: border-color 0.15s;
+    }
+    .btn:hover { border-color: var(--accent); color: var(--accent); }
+    .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .btn.primary:hover { opacity: 0.85; }
+
+    select {
+      padding: 5px 8px; border: 1px solid var(--border); border-radius: 5px;
+      background: var(--bg); color: var(--text); font-family: inherit; font-size: 12px;
+    }
+
+    .status-bar { font-size: 11px; color: var(--muted); padding: 6px 0; }
+    .error-msg { color: var(--red); font-size: 11px; margin-top: 6px; }
+
+    .disclaimer {
+      font-size: 10px; color: var(--muted); text-align: center; padding: 10px 24px 14px;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Apollo // Trade Simulation Dashboard</h1>
+  <div class="live-badge">
+    <div class="dot"></div>
+    <span id="live-ts">—</span>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- Main chart column -->
+  <div style="display:flex;flex-direction:column;gap:12px;">
+
+    <div class="card chart-card">
+      <div class="controls">
+        <select id="ticker-select">
+          <option value="AVGO">AVGO</option>
+          <option value="NVDA">NVDA</option>
+          <option value="AMZN">AMZN</option>
+          <option value="AMD">AMD</option>
+          <option value="MSFT">MSFT</option>
+        </select>
+        <button class="btn primary" onclick="runSim()">Run Simulation</button>
+        <button class="btn" onclick="loadLatest()">Load Latest</button>
+        <button class="btn" onclick="refreshLive()">Refresh Live</button>
+      </div>
+
+      <div class="chart-header">
+        <div class="ticker-block">
+          <div class="ticker" id="disp-ticker">—</div>
+          <div class="price flat" id="disp-price">—</div>
+          <div class="meta" id="disp-meta">setup: — &nbsp;|&nbsp; score: — &nbsp;|&nbsp; label: —</div>
+        </div>
+        <div>
+          <div class="outcome-badge" id="outcome-badge">—</div>
+          <div style="margin-top:6px;font-size:11px;color:var(--muted);text-align:right;" id="pnl-display">—</div>
+        </div>
+      </div>
+
+      <div class="chart-wrap">
+        <canvas id="priceChart"></canvas>
+      </div>
+
+      <div class="zones-row" id="zones-legend">
+        <div class="zone-item"><div class="zone-swatch" style="background:var(--accent);"></div> Entry zone</div>
+        <div class="zone-item"><div class="zone-swatch" style="background:var(--red);"></div> Stop</div>
+        <div class="zone-item"><div class="zone-swatch" style="background:var(--green);"></div> Target</div>
+        <div class="zone-item"><div class="zone-swatch" style="background:#fff;opacity:0.4;"></div> Close price</div>
+      </div>
+
+      <div class="status-bar" id="status-bar">No simulation loaded. Run one or click Load Latest.</div>
+      <div class="error-msg" id="error-msg"></div>
+    </div>
+
+    <!-- Sim history table -->
+    <div class="card">
+      <div class="card-title">Simulation History</div>
+      <div id="sim-history">
+        <span style="color:var(--muted);font-size:11px;">Loading...</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+
+    <!-- Key stats -->
+    <div class="card">
+      <div class="card-title">Trade Parameters</div>
+      <div class="stat-grid">
+        <div class="stat"><div class="label">Entry Zone</div><div class="value" id="st-entry">—</div></div>
+        <div class="stat"><div class="label">Stop</div><div class="value negative" id="st-stop">—</div></div>
+        <div class="stat"><div class="label">Target</div><div class="value positive" id="st-target">—</div></div>
+        <div class="stat"><div class="label">Proposed R/R</div><div class="value" id="st-rr">—</div></div>
+        <div class="stat"><div class="label">Entry Date</div><div class="value" id="st-edate">—</div></div>
+        <div class="stat"><div class="label">Exit Date</div><div class="value" id="st-xdate">—</div></div>
+        <div class="stat"><div class="label">Days in Trade</div><div class="value" id="st-days">—</div></div>
+        <div class="stat"><div class="label">P&amp;L %</div><div class="value" id="st-pnl">—</div></div>
+      </div>
+    </div>
+
+    <!-- Watchlist -->
+    <div class="card">
+      <div class="card-title">Ranked Watchlist</div>
+      <div id="watchlist-items"><span style="color:var(--muted);font-size:11px;">Loading...</span></div>
+    </div>
+
+    <!-- Strategy rubric -->
+    <div class="card">
+      <div class="card-title">Strategy Rubric</div>
+      <div id="rubric-items"><span style="color:var(--muted);font-size:11px;">—</span></div>
+    </div>
+
+    <!-- Catalysts -->
+    <div class="card">
+      <div class="card-title">Catalysts</div>
+      <div id="catalyst-items"><span style="color:var(--muted);font-size:11px;">—</span></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="disclaimer">
+  Research only. No real money. human_approval_required=true &nbsp;|&nbsp; live_trade_execution=false &nbsp;|&nbsp; Apollo v0.97
+</div>
+
+<script>
+let chart = null;
+let currentSim = null;
+let currentHomework = null;
+
+// ── Chart ────────────────────────────────────────────────────────────────────
+function buildChart(candles, entryLow, entryHigh, stop, target, entryDate, exitDate, status) {
+  const ctx = document.getElementById('priceChart').getContext('2d');
+  if (chart) chart.destroy();
+
+  const labels = candles.map(c => c.date);
+  const closes = candles.map(c => c.close);
+  const highs = candles.map(c => c.high);
+  const lows = candles.map(c => c.low);
+
+  // shade in-trade region
+  const entryIdx = entryDate ? labels.indexOf(entryDate) : -1;
+  const exitIdx = exitDate ? labels.indexOf(exitDate) : labels.length - 1;
+
+  const annotations = {};
+
+  if (entryLow > 0 && entryHigh > 0) {
+    annotations.entryZone = {
+      type: 'box', yMin: entryLow, yMax: entryHigh,
+      backgroundColor: 'rgba(99,102,241,0.12)', borderColor: 'rgba(99,102,241,0.5)',
+      borderWidth: 1, label: { display: true, content: 'Entry', position: 'start', color: '#a5b4fc', font: { size: 10 } }
+    };
+  }
+  if (stop > 0) {
+    annotations.stopLine = {
+      type: 'line', yMin: stop, yMax: stop,
+      borderColor: 'rgba(239,68,68,0.8)', borderWidth: 1.5, borderDash: [4,3],
+      label: { display: true, content: `Stop $${stop}`, position: 'start', color: '#f87171', font: { size: 10 } }
+    };
+  }
+  if (target > 0) {
+    annotations.targetLine = {
+      type: 'line', yMin: target, yMax: target,
+      borderColor: 'rgba(34,197,94,0.8)', borderWidth: 1.5, borderDash: [4,3],
+      label: { display: true, content: `Target $${target}`, position: 'start', color: '#4ade80', font: { size: 10 } }
+    };
+  }
+  if (entryIdx >= 0) {
+    annotations.entryDateLine = {
+      type: 'line', xMin: entryDate, xMax: entryDate,
+      borderColor: 'rgba(99,102,241,0.6)', borderWidth: 1,
+      label: { display: true, content: 'Entry', position: 'start', color: '#a5b4fc', font: { size: 9 } }
+    };
+  }
+  if (exitDate && exitIdx >= 0) {
+    const exitColor = status === 'hit_target' ? 'rgba(34,197,94,0.7)' : 'rgba(239,68,68,0.7)';
+    annotations.exitDateLine = {
+      type: 'line', xMin: exitDate, xMax: exitDate,
+      borderColor: exitColor, borderWidth: 1,
+      label: { display: true, content: status === 'hit_target' ? 'Target Hit' : 'Stopped', position: 'start', color: exitColor, font: { size: 9 } }
+    };
+  }
+
+  chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Close',
+          data: closes,
+          borderColor: 'rgba(226,232,240,0.9)',
+          borderWidth: 1.5,
+          pointRadius: 0,
+          tension: 0.1,
+          fill: false,
+        },
+        {
+          label: 'High',
+          data: highs,
+          borderColor: 'rgba(34,197,94,0.25)',
+          borderWidth: 1,
+          pointRadius: 0,
+          tension: 0.1,
+          fill: false,
+        },
+        {
+          label: 'Low',
+          data: lows,
+          borderColor: 'rgba(239,68,68,0.25)',
+          borderWidth: 1,
+          pointRadius: 0,
+          tension: 0.1,
+          fill: false,
+        },
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { intersect: false, mode: 'index' },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: 'rgba(20,23,32,0.95)',
+          titleColor: '#a5b4fc',
+          bodyColor: '#e2e8f0',
+          borderColor: 'rgba(99,102,241,0.3)',
+          borderWidth: 1,
+          callbacks: {
+            label: ctx => ` ${ctx.dataset.label}: $${ctx.parsed.y.toFixed(2)}`
+          }
+        },
+        annotation: { annotations }
+      },
+      scales: {
+        x: {
+          ticks: { color: '#4b5563', font: { size: 10 }, maxTicksLimit: 10 },
+          grid: { color: 'rgba(36,40,52,0.8)' }
+        },
+        y: {
+          ticks: { color: '#4b5563', font: { size: 10 }, callback: v => `$${v.toFixed(0)}` },
+          grid: { color: 'rgba(36,40,52,0.8)' }
+        }
+      }
+    }
+  });
+}
+
+// ── Apply simulation data ────────────────────────────────────────────────────
+function applySimulation(sim) {
+  currentSim = sim;
+  const ticker = sim.ticker || '—';
+  document.getElementById('disp-ticker').textContent = ticker;
+  document.getElementById('disp-meta').textContent =
+    `setup: ${sim.setup_type || '—'} | score: ${sim.score ?? '—'} | label: ${sim.confidence_label || '—'}`;
+
+  // live price overlay: show last candle close
+  const candles = sim.candles || [];
+  const lastCandle = candles[candles.length - 1] || {};
+  const entryPrice = sim.entry_price;
+  const livePrice = lastCandle.close;
+  const priceEl = document.getElementById('disp-price');
+  if (livePrice) {
+    const sign = entryPrice ? (livePrice >= entryPrice ? '+' : '') : '';
+    const diff = entryPrice ? ((livePrice - entryPrice) / entryPrice * 100).toFixed(2) : null;
+    priceEl.textContent = `$${livePrice.toFixed(2)}${diff !== null ? ` (${sign}${diff}%)` : ''}`;
+    priceEl.className = 'price ' + (diff === null ? 'flat' : (parseFloat(diff) >= 0 ? 'up' : 'down'));
+  }
+
+  // Outcome badge
+  const badge = document.getElementById('outcome-badge');
+  const status = sim.status || 'unknown';
+  badge.textContent = status.replace(/_/g, ' ').toUpperCase();
+  badge.className = `outcome-badge ${status}`;
+
+  // P&L
+  const pnlEl = document.getElementById('pnl-display');
+  if (sim.pnl_pct !== null && sim.pnl_pct !== undefined) {
+    const sign = sim.pnl_pct >= 0 ? '+' : '';
+    pnlEl.textContent = `P&L: ${sign}${sim.pnl_pct.toFixed(3)}% ($${sign}${(sim.pnl_dollars || 0).toFixed(2)})`;
+    pnlEl.style.color = sim.pnl_pct >= 0 ? 'var(--green)' : 'var(--red)';
+  } else {
+    pnlEl.textContent = 'Not yet entered';
+    pnlEl.style.color = 'var(--muted)';
+  }
+
+  // Stats
+  document.getElementById('st-entry').textContent = sim.entry_zone || '—';
+  document.getElementById('st-stop').textContent = sim.stop_zone ? `$${sim.stop}` : '—';
+  document.getElementById('st-target').textContent = sim.target_zone ? `$${sim.target}` : '—';
+  document.getElementById('st-rr').textContent = sim.rr_proposed ? `${sim.rr_proposed}:1` : '—';
+  document.getElementById('st-edate').textContent = sim.entry_date || '—';
+  document.getElementById('st-xdate').textContent = sim.exit_date || 'Open';
+  document.getElementById('st-days').textContent = sim.candles_in_trade ?? '—';
+  const pnlStat = document.getElementById('st-pnl');
+  if (sim.pnl_pct !== null && sim.pnl_pct !== undefined) {
+    const sign = sim.pnl_pct >= 0 ? '+' : '';
+    pnlStat.textContent = `${sign}${sim.pnl_pct.toFixed(2)}%`;
+    pnlStat.className = `value ${sim.pnl_pct >= 0 ? 'positive' : 'negative'}`;
+  } else {
+    pnlStat.textContent = '—';
+    pnlStat.className = 'value';
+  }
+
+  document.getElementById('status-bar').textContent =
+    `Simulation ID: ${sim.sim_id} | Run: ${sim.run_id || '—'} | Created: ${sim.created_at || '—'}`;
+
+  buildChart(candles, sim.entry_low, sim.entry_high, sim.stop, sim.target, sim.entry_date, sim.exit_date, status);
+}
+
+// ── Apply homework data ──────────────────────────────────────────────────────
+function applyHomework(hw) {
+  currentHomework = hw;
+  const proposals = hw.proposals || [];
+  const plan = hw.trade_plan || {};
+
+  // watchlist
+  const wlEl = document.getElementById('watchlist-items');
+  if (!proposals.length) { wlEl.innerHTML = '<span style="color:var(--muted);font-size:11px;">No proposals</span>'; return; }
+  wlEl.innerHTML = proposals.map(p => {
+    const kg = p.kg_grounding || {};
+    const warn = p.data_quality_warning ? '⚠' : '';
+    const bias = p.direction_bias === 'long_bias' ? '↑ long' : 'no trade';
+    const labelClass = p.no_trade_reason ? 'no_trade' : (p.confidence_label || 'low');
+    return `<div class="watchlist-row">
+      <div>
+        <span class="sym">${p.ticker}</span>
+        <span style="color:var(--muted);font-size:10px;margin-left:6px;">${p.setup_type || ''}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="wl-score">${p.score ?? '—'}</span>
+        <span class="wl-label ${labelClass}">${p.confidence_label || '—'}</span>
+        <span class="wl-bias">${bias}</span>
+        <span style="color:var(--amber);font-size:10px;">${warn}</span>
+      </div>
+    </div>`;
+  }).join('');
+
+  // rubric
+  const rubric = plan.strategy_rubric || [];
+  const rubricEl = document.getElementById('rubric-items');
+  if (!rubric.length) { rubricEl.innerHTML = '<span style="color:var(--muted);font-size:11px;">—</span>'; }
+  else {
+    rubricEl.innerHTML = rubric.slice(0, 4).map(r => {
+      const title = r.split(':')[0] || r.substring(0, 40);
+      const body = r.indexOf(':') > 0 ? r.substring(r.indexOf(':') + 1).trim() : '';
+      return `<div class="rubric-item"><div class="rubric-title">${title}</div>${body ? body.substring(0, 120) + '…' : ''}</div>`;
+    }).join('');
+  }
+
+  // catalysts
+  const cats = plan.catalyst_summary || [];
+  const catEl = document.getElementById('catalyst-items');
+  if (!cats.length) { catEl.innerHTML = '<span style="color:var(--muted);font-size:11px;">None</span>'; }
+  else {
+    catEl.innerHTML = cats.map(c => `<div class="catalyst-item">${c}</div>`).join('');
+  }
+}
+
+// ── Sim history table ────────────────────────────────────────────────────────
+function renderHistory(sims) {
+  const el = document.getElementById('sim-history');
+  if (!sims.length) { el.innerHTML = '<span style="color:var(--muted);font-size:11px;">No simulations yet.</span>'; return; }
+  el.innerHTML = `<table style="width:100%;border-collapse:collapse;font-size:11px;">
+    <thead>
+      <tr style="color:var(--muted);">
+        <th style="text-align:left;padding:4px 8px;border-bottom:1px solid var(--border);">Ticker</th>
+        <th style="text-align:left;padding:4px 8px;border-bottom:1px solid var(--border);">Status</th>
+        <th style="text-align:right;padding:4px 8px;border-bottom:1px solid var(--border);">Entry</th>
+        <th style="text-align:right;padding:4px 8px;border-bottom:1px solid var(--border);">Exit</th>
+        <th style="text-align:right;padding:4px 8px;border-bottom:1px solid var(--border);">P&L%</th>
+        <th style="text-align:left;padding:4px 8px;border-bottom:1px solid var(--border);">Sim ID</th>
+      </tr>
+    </thead>
+    <tbody>
+    ${sims.map(s => {
+      const pnl = s.pnl_pct !== null && s.pnl_pct !== undefined ? s.pnl_pct.toFixed(2) : '—';
+      const pnlColor = s.pnl_pct > 0 ? 'var(--green)' : s.pnl_pct < 0 ? 'var(--red)' : 'var(--muted)';
+      return `<tr style="border-bottom:1px solid var(--border);" onclick="loadSim('${s.sim_id}')" style="cursor:pointer;">
+        <td style="padding:5px 8px;font-weight:600;">${s.ticker}</td>
+        <td style="padding:5px 8px;color:var(--muted);">${s.status}</td>
+        <td style="padding:5px 8px;text-align:right;">${s.entry_date || '—'}</td>
+        <td style="padding:5px 8px;text-align:right;">${s.exit_date || 'open'}</td>
+        <td style="padding:5px 8px;text-align:right;color:${pnlColor};">${pnl !== '—' ? (s.pnl_pct >= 0 ? '+' : '') + pnl + '%' : '—'}</td>
+        <td style="padding:5px 8px;color:var(--muted);font-size:10px;">${s.sim_id}</td>
+      </tr>`;
+    }).join('')}
+    </tbody>
+  </table>`;
+}
+
+// ── API calls ────────────────────────────────────────────────────────────────
+async function runSim() {
+  const ticker = document.getElementById('ticker-select').value;
+  document.getElementById('status-bar').textContent = `Running simulation for ${ticker}…`;
+  document.getElementById('error-msg').textContent = '';
+  try {
+    const resp = await fetch('/api/simulation/run', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ ticker })
+    });
+    const data = await resp.json();
+    if (!data.ok) throw new Error(data.error || 'unknown error');
+    applySimulation(data.simulation);
+    loadHistory();
+  } catch (e) {
+    document.getElementById('error-msg').textContent = 'Error: ' + e.message;
+  }
+}
+
+async function loadLatest() {
+  document.getElementById('status-bar').textContent = 'Loading latest simulation…';
+  document.getElementById('error-msg').textContent = '';
+  try {
+    const resp = await fetch('/api/simulation/latest');
+    const data = await resp.json();
+    if (!data.ok) {
+      // No sim yet — run one automatically
+      document.getElementById('status-bar').textContent = 'No simulation found — running now…';
+      return runSim();
+    }
+    applySimulation(data.simulation);
+  } catch (e) {
+    document.getElementById('error-msg').textContent = 'Error: ' + e.message;
+  }
+}
+
+async function refreshLive() {
+  if (!currentSim) return;
+  const ticker = currentSim.ticker;
+  document.getElementById('status-bar').textContent = `Refreshing live price for ${ticker}…`;
+  try {
+    const resp = await fetch(`/api/simulation/live/${ticker}`);
+    const data = await resp.json();
+    if (!data.ok) throw new Error(data.error);
+    const priceEl = document.getElementById('disp-price');
+    const entry = currentSim.entry_price;
+    const live = data.live_price;
+    const diff = entry ? ((live - entry) / entry * 100).toFixed(2) : null;
+    const sign = diff ? (parseFloat(diff) >= 0 ? '+' : '') : '';
+    priceEl.textContent = `$${live.toFixed(2)}${diff !== null ? ` (${sign}${diff}%)` : ''}`;
+    priceEl.className = 'price ' + (!diff ? 'flat' : parseFloat(diff) >= 0 ? 'up' : 'down');
+    document.getElementById('status-bar').textContent = `Live price updated: ${new Date().toLocaleTimeString()}`;
+  } catch (e) {
+    document.getElementById('error-msg').textContent = 'Live price error: ' + e.message;
+  }
+}
+
+async function loadHistory() {
+  try {
+    const resp = await fetch('/api/simulation/list');
+    const data = await resp.json();
+    if (data.ok) renderHistory(data.simulations);
+  } catch (_) {}
+}
+
+async function loadHomework() {
+  try {
+    const resp = await fetch('/api/homework/latest');
+    const data = await resp.json();
+    if (data.ok) applyHomework(data);
+  } catch (_) {}
+}
+
+// ── Init ─────────────────────────────────────────────────────────────────────
+function updateTimestamp() {
+  document.getElementById('live-ts').textContent = new Date().toLocaleTimeString();
+}
+
+async function init() {
+  updateTimestamp();
+  await Promise.all([loadLatest(), loadHistory(), loadHomework()]);
+  // auto-refresh live price every 30s if sim loaded
+  setInterval(() => {
+    updateTimestamp();
+    if (currentSim) refreshLive();
+  }, 30000);
+}
+
+init();
+</script>
+</body>
+</html>

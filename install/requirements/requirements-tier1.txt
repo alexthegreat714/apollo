@@ -1,0 +1,17 @@
+# Tier 1 — Full stack (20GB+ VRAM or Apple Silicon 64GB+)
+# Includes CUDA 12.1 PyTorch, full transformers, GPU PaddleOCR, MinerU
+--extra-index-url https://download.pytorch.org/whl/cu121
+torch>=2.5.0
+torchvision>=0.20.0
+
+transformers>=5.0.0
+datasets>=2.0.0
+sentencepiece>=0.1.99
+timm>=0.9.0
+
+paddlepaddle-gpu>=2.6.1
+paddleocr>=2.7.3
+
+magic-pdf[full]>=0.9.0
+
+rapidocr-onnxruntime>=1.3.0
