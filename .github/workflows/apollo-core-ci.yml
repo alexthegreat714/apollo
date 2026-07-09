@@ -36,9 +36,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p "$RUNNER_TEMP/apollo-engineering"
-          ln -s "$GITHUB_WORKSPACE" "$RUNNER_TEMP/apollo-engineering/Apollo"
-          echo "PYTHONPATH=$RUNNER_TEMP/apollo-engineering" >> "$GITHUB_ENV"
+          engineering_root="$(dirname "$GITHUB_WORKSPACE")"
+          ln -s "$GITHUB_WORKSPACE" "$engineering_root/Apollo"
+          echo "PYTHONPATH=$engineering_root" >> "$GITHUB_ENV"
 
       - name: Install deterministic test dependencies
         run: |
@@ -47,14 +47,17 @@ jobs:
           pip install yfinance feedparser pandas numpy
 
       - name: Trade-cycle unit budget
-        run: timeout 15s pytest tests/test_trade_cycle.py -m "unit and not external" -q
+        run: |
+          cd "$(dirname "$GITHUB_WORKSPACE")"
+          timeout 15s pytest Apollo/tests/test_trade_cycle.py -m "unit and not external" -q
 
       - name: Core unit budget
         run: |
+          cd "$(dirname "$GITHUB_WORKSPACE")"
           timeout 60s pytest \
-            tests/test_news_evidence.py \
-            tests/test_scheduler_state.py \
-            tests/test_simulation_spark.py \
-            tests/test_market_study.py \
-            tests/test_swing_study.py \
+            Apollo/tests/test_news_evidence.py \
+            Apollo/tests/test_scheduler_state.py \
+            Apollo/tests/test_simulation_spark.py \
+            Apollo/tests/test_market_study.py \
+            Apollo/tests/test_swing_study.py \
             -m "unit and not external" -q --durations=10
