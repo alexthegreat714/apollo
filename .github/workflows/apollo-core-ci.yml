@@ -2,7 +2,24 @@ name: Apollo Core Reliability
 
 on:
   push:
+    paths-ignore:
+      - "**/*.md"
+      - "docs/**"
+      - "logs/**"
+      - "data/**"
+      - "artifacts/**"
   pull_request:
+    paths-ignore:
+      - "**/*.md"
+      - "docs/**"
+      - "logs/**"
+      - "data/**"
+      - "artifacts/**"
+  workflow_dispatch:
+
+concurrency:
+  group: apollo-core-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   deterministic-core:

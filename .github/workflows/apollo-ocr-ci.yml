@@ -6,6 +6,10 @@ name: Apollo OCR — Tier 3 CI
 on:
   workflow_dispatch:
 
+concurrency:
+  group: apollo-ocr-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   ocr-tier3:
     name: OCR stack (Tier 3 — CPU portable components)
